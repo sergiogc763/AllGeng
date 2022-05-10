@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-image" style="background-color: gray">
+  <section class="bg-image" style="background-color: gray" v-if="!appUser.getStatusLogged">
     <div class="mask d-flex align-items-center h-100 gradient-custom">
       <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -119,6 +119,10 @@
       </div>
     </div>
   </section>
+  <div v-else>
+    <h2>USTED SE ENCUENTRA YA LOGUEADO</h2>
+    <router-link :to="RoutePaths.Home">Pulse para volver al menú</router-link>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -136,10 +140,14 @@ import {
 } from "@vuelidate/validators";
 import { useRouter } from "vue-router";
 import Swal from "sweetalert2";
+import { appController } from '@/core/app';
+import {RoutePaths} from '@/core/general/RoutePaths';
+
+
 
 //#region CONST
 const router = useRouter();
-
+const appUser =  appController.userManager
 const state = reactive({
   name: "",
   email: "",
@@ -232,13 +240,14 @@ async function insertNewUser() {
         const response = JSON.parse(data);
 
         if (response["codehttp"] === CodesHttp.Success) {
+          router.push({ name: "LoginView" });
           Swal.fire({
             icon: "success",
             title: "Te has registrado correctamente",
             showConfirmButton: false,
             timer: 1680,
           });
-          router.push({ name: "LoginView" });
+          
         } else {
           Swal.fire({
             icon: "error",
@@ -253,7 +262,7 @@ async function insertNewUser() {
       });
   } else {
     Swal.fire({
-            icon: "info",
+            icon: "warning",
             title: 'Campos erroneos',
             text: "Ha ingresado datos no validos! Introduzca la información correctamente",
             showConfirmButton: true,

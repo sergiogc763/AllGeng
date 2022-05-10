@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid" v-if="!appUser.getStatusLogged">
     <div class="row no-gutter d-flex justify-content-center">
       <div class="col-md-7 d-none d-md-flex bg-image"></div>
 
@@ -77,18 +77,26 @@
       </div>
     </div>
   </div>
+  <div v-else>
+    <h2>USTED SE ENCUENTRA YA LOGUEADO</h2>
+    <router-link :to="RoutePaths.Home">Pulse para volver al menú</router-link>
+  </div>
 </template>
 
 <script lang="ts" setup>
 import { computed, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import useVuelidate from "@vuelidate/core";
+import {RoutePaths} from '@/core/general/RoutePaths';
 import { required, email } from "@vuelidate/validators";
 import { CodesHttp } from "@/core/general/CodesHttp";
 import Swal from "sweetalert2";
+import { appController } from '@/core/app';
 
 //#region CONST
 const router = useRouter();
+
+const appUser =  appController.userManager
 
 const state = reactive({
   email: "",
@@ -109,7 +117,6 @@ const v$ = useVuelidate(rules, state);
 //#endregion
 
 //#region FUNCTIONS
-
 async function login() {
   v$.value.$validate();
   if (!v$.value.$error) {
@@ -133,9 +140,9 @@ async function login() {
         const response = JSON.parse(data);
 
         if (response["codehttp"] === CodesHttp.Success) {
-          //router.push({ name: "HomeView" });
-          window.localStorage.setItem("userLogged", response["response"].usuid)
-          
+
+          window.localStorage.setItem("userLogged", JSON.stringify(response["response"]))
+          router.push({ name: "HomeView" });
           // if(rememberLogin.value){
           //   window.localStorage.setItem("userLogged", response["response"])
           // }else{
@@ -156,7 +163,12 @@ async function login() {
         console.log("Request failed-> " + CodesHttp.Error, error);
       });
   } else {
-    alert("ERROR-> INDIQUE CORRECTAMENTE LOS DATOS");
+     Swal.fire({
+            icon: "warning",
+            title: "Los datos son incorrectos",
+            showConfirmButton: true,
+            
+          });
   }
 }
 
