@@ -237,7 +237,7 @@ async function insertNewUser() {
             icon: "success",
             title: "Te has registrado correctamente",
             showConfirmButton: false,
-            timer: 2000,
+            timer: 1680,
           });
           router.push({ name: "LoginView" });
         } else {
