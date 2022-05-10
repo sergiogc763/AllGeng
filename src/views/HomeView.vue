@@ -1,9 +1,11 @@
 <template>
   <h1>HOLA</h1>
+
 </template>
 
 <script lang="ts" setup>
 import { CodesHttp } from '@/core/general/CodesHttp';
+import { appController } from '@/core/app';
 
 async function getProducts() {
   await fetch(

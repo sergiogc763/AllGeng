@@ -233,7 +233,6 @@ async function insertNewUser() {
 
         if (response["codehttp"] === CodesHttp.Success) {
           Swal.fire({
-            position: "top-end",
             icon: "success",
             title: "Te has registrado correctamente",
             showConfirmButton: false,
@@ -241,14 +240,24 @@ async function insertNewUser() {
           });
           router.push({ name: "LoginView" });
         } else {
-          alert("ERROR AL INTENTAR REGISTRARSE. INTENTELO LUEGO MÁS TARDE");
+          Swal.fire({
+            icon: "error",
+            title: 'Oops...',
+            text: "Lo sentimos. Ha ocurrido un error al intentar registrarse",
+            showConfirmButton: true,
+          });
         }
       })
       .catch(function (error) {
         console.log("Request failed-> " + CodesHttp.Error, error);
       });
   } else {
-    alert("ERROR-> INDIQUE CORRECTAMENTE LOS DATOS");
+    Swal.fire({
+            icon: "info",
+            title: 'Campos erroneos',
+            text: "Ha ingresado datos no validos! Introduzca la información correctamente",
+            showConfirmButton: true,
+          });
   }
 }
 //#endregion

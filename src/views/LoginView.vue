@@ -85,6 +85,7 @@ import { useRouter } from "vue-router";
 import useVuelidate from "@vuelidate/core";
 import { required, email } from "@vuelidate/validators";
 import { CodesHttp } from "@/core/general/CodesHttp";
+import Swal from "sweetalert2";
 
 //#region CONST
 const router = useRouter();
@@ -104,6 +105,7 @@ const rules = computed(() => {
 });
 
 const v$ = useVuelidate(rules, state);
+
 //#endregion
 
 //#region FUNCTIONS
@@ -131,12 +133,21 @@ async function login() {
         const response = JSON.parse(data);
 
         if (response["codehttp"] === CodesHttp.Success) {
-          router.push({ name: "HomeView" });
-          if(rememberLogin.value){
-            window.localStorage.setItem("user", response["response"])
-          }else{
-            window.sessionStorage.setItem("user", response["response"])
-          }
+          //router.push({ name: "HomeView" });
+          window.localStorage.setItem("userLogged", response["response"].usuid)
+          
+          // if(rememberLogin.value){
+          //   window.localStorage.setItem("userLogged", response["response"])
+          // }else{
+          //   window.sessionStorage.setItem("userLogged", response["response"])
+          // }
+           Swal.fire({
+            icon: "success",
+            title: "Te has logueado correctamente",
+            showConfirmButton: false,
+            timer: 1680,
+          });
+          
         } else {
           alert("ERROR AL INTENTAR LOGGIN. INTENTELO LUEGO MÁS TARDE");
         }
