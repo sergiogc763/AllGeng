@@ -17,14 +17,12 @@ export class UserStore extends Store<State> {
 
   constructor() {
     super();
-
     this.checkSession();
   }
 
   //#region ACTIONS
   public async checkSession() {
     const user = localStorage.getItem('userLogged');
-
     if (user != null) {
       this._state.isLogged = true;
       this._state.user = JSON.parse(user);

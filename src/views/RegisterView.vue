@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-image" style="background-color: gray" v-if="!appUser.getStatusLogged">
+  <section class="bg-image" style="background-color: gray" v-if="!appController.userManager.getStatusLogged()">
     <div class="mask d-flex align-items-center h-100 gradient-custom">
       <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -147,7 +147,6 @@ import {RoutePaths} from '@/core/general/RoutePaths';
 
 //#region CONST
 const router = useRouter();
-const appUser =  appController.userManager
 const state = reactive({
   name: "",
   email: "",
@@ -159,6 +158,7 @@ const state = reactive({
 });
 //#endregion
 
+console.log(appController.userManager.getStatusLogged());
 //#region RULES VALIDATION FORM
 const rules = computed(() => {
   return {

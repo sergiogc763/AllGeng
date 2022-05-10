@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid" v-if="!appUser.getStatusLogged">
+  <div class="container-fluid" v-if="!appController.userManager.getStatusLogged()">
     <div class="row no-gutter d-flex justify-content-center">
       <div class="col-md-7 d-none d-md-flex bg-image"></div>
 
