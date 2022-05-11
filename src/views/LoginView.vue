@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid" v-if="!appController.userManager.getStatusLogged()">
+  <div class="container-fluid">
     <div class="row no-gutter d-flex justify-content-center">
       <div class="col-md-7 d-none d-md-flex bg-image"></div>
 
@@ -77,10 +77,6 @@
       </div>
     </div>
   </div>
-  <div v-else>
-    <h2>USTED SE ENCUENTRA YA LOGUEADO</h2>
-    <router-link :to="RoutePaths.Home">Pulse para volver al menú</router-link>
-  </div>
 </template>
 
 <script lang="ts" setup>
@@ -91,12 +87,10 @@ import {RoutePaths} from '@/core/general/RoutePaths';
 import { required, email } from "@vuelidate/validators";
 import { CodesHttp } from "@/core/general/CodesHttp";
 import Swal from "sweetalert2";
-import { appController } from '@/core/app';
+
 
 //#region CONST
 const router = useRouter();
-
-const appUser =  appController.userManager
 
 const state = reactive({
   email: "",

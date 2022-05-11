@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-image" style="background-color: gray" v-if="!appController.userManager.getStatusLogged()">
+  <section class="bg-image" style="background-color: gray">
     <div class="mask d-flex align-items-center h-100 gradient-custom">
       <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -119,10 +119,6 @@
       </div>
     </div>
   </section>
-  <div v-else>
-    <h2>USTED SE ENCUENTRA YA LOGUEADO</h2>
-    <router-link :to="RoutePaths.Home">Pulse para volver al menú</router-link>
-  </div>
 </template>
 
 <script lang="ts" setup>
@@ -140,7 +136,6 @@ import {
 } from "@vuelidate/validators";
 import { useRouter } from "vue-router";
 import Swal from "sweetalert2";
-import { appController } from '@/core/app';
 import {RoutePaths} from '@/core/general/RoutePaths';
 
 
@@ -158,7 +153,6 @@ const state = reactive({
 });
 //#endregion
 
-console.log(appController.userManager.getStatusLogged());
 //#region RULES VALIDATION FORM
 const rules = computed(() => {
   return {
