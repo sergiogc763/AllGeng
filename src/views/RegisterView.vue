@@ -221,14 +221,47 @@ async function register() {
         },
       })
       .then((response) => {
-        if (response.status === 200 && response.data) {
-          Swal.fire({
-            icon: "success",
-            title: "Registro completado",
-            text: "Te has registrado con éxito!!!",
-            showConfirmButton: false,
-            timer: 2000,
-          });
+        switch (response.status) {
+          case 200:
+            if (response.data) {
+              router.push({ name: "LoginView" });
+              Swal.fire({
+                icon: "success",
+                title: "Registro completado",
+                text: "Te has registrado con éxito!!!",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            }else{
+                Swal.fire({
+                icon: "error",
+                title: "ERROR",
+                text: "Error interno. Perdone las molestias",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            }
+            break;
+          
+          case 404:
+              Swal.fire({
+                icon: "error",
+                title: "ERROR",
+                text: "Error interno. No se ha encontrado la ruta",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            break;
+
+          case 500:
+            Swal.fire({
+                icon: "error",
+                title: "ERROR",
+                text: "Error interno. Fallo de API",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            break;
         }
       })
       .catch((error) => {

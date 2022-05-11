@@ -87,6 +87,7 @@ import {RoutePaths} from '@/core/general/RoutePaths';
 import { required, email } from "@vuelidate/validators";
 import { CodesHttp } from "@/core/general/CodesHttp";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 
 //#region CONST
@@ -114,55 +115,60 @@ const v$ = useVuelidate(rules, state);
 async function login() {
   v$.value.$validate();
   if (!v$.value.$error) {
-    await fetch(
-      "http://www.iestrassierra.net/alumnado/curso2122/DAW/daw2122a5/API/loginUser.php",
-      {
-        method: "POST",
-        body: JSON.stringify({
+    await axios
+      .post(`${RoutePaths.API}loginUser.php`, null, {
+        params: {
           email: state.email,
           password: state.password,
-        }),
-        headers: {
-          "Content-Type": "multipart/form-data",
         },
-      }
-    )
-      .then(function (response) {
-        return response.text();
       })
-      .then(function (data) {
-        const response = JSON.parse(data);
-
-        if (response["codehttp"] === CodesHttp.Success) {
-
-          window.localStorage.setItem("userLogged", JSON.stringify(response["response"]))
-          router.push({ name: "HomeView" });
-          // if(rememberLogin.value){
-          //   window.localStorage.setItem("userLogged", response["response"])
-          // }else{
-          //   window.sessionStorage.setItem("userLogged", response["response"])
-          // }
-           Swal.fire({
-            icon: "success",
-            title: "Te has logueado correctamente",
-            showConfirmButton: false,
-            timer: 1680,
-          });
+      .then((response) => {
+        switch (response.status) {
+          case 200:
+            if (response.data.found) {
+              router.push({ name: "HomeView" });
+              Swal.fire({
+                icon: "success",
+                title: "Login completado",
+                text: "Te has logueado con éxito!!!",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            }else{
+                Swal.fire({
+                icon: "warning",
+                title: "Usuario no existe",
+                text: "Error no existe usuario",
+                showConfirmButton: true,
+                
+              });
+            }
+            break;
           
-        } else {
-          alert("ERROR AL INTENTAR LOGGIN. INTENTELO LUEGO MÁS TARDE");
+          case 404:
+              Swal.fire({
+                icon: "error",
+                title: "ERROR",
+                text: "Error interno. No se ha encontrado la ruta",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            break;
+
+          case 500:
+            Swal.fire({
+                icon: "error",
+                title: "ERROR",
+                text: "Error interno. Fallo de API",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            break;
         }
       })
-      .catch(function (error) {
-        console.log("Request failed-> " + CodesHttp.Error, error);
+      .catch((error) => {
+        console.error("There was an error!", error);
       });
-  } else {
-     Swal.fire({
-            icon: "warning",
-            title: "Los datos son incorrectos",
-            showConfirmButton: true,
-            
-          });
   }
 }
 
