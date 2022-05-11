@@ -5,8 +5,6 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from "./router";
-import { appController } from './core/app';
 
-appController.initialize();
 createApp(App).use(router, VueSweetalert2).mount("#app");
 import "bootstrap/dist/js/bootstrap.js"

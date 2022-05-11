@@ -99,7 +99,7 @@
                     <button
                       type="button"
                       class="btn btn-success btn-block btn-lg"
-                      @click="insertNewUser"
+                      @click="register"
                     >
                       Register
                     </button>
@@ -135,10 +135,9 @@ import {
   numeric,
 } from "@vuelidate/validators";
 import { useRouter } from "vue-router";
+import axios from "axios";
 import Swal from "sweetalert2";
-import {RoutePaths} from '@/core/general/RoutePaths';
-
-
+import { RoutePaths } from "@/core/general/RoutePaths";
 
 //#region CONST
 const router = useRouter();
@@ -209,58 +208,32 @@ const v$ = useVuelidate(rules, state);
 
 //#region FUNCTION
 
-async function insertNewUser() {
+async function register() {
   v$.value.$validate();
   if (!v$.value.$error) {
-    await fetch(
-      "http://www.iestrassierra.net/alumnado/curso2122/DAW/daw2122a5/API/registerUser.php",
-      {
-        method: "POST",
-        body: JSON.stringify({
+    await axios
+      .post(`${RoutePaths.API}registerUser.php`, null, {
+        params: {
           name: state.name,
           email: state.email,
-          password: state.password.password,
           phone: state.phone,
-        }),
-        headers: {
-          "Content-Type": "multipart/form-data",
+          password: state.password.password,
         },
-      }
-    )
-      .then(function (response) {
-        return response.text();
       })
-      .then(function (data) {
-        const response = JSON.parse(data);
-
-        if (response["codehttp"] === CodesHttp.Success) {
-          router.push({ name: "LoginView" });
+      .then((response) => {
+        if (response.status === 200 && response.data) {
           Swal.fire({
             icon: "success",
-            title: "Te has registrado correctamente",
+            title: "Registro completado",
+            text: "Te has registrado con éxito!!!",
             showConfirmButton: false,
-            timer: 1680,
-          });
-          
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: 'Oops...',
-            text: "Lo sentimos. Ha ocurrido un error al intentar registrarse",
-            showConfirmButton: true,
+            timer: 2000,
           });
         }
       })
-      .catch(function (error) {
-        console.log("Request failed-> " + CodesHttp.Error, error);
+      .catch((error) => {
+        console.error("There was an error!", error);
       });
-  } else {
-    Swal.fire({
-            icon: "warning",
-            title: 'Campos erroneos',
-            text: "Ha ingresado datos no validos! Introduzca la información correctamente",
-            showConfirmButton: true,
-          });
   }
 }
 //#endregion
