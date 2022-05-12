@@ -83,12 +83,13 @@
 import { computed, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import useVuelidate from "@vuelidate/core";
-import {RoutePaths} from '@/core/general/RoutePaths';
+import { RoutePaths } from "@/core/general/RoutePaths";
 import { required, email } from "@vuelidate/validators";
-import { CodesHttp } from "@/core/general/CodesHttp";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { useStore } from "vuex";
 
+const store = useStore();
 
 //#region CONST
 const router = useRouter();
@@ -115,60 +116,19 @@ const v$ = useVuelidate(rules, state);
 async function login() {
   v$.value.$validate();
   if (!v$.value.$error) {
-    await axios
-      .post(`${RoutePaths.API}loginUser.php`, null, {
-        params: {
-          email: state.email,
-          password: state.password,
-        },
-      })
-      .then((response) => {
-        switch (response.status) {
-          case 200:
-            if (response.data.found) {
-              router.push({ name: "HomeView" });
-              Swal.fire({
-                icon: "success",
-                title: "Login completado",
-                text: "Te has logueado con éxito!!!",
-                showConfirmButton: false,
-                timer: 2000,
-              });
-            }else{
-                Swal.fire({
-                icon: "warning",
-                title: "Usuario no existe",
-                text: "Error no existe usuario",
-                showConfirmButton: true,
-                
-              });
-            }
-            break;
-          
-          case 404:
-              Swal.fire({
-                icon: "error",
-                title: "ERROR",
-                text: "Error interno. No se ha encontrado la ruta",
-                showConfirmButton: false,
-                timer: 2000,
-              });
-            break;
-
-          case 500:
-            Swal.fire({
-                icon: "error",
-                title: "ERROR",
-                text: "Error interno. Fallo de API",
-                showConfirmButton: false,
-                timer: 2000,
-              });
-            break;
-        }
-      })
-      .catch((error) => {
-        console.error("There was an error!", error);
-      });
+    const u = {
+      email: state.email,
+      password: state.password,
+    };
+    store.dispatch("saveUserLogin", u);
+  } else {
+    Swal.fire({
+      icon: "warning",
+      title: "Formato datos erroneo",
+      text: "Los datos introducidos no cumplen el formato correcto",
+      showConfirmButton: false,
+      timer: 2000,
+    });
   }
 }
 
