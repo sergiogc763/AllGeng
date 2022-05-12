@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-import services from './services';
+import servicesUser from './servicesUser';
 import Swal from 'sweetalert2';
 import router from '@/router';
 
@@ -10,7 +10,8 @@ const store = createStore({
         usuid: '2',
         usunom: '',
         usuemail: '',
-        carrito: []
+        carrito: [],
+        logged: false
       }
         
     },
@@ -18,7 +19,7 @@ const store = createStore({
         SAVE_USER_LOGIN(state, u){
           console.log("hola");
           //u hace referencia al objeto json formado por los datos del login
-            services.login(u.email, u.password).then((res) => {
+            servicesUser.login(u.email, u.password).then((res) => {
               console.log(res);
                 switch (res.status) {
                     case 200:
@@ -28,6 +29,7 @@ const store = createStore({
                         state.User.usuid = res.data.response.usuid;
                         state.User.usunom = res.data.response.usunom;
                         state.User.usuemail = res.data.response.usuemail;
+                        state.User.logged = true;
                         router.push({ name: "HomeView" });
                         Swal.fire({
                           icon: "success",

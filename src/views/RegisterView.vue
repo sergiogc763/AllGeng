@@ -1,5 +1,9 @@
 <template>
-  <section class="bg-image" style="background-color: gray">
+  <section
+    class="bg-image"
+    style="background-color: gray"
+    v-if="!store.state.User.logged"
+  >
     <div class="mask d-flex align-items-center h-100 gradient-custom">
       <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -119,11 +123,13 @@
       </div>
     </div>
   </section>
+  <div v-else>
+    <h2>Se encuentra ya logueado</h2>
+  </div>
 </template>
 
 <script lang="ts" setup>
 import { reactive, computed } from "vue";
-import { CodesHttp } from "@/core/general/CodesHttp";
 import useVuelidate from "@vuelidate/core";
 import {
   required,
@@ -138,8 +144,10 @@ import { useRouter } from "vue-router";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { RoutePaths } from "@/core/general/RoutePaths";
+import { useStore } from "vuex";
 
 //#region CONST
+const store = useStore();
 const router = useRouter();
 const state = reactive({
   name: "",
@@ -232,8 +240,8 @@ async function register() {
                 showConfirmButton: false,
                 timer: 2000,
               });
-            }else{
-                Swal.fire({
+            } else {
+              Swal.fire({
                 icon: "error",
                 title: "ERROR",
                 text: "Error interno. Perdone las molestias",
@@ -242,25 +250,25 @@ async function register() {
               });
             }
             break;
-          
+
           case 404:
-              Swal.fire({
-                icon: "error",
-                title: "ERROR",
-                text: "Error interno. No se ha encontrado la ruta",
-                showConfirmButton: false,
-                timer: 2000,
-              });
+            Swal.fire({
+              icon: "error",
+              title: "ERROR",
+              text: "Error interno. No se ha encontrado la ruta",
+              showConfirmButton: false,
+              timer: 2000,
+            });
             break;
 
           case 500:
             Swal.fire({
-                icon: "error",
-                title: "ERROR",
-                text: "Error interno. Fallo de API",
-                showConfirmButton: false,
-                timer: 2000,
-              });
+              icon: "error",
+              title: "ERROR",
+              text: "Error interno. Fallo de API",
+              showConfirmButton: false,
+              timer: 2000,
+            });
             break;
         }
       })
@@ -268,6 +276,17 @@ async function register() {
         console.error("There was an error!", error);
       });
   }
+}
+
+function redirectHome() {
+  Swal.fire({
+    icon: "info",
+    title: "Se encuentra con una sesión activa",
+    text: "Para poder registrarse debe cerrar sesión",
+    showConfirmButton: false,
+    timer: 1660,
+  });
+  router.push("HomeView");
 }
 //#endregion
 </script>

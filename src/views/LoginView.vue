@@ -43,7 +43,7 @@
                       v-model="rememberLogin"
                     />
                     <label for="checkRemember" class="form-check-label"
-                      >Remember password</label
+                      >Remember me</label
                     >
                   </div>
                   <div class="mb-3">
@@ -83,15 +83,15 @@
 import { computed, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import useVuelidate from "@vuelidate/core";
-import { RoutePaths } from "@/core/general/RoutePaths";
 import { required, email } from "@vuelidate/validators";
 import Swal from "sweetalert2";
-import axios from "axios";
 import { useStore } from "vuex";
 
-const store = useStore();
+
 
 //#region CONST
+const store = useStore();
+
 const router = useRouter();
 
 const state = reactive({
