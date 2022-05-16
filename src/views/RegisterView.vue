@@ -123,9 +123,6 @@
       </div>
     </div>
   </section>
-  <div v-else>
-    <h2>Se encuentra ya logueado</h2>
-  </div>
 </template>
 
 <script lang="ts" setup>
@@ -219,62 +216,21 @@ const v$ = useVuelidate(rules, state);
 async function register() {
   v$.value.$validate();
   if (!v$.value.$error) {
-    await axios
-      .post(`${RoutePaths.API}registerUser.php`, null, {
-        params: {
-          name: state.name,
-          email: state.email,
-          phone: state.phone,
-          password: state.password.password,
-        },
-      })
-      .then((response) => {
-        switch (response.status) {
-          case 200:
-            if (response.data) {
-              router.push({ name: "LoginView" });
-              Swal.fire({
-                icon: "success",
-                title: "Registro completado",
-                text: "Te has registrado con éxito!!!",
-                showConfirmButton: false,
-                timer: 2000,
-              });
-            } else {
-              Swal.fire({
-                icon: "error",
-                title: "ERROR",
-                text: "Error interno. Perdone las molestias",
-                showConfirmButton: false,
-                timer: 2000,
-              });
-            }
-            break;
-
-          case 404:
-            Swal.fire({
-              icon: "error",
-              title: "ERROR",
-              text: "Error interno. No se ha encontrado la ruta",
-              showConfirmButton: false,
-              timer: 2000,
-            });
-            break;
-
-          case 500:
-            Swal.fire({
-              icon: "error",
-              title: "ERROR",
-              text: "Error interno. Fallo de API",
-              showConfirmButton: false,
-              timer: 2000,
-            });
-            break;
-        }
-      })
-      .catch((error) => {
-        console.error("There was an error!", error);
-      });
+    const u = {
+      name: state.name,
+      email: state.email,
+      password: state.password,
+      phone: state.phone
+    };
+    store.dispatch("register", u);
+  } else {
+    Swal.fire({
+      icon: "warning",
+      title: "Formato datos erroneo",
+      text: "Los datos introducidos no cumplen el formato correcto",
+      showConfirmButton: false,
+      timer: 2000,
+    });
   }
 }
 
@@ -286,9 +242,16 @@ function redirectHome() {
     showConfirmButton: false,
     timer: 1660,
   });
-  router.push("HomeView");
+  router.push({ name: "HomeView" });
 }
 //#endregion
+
+mounted: {
+  if(store.state.User.logged){
+      redirectHome();
+  }
+    
+}
 </script>
 
 <style lang="scss" scoped>

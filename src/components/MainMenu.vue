@@ -28,7 +28,6 @@
               </div>
             </li>
             <li class="nav-item dropdown" v-else>
-
                 <div class="useraccount nav-link dropdown-toggle" data-bs-toggle="dropdown">
                 <div class="img-useraccount">
                   <img src="@/assets/user.png" class="img-icons" />
@@ -37,7 +36,7 @@
               </div>
       
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><router-link class="dropdown-item" to="">Configuración</router-link> </li>
+                <li><router-link class="dropdown-item" :to="RoutePaths.UserOptions">Configuración</router-link> </li>
                 <li><router-link class="dropdown-item" to="">Desconectar</router-link></li>
               </ul>
             </li>
@@ -51,6 +50,8 @@
 <script lang="ts" setup>
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import { RoutePaths } from '../core/general/RoutePaths';
+
 
 const store = useStore();
 const router = useRouter();
@@ -59,7 +60,7 @@ function goLogin() {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .container-elements {
   width: 100%;
   justify-content: space-between;

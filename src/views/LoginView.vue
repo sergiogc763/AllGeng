@@ -83,7 +83,7 @@
 import { computed, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import useVuelidate from "@vuelidate/core";
-import { required, email } from "@vuelidate/validators";
+import { required, email, helpers } from "@vuelidate/validators";
 import Swal from "sweetalert2";
 import { useStore } from "vuex";
 
@@ -103,8 +103,12 @@ const rememberLogin = ref<boolean>(false);
 
 const rules = computed(() => {
   return {
-    email: { required, email },
-    password: { required },
+    email: {
+      required: helpers.withMessage("*Campo email no puede estar vacío", required),
+      email,
+    },
+    password: { 
+      required: helpers.withMessage("*Indique una contraseña", required) },
   };
 });
 
@@ -124,7 +128,7 @@ async function login() {
   } else {
     Swal.fire({
       icon: "warning",
-      title: "Formato datos erroneo",
+      title: "Datos erroneos",
       text: "Los datos introducidos no cumplen el formato correcto",
       showConfirmButton: false,
       timer: 2000,
