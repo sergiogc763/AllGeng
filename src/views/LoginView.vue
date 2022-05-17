@@ -30,6 +30,7 @@
                       placeholder="Password"
                       class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
                       v-model="state.password"
+                      @keypress.enter="login()"
                     />
                     <span class="error" v-if="v$.password.$error">
                       {{ v$.password.$errors[0].$message }}
@@ -175,9 +176,7 @@ function register() {
   background-position: center center;
 }
 
-.formLogin {
-  border-radius: 20px;
-}
+
 
 .error {
   color: red;

@@ -62,24 +62,7 @@ function logout(){
 
 <style lang="scss" scoped>
 
-.content{
-  height: 100%;
-    /* fallback for old browsers */
-  background: #ff7056;
 
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: -webkit-linear-gradient(
-    to right,
-    rgb(5, 226, 178),
-    rgba(143, 211, 244, 1)
-  );
-
-  background: linear-gradient(
-    to right,
-    rgba(132, 250, 176, 1),
-    rgba(143, 211, 244, 1)
-  );
-}
 .container{
   display: flex;
   justify-content: center;

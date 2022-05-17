@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid d-flex justify-content-between">
-      <router-link class="navbar-brand" to="/"
+      <router-link class="navbar-brand" :to="RoutePaths.Home"
         ><img src="@/assets/logo.png" class="logo-principal"
       /></router-link>
       <button
@@ -19,25 +19,34 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
         <div class="content-right">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item" @click="goLogin" v-if="!store.state.User.logged">
-              <div class="useraccount">
-                <div class="img-useraccount">
-                  <img src="@/assets/user.png" class="img-icons" />
-                </div>
-                Cuenta
-              </div>
+            <li
+              class="nav-item"
+              @click="goLogin"
+              v-if="!store.state.User.logged"
+            >
+              <button class="button btnAccount"><img src="@/assets/user.png" class="img-icons" /><span>Cuenta</span></button>
             </li>
             <li class="nav-item dropdown" v-else>
-                <div class="useraccount nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                <div class="img-useraccount">
-                  <img src="@/assets/user.png" class="img-icons" />
-                </div>
-                Cuenta
+              <div
+                class="useraccount nav-link"
+                data-bs-toggle="dropdown"
+              >
+                <button class="button btnAccount"><img src="@/assets/user.png" class="img-icons" /><span>Cuenta</span></button>
               </div>
-      
+
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><router-link class="dropdown-item" :to="RoutePaths.UserOptions">Configuración</router-link> </li>
-                <li><router-link class="dropdown-item" to="">Desconectar</router-link></li>
+                <li>
+                  <router-link
+                    class="dropdown-item"
+                    :to="RoutePaths.UserOptions"
+                    >Configuración</router-link
+                  >
+                </li>
+                <li>
+                  <router-link class="dropdown-item" to=""
+                    >Desconectar</router-link
+                  >
+                </li>
               </ul>
             </li>
           </ul>
@@ -50,8 +59,7 @@
 <script lang="ts" setup>
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-import { RoutePaths } from '../core/general/RoutePaths';
-
+import { RoutePaths } from "@/core/general/RoutePaths";
 
 const store = useStore();
 const router = useRouter();
@@ -84,19 +92,49 @@ function goLogin() {
   display: flex;
 }
 
-.useraccount {
+
+
+.btnAccount {
   display: flex;
   align-items: center;
-  color: rgb(189, 189, 189);
+  border-radius: 5px;
+  background-color: #a1a0a0;
+  border: rgb(189, 189, 189);
+  text-align: center;
   font-weight: bold;
   font-size: 20px;
-  .img-useraccount {
+  padding: 5px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+  .img-icons{
     margin-right: 10px;
   }
+  span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
 
-  &:hover {
-    background-color: rgb(255, 31, 31);
+  span:after {
+    content: "\00bb";
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+
+  &:hover span {
+    padding-right: 25px;
     color: white;
+  }
+
+  &:hover span:after {
+    color: white;
+    opacity: 1;
+    right: 0;
   }
 }
 </style>

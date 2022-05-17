@@ -114,6 +114,8 @@ function updatePass() {
 .container {
   display: flex;
   flex-direction: column;
+  background-color: rgb(201, 201, 201);
+  margin-top: 5px;
 
   .old-pass {
     display: flex;
