@@ -22,7 +22,6 @@ const store = createStore({
       servicesUser
         .login(u.email, u.password)
         .then((res) => {
-          console.log(res);
           switch (res.status) {
             case 200:
               if (res.data.found) {
@@ -285,6 +284,9 @@ const store = createStore({
                     timer: 2000,
                   });
                   break;
+
+
+              
               }
             })
             .catch((error) => {
@@ -292,6 +294,59 @@ const store = createStore({
             });
 
           break;
+
+          case "Password":
+          servicesUser
+            .updatePassword(state.User.usuid, o.oldPassword, o.newPassword)
+            .then((response) => {
+              switch (response.status) {
+                case 200:
+                  if (response.data) {
+                    Swal.fire({
+                      icon: "success",
+                      title: "Contraseña actualizada!",
+                      showConfirmButton: false,
+                      timer: 2000,
+                    });
+                  } else {
+                    Swal.fire({
+                      icon: "error",
+                      title: "ERROR",
+                      text: "Error. La antigua contraseña no coincide",
+                      showConfirmButton: false,
+                      timer: 2000,
+                    });
+                  }
+                  break;
+
+                case 404:
+                  Swal.fire({
+                    icon: "error",
+                    title: "ERROR",
+                    text: "Error interno. No se ha encontrado la ruta",
+                    showConfirmButton: false,
+                    timer: 2000,
+                  });
+                  break;
+
+                case 500:
+                  Swal.fire({
+                    icon: "error",
+                    title: "ERROR",
+                    text: "Error interno. Fallo de API",
+                    showConfirmButton: false,
+                    timer: 2000,
+                  });
+                  break;
+     
+              }
+            })
+            .catch((error) => {
+              console.error("There was an error!", error);
+            });
+
+          break;
+        
       }
     },
   },
@@ -310,6 +365,9 @@ const store = createStore({
     },
   },
   getters: {
+    userId(state) {
+      return state.User.usuid;
+    },
     userName(state) {
       return state.User.usunom;
     },

@@ -213,7 +213,7 @@ const v$ = useVuelidate(rules, state);
 
 //#region FUNCTION
 
-async function register() {
+function register() {
   v$.value.$validate();
   if (!v$.value.$error) {
     const u = {

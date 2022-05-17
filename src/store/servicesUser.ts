@@ -49,6 +49,16 @@ export default {
     })
     return res;
   },
+  async updatePassword(id:string, oldPassword:string, newPassword:string): Promise<any> {
+    const res = await axios.post(`${RoutePaths.API}updatePassword.php`, null, {
+      params: {
+        id: id,
+        oldPassword: oldPassword,
+        newPassword: newPassword
+      },
+    })
+    return res;
+  },
 
 
 };

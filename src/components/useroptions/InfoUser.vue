@@ -4,7 +4,6 @@
     <div class="name">
       <h5>Nombre</h5>
       <div class="actual-name">
-        <label to="name" class="mr-2"> Nombre: </label>
         <p id="name">{{ name }}</p>
       </div>
       <div class="new-name">
@@ -18,7 +17,6 @@
     <div class="email">
       <h5>Email</h5>
       <div class="actual-email">
-        <label to="email" class="mr-2"> Email: </label>
         <p id="email">{{ email }}</p>
       </div>
       <div class="new-email">
@@ -32,10 +30,9 @@
     <div class="phone">
       <h5>Teléfono</h5>
       <div class="actual-phone">
-        <label to="phone" class="mr-2"> Telefono: </label>
         <p id="phone">{{ phone }}</p>
       </div>
-      <div class="new-phone">
+      <div class="new-phone mb-2">
           <input type="tel" v-model="newPhone" placeholder="Nuevo teléfono" class="mb-5"/>
           <button type="button" class="btn btn-primary" @click="updatePhone()">
               Cambiar
