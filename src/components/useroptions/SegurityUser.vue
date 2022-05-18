@@ -17,7 +17,7 @@
         />
       </div>
       <div class="content-form">
-        <label to="oldPass">Repita la contraseña anterior:</label>
+        <label to="oldPass">Repita la nueva contraseña:</label>
         <input
           type="password"
           id="oldPass"

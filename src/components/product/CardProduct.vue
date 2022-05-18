@@ -1,17 +1,30 @@
 <template>
-  <div class="card" style="width: 18rem">
-    <img src="..." class="card-img-top" alt="..." />
+  <div class="card product">
+    <!-- <img src="..." class="card-img-top" alt="..." /> -->
     <div class="card-body">
-      <h5 class="card-title">Card title</h5>
+      <h5 class="card-title">{{ props.producto.nombre }}</h5>
       <p class="card-text">
-        Some quick example text to build on the card title and make up the bulk
-        of the card's content.
+        {{props.producto.precio}}
       </p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+    <div class="card-footer text-muted">
+      <button type="button" class="btn btn-primary">Primary</button>
     </div>
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const props = defineProps({
+  producto: {
+    type: Object,
+    required: true,
+  },
+})
+</script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.product {
+    background-color: green;
+    width: 150px;
+    margin: 10px;
+  }</style>

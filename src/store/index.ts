@@ -2,19 +2,20 @@ import { createStore } from "vuex";
 import servicesUser from "./servicesUser";
 import Swal from "sweetalert2";
 import router from "@/router";
+import { Producto } from '@/core/types/Product';
+import serviceProduct from "./serviceProduct";
 
 // Create a new store instance.
 const store = createStore({
   state: {
     User: {
-      usuid: "2",
+      usuid: "",
       usunom: "",
       usutelf: "",
       usuemail: "",
       carrito: [],
       logged: false,
     },
-    Products: [],
   },
   mutations: {
     SAVE_USER_LOGIN(state, u) {
@@ -351,6 +352,9 @@ const store = createStore({
     },
   },
   actions: {
+    getProducts({ commit }){
+      commit("GET_PRODUCTS_DB");
+    },
     saveUserLogin({ commit }, u) {
       commit("SAVE_USER_LOGIN", u);
     },

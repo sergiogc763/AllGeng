@@ -1,24 +1,65 @@
 <template>
+<div class="body">
   <div class="content">
-
+      <CardProduct :producto="ob" v-for="ob in productos"/> 
   </div>
+</div>
 </template>
 
 <script lang="ts" setup>
-import { useStore } from 'vuex';
+import { RoutePaths } from "@/core/general/RoutePaths";
+import axios from "axios";
+import { ref } from "vue";
+import { useStore } from "vuex";
+import { Producto } from "../core/types/Product";
+import CardProduct from "@/components/product/CardProduct.vue";
+const productos = ref<Array<Producto>>([]);
 
-const store = useStore();
+created: {
+  async function getProductos() {
+    await axios
+      .post(`${RoutePaths.API}getProductos.php`, null, {})
+      .then((res) => {
+        switch (res.status) {
+          case 200:
+            // console.log(res);
+            res.data.products.data.forEach((element: any) => {
+              const p: Producto = {
+                id: element.prodid,
+                nombre: element.prodnom,
+                descripcion: element.proddesc,
+                img: "",
+                precio: element.prodprec,
+              };
+              productos.value.push(p);
+            });
+        }
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
+  }
 
+  getProductos();
+}
 
 </script>
 
 <style lang="scss" scoped>
 
-.content{
-  background: #f85032;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #e73827, #f85032);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #e73827, #f85032); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background-size: 100%;
+.body{
+  display: flex;
+  justify-content: center;
+  margin-top: 5vh;
+  .content {
+  background-color: white;
+  display: flex;
+  flex-wrap: wrap;
+  width: 25vw;
+  border-radius: 5px;
+  
+  
+}
 }
 
 </style>
