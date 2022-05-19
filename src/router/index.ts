@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import UserOptionsView from '../views/UserOptionsView.vue'
+import ProductView from '../views/ProductView.vue'
 import { RoutePaths } from '../core/general/RoutePaths';
 const routes: Array<RouteRecordRaw> = [
 {
@@ -24,7 +25,12 @@ const routes: Array<RouteRecordRaw> = [
   path: RoutePaths.UserOptions,
   name: 'UserOptionsView',
   component: UserOptionsView
-}
+},
+{
+  path: '/producto/:nombre/:id',
+  name: 'ProductView',
+  component: ProductView,
+},
 
 ]
 const router = createRouter({

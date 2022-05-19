@@ -3,7 +3,6 @@ import servicesUser from "./servicesUser";
 import Swal from "sweetalert2";
 import router from "@/router";
 import { Producto } from '@/core/types/Product';
-import serviceProduct from "./serviceProduct";
 
 // Create a new store instance.
 const store = createStore({

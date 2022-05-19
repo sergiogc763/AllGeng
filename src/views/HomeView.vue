@@ -9,13 +9,14 @@
 <script lang="ts" setup>
 import { RoutePaths } from "@/core/general/RoutePaths";
 import axios from "axios";
-import { ref } from "vue";
-import { useStore } from "vuex";
+import { onBeforeMount, ref } from "vue";
 import { Producto } from "../core/types/Product";
 import CardProduct from "@/components/product/CardProduct.vue";
+import Swal from "sweetalert2";
+
 const productos = ref<Array<Producto>>([]);
 
-created: {
+onBeforeMount(()=> {
   async function getProductos() {
     await axios
       .post(`${RoutePaths.API}getProductos.php`, null, {})
@@ -33,6 +34,26 @@ created: {
               };
               productos.value.push(p);
             });
+            break;
+          case 404:
+          Swal.fire({
+            icon: "error",
+            title: "ERROR",
+            text: "Error interno. No se ha encontrado la ruta",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          break;
+
+        case 500:
+          Swal.fire({
+            icon: "error",
+            title: "ERROR",
+            text: "Error interno. Fallo de API",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          break;
         }
       })
       .catch((error) => {
@@ -41,7 +62,7 @@ created: {
   }
 
   getProductos();
-}
+})
 
 </script>
 
@@ -55,7 +76,7 @@ created: {
   background-color: white;
   display: flex;
   flex-wrap: wrap;
-  width: 25vw;
+  width: 75vw;
   border-radius: 5px;
   
   
