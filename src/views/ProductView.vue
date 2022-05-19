@@ -10,9 +10,9 @@
       <div class="price-p">
         <div class="precio">{{ producto.precio }}</div>
         <div class="cantidad">
-          <span>Cantidad:</span><input type="number" v-model="cantidad"/>
+          <span>Cantidad:</span><input @change="onChange($event)" type="number"/>
         </div>
-        <div class="total">{{cantidad}}</div>
+        <div class="total"></div>
       </div>
     </div>
     <div class="bot-p">
@@ -40,7 +40,7 @@ export default {
     return {
       loaded: false,
       paidFor: false,
-      cantidad: ref<Number>(0),
+      cantidad: 0,
       producto: {
         nombre: "",
         precio: 0,
@@ -61,6 +61,11 @@ export default {
   },
   methods: {
 
+    onChange(event) {
+            console.log(event.target.value)
+            this.cantidad = event.target.value;
+            console.log(this.cantidad);
+        },
     getProductById: function() {
         this.producto.precio = 9
 
