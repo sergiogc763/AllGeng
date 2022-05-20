@@ -76,7 +76,7 @@ onBeforeMount(()=> {
   background-color: white;
   display: flex;
   flex-wrap: wrap;
-  width: 75vw;
+  width: 72vw;
   border-radius: 5px;
   
   

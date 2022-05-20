@@ -32,10 +32,10 @@
       </ul>
       <div class="option-show">
         <div class="descripcion" v-if="opcion === 1">
-            <DescriptionProduct :descripcion="producto.descripcion"/>
+            <TextOptionProduct :text="producto.descripcion"/>
         </div>
         <div class="caracterisitcas" v-if="opcion === 2">
-            <p>{{producto.descripcion}}</p>
+            <TextOptionProduct :text="producto.caracteristicas"/>
         </div>
         <div class="comentarios" v-if="opcion === 3">
             <p>{{producto.descripcion}}</p>
@@ -50,13 +50,13 @@
 import Swal from "sweetalert2";
 import { RoutePaths } from "../core/general/RoutePaths";
 import { ref } from "vue";
-import DescriptionProduct from "@/components/product/DescriptionProduct.vue";
 import axios from "axios";
+import TextOptionProduct from '@/components/product/TextOptionProduct.vue';
 
 export default {
   name: "ProductView",
   components: {
-    DescriptionProduct
+    TextOptionProduct
   },
   data() {
     return {
@@ -69,6 +69,7 @@ export default {
         img: "",
         precio: 0,
         descripcion: "",
+        caracteristicas: ""
       },
       opcion: 0
     };
@@ -104,6 +105,7 @@ export default {
               this.producto.nombre = response.data.response.prodnom;
               this.producto.precio = response.data.response.prodprec;
               this.producto.descripcion = response.data.response.proddesc;
+              this.producto.caracteristicas = response.data.response.prodcaract;
               this.total = this.producto.precio;
               break;
 

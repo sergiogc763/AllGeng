@@ -1,12 +1,12 @@
 <template>
-  <div class="descripcion">
-    <p>{{ props.descripcion }}</p>
+  <div class="text">
+    <p>{{ props.text }}</p>
   </div>
 </template>
 
 <script lang="ts" setup>
 const props = defineProps({
-  descripcion: {
+  text: {
     required: true,
     type: String,
   },
@@ -14,12 +14,12 @@ const props = defineProps({
 </script>
 
 <style lang="scss" scoped>
-.descripcion {
+.text {
 
     p{
         margin-top: 25px;
-        margin-right: 25vw;
-        margin-left: 25vw;
+        margin-right: 18vw;
+        margin-left: 18vw;
     }
   
 }
