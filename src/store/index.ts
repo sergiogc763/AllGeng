@@ -77,8 +77,9 @@ const store = createStore({
 
     REGISTER(state, u) {
       servicesUser
-        .register(u.name, u.email, u.password, u.phone)
+        .register(u.name, u.email, u.phone, u.password)
         .then((response) => {
+          console.log(response);
           switch (response.status) {
             case 200:
               if (response.data) {
@@ -357,8 +358,8 @@ const store = createStore({
     saveUserLogin({ commit }, u) {
       commit("SAVE_USER_LOGIN", u);
     },
-    register({ commit }) {
-      commit("REGISTER");
+    register({ commit }, u) {
+      commit("REGISTER", u);
     },
     logout({ commit }) {
       commit("LOGOUT");

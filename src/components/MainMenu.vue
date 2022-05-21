@@ -21,6 +21,13 @@
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li
               class="nav-item"
+              @click="uploadProduct"
+              v-if="store.state.User.id === RolUser.Gestor"
+            >
+              <button class="button btnAccount"><img src="@/assets/user.png" class="img-icons" /><span>Cuenta</span></button>
+            </li>
+            <li
+              class="nav-item"
               @click="goLogin"
               v-if="!store.state.User.logged"
             >
@@ -60,12 +67,23 @@
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { RoutePaths } from "@/core/general/RoutePaths";
+import { RolUser } from '@/core/general/RolUser';
 
+
+//#region CONST
 const store = useStore();
 const router = useRouter();
+//#endregion
+
+//#region 
 function goLogin() {
   router.push({ name: "LoginView" });
 }
+function uploadProduct(){
+   router.push({ name: "LoginView" });
+}
+//#endregion
+
 </script>
 
 <style lang="scss" scoped>

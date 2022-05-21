@@ -12,7 +12,7 @@ export default {
     return res;
   },
   async register(name:string, email:string, phone:string, password:string): Promise<any> {
-    const res = await axios.post(`${RoutePaths.API}loginUser.php`, null, {
+    const res = await axios.post(`${RoutePaths.API}registerUser.php`, null, {
       params: {
         name: name,
         email: email,

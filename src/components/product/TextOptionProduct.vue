@@ -18,8 +18,8 @@ const props = defineProps({
 
     p{
         margin-top: 25px;
-        margin-right: 18vw;
-        margin-left: 18vw;
+        margin-right: 16vw;
+        margin-left: 16vw;
     }
   
 }

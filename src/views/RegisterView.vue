@@ -218,7 +218,7 @@ function register() {
     const u = {
       name: state.name,
       email: state.email,
-      password: state.password,
+      password: state.password.password,
       phone: state.phone
     };
     store.dispatch("register", u);
