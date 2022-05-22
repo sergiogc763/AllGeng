@@ -3,7 +3,7 @@
     <div class="banner"></div>
     <div class="top-p">
       <div class="img-p">
-        <img src="@/assets/n64.jpg" style="width: 75%;"/>
+        <img src="@/assets/n64.jpg" style="width: 75%" />
       </div>
       <div class="price-p">
         <div class="nombre">
@@ -11,7 +11,8 @@
         </div>
         <div class="precio">{{ producto.precio }} €</div>
         <div class="cantidad">
-          <span>Cantidad:</span><input @change="onChange($event)" type="number" min="1" />
+          <span>Cantidad:</span
+          ><input @change="onChange($event)" type="number" min="1" value="1" />
         </div>
         <div class="total">Precio total: {{ total }} €</div>
         <div ref="paypal"></div>
@@ -20,7 +21,7 @@
     <div class="banner"></div>
     <div class="bot-p">
       <ul class="nav nav-tabs">
-        <li class="nav-item" >
+        <li class="nav-item">
           <a class="nav-link" @click="optionSelected(1)">Descripción</a>
         </li>
         <li class="nav-item">
@@ -32,16 +33,15 @@
       </ul>
       <div class="option-show">
         <div class="descripcion" v-if="opcion === 1">
-            <TextOptionProduct :text="producto.descripcion"/>
+          <TextOptionProduct :text="producto.descripcion" />
         </div>
         <div class="caracterisitcas" v-if="opcion === 2">
-            <TextOptionProduct :text="producto.caracteristicas"/>
+          <TextOptionProduct :text="producto.caracteristicas" />
         </div>
         <div class="comentarios" v-if="opcion === 3">
-            <p>{{producto.descripcion}}</p>
+          <p>{{ producto.descripcion }}</p>
         </div>
       </div>
-       
     </div>
   </div>
 </template>
@@ -49,14 +49,14 @@
 <script>
 import Swal from "sweetalert2";
 import { RoutePaths } from "../core/general/RoutePaths";
-import { ref } from "vue";
 import axios from "axios";
-import TextOptionProduct from '@/components/product/TextOptionProduct.vue';
+import TextOptionProduct from "@/components/product/TextOptionProduct.vue";
+import store from "@/store";
 
 export default {
   name: "ProductView",
   components: {
-    TextOptionProduct
+    TextOptionProduct,
   },
   data() {
     return {
@@ -69,23 +69,23 @@ export default {
         img: "",
         precio: 0,
         descripcion: "",
-        caracteristicas: ""
+        caracteristicas: "",
       },
-      opcion: 0
+      opcion: 0,
     };
   },
-  mounted() {
+  mounted: function () {
     const script = document.createElement("script");
     script.src =
-      "https://www.paypal.com/sdk/js?client-id=AY-sBQ9Vftv20_Ys3NGCJyJ_2jCPp1NxO7-sinxBniEWwCqK5Uf_aJm-vLzYbl2y9ok4cuxAFb4Vm2AR";
+      "https://www.paypal.com/sdk/js?client-id=AdrZ7GR8G_VOHh4rH3H_P_McBUk7WQdRcWE8EB0gtZm5J0BpFbr5JCN36oAW0b1JS7-k6EC00T5AOZo3";
     script.addEventListener("load", this.setLoaded);
     document.body.appendChild(script);
 
     this.getProductById();
   },
   methods: {
-    optionSelected(option){
-      this.opcion = option
+    optionSelected(option) {
+      this.opcion = option;
     },
     onChange(event) {
       this.cantidad = event.target.value;
@@ -152,15 +152,57 @@ export default {
             });
           },
           onApprove: async (data, actions) => {
-            // const order = await actions.order.capture();
-            // this.paidFor = true;
-            // console.log(order);
+            const order = await actions.order.capture();
             Swal.fire({
               icon: "success",
-              title: "Compra realizada",
-              text: "La compra se a efectuado correctamente. ¡Muchas gracias!",
-              showConfirmButton: true,
+              title: "Se ha realizado la compra",
             });
+            axios
+              .post(`${RoutePaths.API}insertHistorial.php`, null, {
+                params: {
+                  iduser: 8,
+                  idproduct: 6,
+                  fecha: "2022-05-30",
+                },
+              })
+              .then((response) => {
+                switch (response.status) {
+                  case 200:
+                    if(response.data){
+                       Swal.fire({
+                      icon: "success",
+                      title: "Guardado los datos de compra",
+                      text: "Se ha registrado la compra en su historial",
+                      showConfirmButton: false,
+                      timer: 1000,
+                    });
+                    }
+                    break;
+
+                  case 404:
+                    Swal.fire({
+                      icon: "error",
+                      title: "ERROR",
+                      text: "Error interno. No se ha encontrado la ruta",
+                      showConfirmButton: false,
+                      timer: 2000,
+                    });
+                    break;
+
+                  case 500:
+                    Swal.fire({
+                      icon: "error",
+                      title: "ERROR",
+                      text: "Error interno. Fallo de API",
+                      showConfirmButton: false,
+                      timer: 2000,
+                    });
+                    break;
+                }
+              })
+              .catch((error) => {
+                console.error("There was an error!", error);
+              });
           },
           onError: (err) => {
             console.log(err);
@@ -197,20 +239,18 @@ export default {
         justify-content: center;
       }
 
-      .precio{
-        color:rgb(255, 128, 0);
+      .precio {
+        color: rgb(255, 128, 0);
         font-weight: bold;
         font-size: 25px;
       }
     }
   }
 
-  .bot-p{
+  .bot-p {
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    
   }
 }
 </style>

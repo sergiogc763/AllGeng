@@ -79,7 +79,6 @@ const store = createStore({
       servicesUser
         .register(u.name, u.email, u.phone, u.password)
         .then((response) => {
-          console.log(response);
           switch (response.status) {
             case 200:
               if (response.data) {
