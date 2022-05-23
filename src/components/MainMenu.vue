@@ -31,7 +31,8 @@
               @click="goLogin"
               v-if="!store.state.User.logged"
             >
-              <button class="button btnAccount"><img src="@/assets/user.png" class="img-icons" /><span>Cuenta</span></button>
+              <button class="button btnAccount"><font-awesome-icon icon=user-astronaut /><span>Cuenta</span></button>
+
             </li>
             <li class="nav-item dropdown" v-else>
               <div
@@ -80,7 +81,7 @@ function goLogin() {
   router.push({ name: "LoginView" });
 }
 function uploadProduct(){
-   router.push({ name: "LoginView" });
+   router.push({ name: "UploadProductView" });
 }
 //#endregion
 
