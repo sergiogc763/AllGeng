@@ -1,9 +1,9 @@
 <template>
-<div class="body">
-  <div class="content">
-      <CardProduct :producto="ob" v-for="ob in productos"/> 
+  <div class="body">
+    <div class="content">
+      <CardProduct :producto="ob" v-for="ob in productos" />
+    </div>
   </div>
-</div>
 </template>
 
 <script lang="ts" setup>
@@ -16,26 +16,25 @@ import Swal from "sweetalert2";
 
 const productos = ref<Array<Producto>>([]);
 
-onBeforeMount(()=> {
-  async function getProductos() {
-    await axios
-      .post(`${RoutePaths.API}getProductos.php`, null, {})
-      .then((res) => {
-        switch (res.status) {
-          case 200:
-            // console.log(res);
-            res.data.products.data.forEach((element: any) => {
-              const p: Producto = {
-                id: element.prodid,
-                nombre: element.prodnom,
-                descripcion: element.proddesc,
-                img: "",
-                precio: element.prodprec,
-              };
-              productos.value.push(p);
-            });
-            break;
-          case 404:
+onBeforeMount(() => {
+  axios
+    .post(`${RoutePaths.API}getProductos.php`, null, {})
+    .then((res) => {
+      switch (res.status) {
+        case 200:
+          // console.log(res);
+          res.data.products.data.forEach((element: any) => {
+            const p: Producto = {
+              id: element.prodid,
+              nombre: element.prodnom,
+              descripcion: element.proddesc,
+              img: "",
+              precio: element.prodprec,
+            };
+            productos.value.push(p);
+          });
+          break;
+        case 404:
           Swal.fire({
             icon: "error",
             title: "ERROR",
@@ -54,34 +53,27 @@ onBeforeMount(()=> {
             timer: 2000,
           });
           break;
-        }
-      })
-      .catch((error) => {
-        console.error("There was an error!", error);
-      });
-  }
-
-  getProductos();
-})
-
+      }
+    })
+    .catch((error) => {
+      console.error("There was an error!", error);
+    });
+});
 </script>
 
 <style lang="scss" scoped>
-
-.body{
+.body {
   display: flex;
   justify-content: center;
   margin-top: 5vh;
   .content {
-  background-color: white;
-  display: flex;
-  flex-wrap: wrap;
-  width: 100vw;
-  margin-left: 50px;
-  margin-right: 50px;
-  border-radius: 5px;
-  
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100vw;
+    margin-left: 50px;
+    margin-right: 50px;
+    border-radius: 5px;
+  }
 }
-}
-
 </style>

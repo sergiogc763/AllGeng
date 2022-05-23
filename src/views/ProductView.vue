@@ -150,6 +150,17 @@ export default {
           },
           onApprove: async (data, actions) => {
             const order = await actions.order.capture();
+            let date = new Date()
+
+            let day = date.getDate()
+            let month = date.getMonth() + 1
+            let year = date.getFullYear()
+            let fecha = "";
+            if(month < 10){
+              fecha = `${year}-0${month}-${day}`
+            }else{
+              fecha = `${year}-${month}-${day}`
+            }
             Swal.fire({
               icon: "success",
               title: "Se ha realizado la compra",
@@ -157,9 +168,9 @@ export default {
             axios
               .post(`${RoutePaths.API}insertHistorial.php`, null, {
                 params: {
-                  iduser: 8,
-                  idproduct: 6,
-                  fecha: "2022-05-30",
+                  iduser: store.getters.userId,
+                  idproduct: this.$route.params.id,
+                  fecha: fecha,
                 },
               })
               .then((response) => {
