@@ -69,7 +69,6 @@ export default {
         img: "",
         precio: 0,
         descripcion: "",
-        caracteristicas: "",
       },
       opcion: 0,
     };
@@ -92,7 +91,6 @@ export default {
       this.total = this.cantidad * this.producto.precio;
     },
     getProductById() {
-      this.producto.precio = 9;
 
       const formData = new FormData();
       formData.append("id", this.$route.params.id);
@@ -105,7 +103,6 @@ export default {
               this.producto.nombre = response.data.response.prodnom;
               this.producto.precio = response.data.response.prodprec;
               this.producto.descripcion = response.data.response.proddesc;
-              this.producto.caracteristicas = response.data.response.prodcaract;
               this.total = this.producto.precio;
               break;
 

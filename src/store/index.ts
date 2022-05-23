@@ -12,6 +12,7 @@ const store = createStore({
       usunom: "",
       usutelf: "",
       usuemail: "",
+      rolid:"",
       carrito: [],
       logged: false,
     },
@@ -30,6 +31,7 @@ const store = createStore({
                 state.User.usunom = res.data.response.usunom;
                 state.User.usutelf = res.data.response.usutelf;
                 state.User.usuemail = res.data.response.usuemail;
+                state.User.rolid = res.data.response.rolid;
                 state.User.logged = true;
                 router.push({ name: "HomeView" });
                 Swal.fire({
@@ -379,6 +381,9 @@ const store = createStore({
     },
     userPhone(state) {
       return state.User.usutelf;
+    },
+    rolId(state) {
+      return state.User.rolid;
     },
   },
 });
