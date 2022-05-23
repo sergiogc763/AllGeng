@@ -133,6 +133,7 @@ const store = createStore({
       state.User.usuid = "";
       state.User.usunom = "";
       state.User.usutelf = "";
+      state.User.rolid = "";
       state.User.logged = false;
     },
 

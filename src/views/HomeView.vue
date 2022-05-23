@@ -76,9 +76,10 @@ onBeforeMount(()=> {
   background-color: white;
   display: flex;
   flex-wrap: wrap;
-  width: 72vw;
+  width: 100vw;
+  margin-left: 50px;
+  margin-right: 50px;
   border-radius: 5px;
-  
   
 }
 }

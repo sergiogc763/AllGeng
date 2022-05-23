@@ -5,6 +5,7 @@
       <div class="top-body">
         <h5 class="card-title">{{ props.producto.nombre }}</h5>
         <img src="@/assets/eliminar.png" v-if="store.getters.rolId === RolUser.Gestor" style="width: 25px;height: 25px;">
+        
         </div>
       
       <p class="card-text">{{ props.producto.precio }} €</p>
@@ -85,13 +86,20 @@ function verProducto() {
 }
 
 function actualizarProducto() {
-  router.push({
-    name: "UpdateProductView",
-    params: {
-      nombre: props.producto.nombre.replace(/\s+/g, "-"),
-      id: props.producto.id,
-    },
-  });
+  // router.push({
+  //   name: "UpdateProductView",
+  //   params: {
+  //     nombre: props.producto.nombre.replace(/\s+/g, "-"),
+  //     id: props.producto.id,
+  //   },
+  // });
+  Swal.fire({
+      icon: "success",
+      title: "Formato datos erroneo",
+      text: "Los datos introducidos no cumplen el formato correcto",
+      showConfirmButton: false,
+      timer: 2000,
+    });
 
 }
 

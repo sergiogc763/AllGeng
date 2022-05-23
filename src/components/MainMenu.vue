@@ -18,13 +18,13 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
         <div class="content-right">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 optionsnav">
             <li
               class="nav-item"
               @click="uploadProduct"
-              v-if="store.state.User.id === RolUser.Gestor"
+              v-if="store.state.User.rolid === RolUser.Gestor"
             >
-              <button class="button btnAccount"><img src="@/assets/user.png" class="img-icons" /><span>Cuenta</span></button>
+              <button class="button btnAccount"><img src="@/assets/user.png" class="img-icons" /><span>Upload</span></button>
             </li>
             <li
               class="nav-item"
@@ -108,8 +108,12 @@ function uploadProduct(){
 
 .content-right {
   display: flex;
-}
 
+  .optionsnav{
+    display: flex;
+    align-items: center;
+  }
+}
 
 
 .btnAccount {
