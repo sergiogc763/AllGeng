@@ -18,7 +18,7 @@ const productos = ref<Array<Producto>>([]);
 
 onBeforeMount(() => {
   axios
-    .post(`${RoutePaths.API}getProductos.php`, null, {})
+    .get(`${RoutePaths.API}getProductos.php`)
     .then((res) => {
       switch (res.status) {
         case 200:
