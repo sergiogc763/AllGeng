@@ -12,80 +12,93 @@
     </div>
     <div class="mb-3">
       <label for="precio" class="form-label">Precio:</label>
-      <input type="number" id="precio" step="0.01" min="0" v-model="precio">
+      <input type="number" id="precio" step="0.01" min="0" v-model="precio" />
     </div>
     <div class="mb-3">
       <label for="imagen" class="form-label">Imagen:</label>
-      <input type="file" id="imagen" :v-model="imagen">
+      <input type="file" id="imagen" :v-model="imagen" />
     </div>
     <div class="mb-3">
-        <div class="categorias">
-          <select class="form-select" v-model="categoria">
-            <option selected disabled>Seleccione una categoría</option>
-            <option v-for="option in categorias" v-bind:value="option.value">
-              {{ option.text }}
-            </option>
-          </select>
-        </div>
-        <div class="tipos">
-
-        </div>
-        <div class="marcas">
-
-        </div>
+      <div class="categorias">
+        <select class="form-select" v-model="categoria">
+          <option selected disabled>Seleccione una categoría</option>
+          <option v-for="options in categorias" v-bind:value="options.value">
+            {{ options.text }}
+          </option>
+        </select>
+      </div>
+      <div class="tipos">
+        <select class="form-select" v-model="tipo">
+          <option selected disabled>Seleccione un tipo</option>
+          <option v-for="options in tipos" v-bind:value="options.value">
+            {{ options.text }}
+          </option>
+        </select>
+      </div>
+      <div class="marcas">
+        <select class="form-select" v-model="marca">
+          <option selected disabled>Seleccione una marca</option>
+          <option v-for="option in marcas" v-bind:value="option.value">
+            {{ option.text }}
+          </option>
+        </select>
+      </div>
     </div>
     <div class="mb-5">
       <label for="descripcion" class="form-label">Descripción:</label>
-      <textarea class="form-control" id="descripcion" rows="3" :v-model="descripcion"></textarea>
+      <textarea
+        class="form-control"
+        id="descripcion"
+        rows="3"
+        :v-model="descripcion"
+      ></textarea>
     </div>
     <div class="options mb-2">
-        <button type="button" class="btn btn-primary">
-            Añadir
-        </button>
+      <button type="button" class="btn btn-primary">Añadir</button>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { RoutePaths } from '@/core/general/RoutePaths';
-import axios from 'axios';
-import Swal from 'sweetalert2';
-import { ref, onBeforeMount, reactive } from 'vue';
+import { RoutePaths } from "@/core/general/RoutePaths";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { ref, onBeforeMount, reactive } from "vue";
 
 //#region REF
-  const nombre = ref<String>("")
-  const precio = ref<Number>(1);
-  const imagen = ref<File>()
-  const descripcion = ref<String>("")
+const nombre = ref<String>("");
+const precio = ref<Number>(1);
+const imagen = ref<File>();
+const descripcion = ref<String>("");
 
-  const categoria = ref<any>("Seleccione una categoría");
-  const categorias = reactive<Array<any>>([]);
+const categoria = ref<any>("Seleccione una categoría");
+const categorias = reactive<Array<any>>([]);
 
-  const tipo = ref<any>("Seleccione un tipo");
-  const tipos = reactive<Array<any>>([]);
+const tipo = ref<any>("Seleccione un tipo");
+const tipos = reactive<Array<any>>([]);
 
-  const marca = ref<any>("Seleccione una marca");
-  const marcas = reactive<Array<any>>([]);
+const marca = ref<any>("Seleccione una marca");
+const marcas = reactive<Array<any>>([]);
 //#endregion
 
-onBeforeMount(()=>{
-  getCategorias();//Obtenemos las categorías
-})
-    
-
+onBeforeMount(() => {
+  getCategorias(); //Obtenemos las categorías
+  getTipos(); //Obtenemos los tipos
+  getMarcas(); //Obtenemos las marcas
+});
 
 //#region FUNCTIONS
 
-function getCategorias(){
+function getCategorias() {
   //Recuperamos las categorías
-    axios
+  axios
     .get(`${RoutePaths.API}getCategorias.php`)
     .then((res) => {
       switch (res.status) {
         case 200:
           // console.log(res);
           res.data.categorias.data.forEach((element: any) => {
-            categorias.push({ text: element.categnom, value: element.categid })
+            categorias.push({ text: element.categnom, value: element.categid });
           });
           break;
         case 404:
@@ -114,16 +127,16 @@ function getCategorias(){
     });
 }
 
-function getTipos(){
+function getTipos() {
   //Recuperamos las categorías
-    axios
+  axios
     .get(`${RoutePaths.API}getTipos.php`)
     .then((res) => {
       switch (res.status) {
         case 200:
           // console.log(res);
           res.data.categorias.data.forEach((element: any) => {
-            categorias.push({ text: element.categnom, value: element.categid })
+            tipos.push({ text: element.tipnom, value: element.tipid });
           });
           break;
         case 404:
@@ -152,16 +165,16 @@ function getTipos(){
     });
 }
 
-function getMarcas(){
+function getMarcas() {
   //Recuperamos las categorías
-    axios
+  axios
     .get(`${RoutePaths.API}getMarcas.php`)
     .then((res) => {
       switch (res.status) {
         case 200:
           // console.log(res);
           res.data.categorias.data.forEach((element: any) => {
-            categorias.push({ text: element.categnom, value: element.categid })
+            marcas.push({ text: element.marcnom, value: element.marcid });
           });
           break;
         case 404:
@@ -207,6 +220,5 @@ function getMarcas(){
   textarea {
     width: 25vw;
   }
-
 }
 </style>
