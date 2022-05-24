@@ -1,5 +1,6 @@
 <template>
-  <div class="containt">
+<div class="main">
+  <form ENCTYPE="multipart/form-data" class="containt">
     <div class="mb-3">
       <label for="nombre" class="form-label">Nombre:</label>
       <input
@@ -12,11 +13,11 @@
     </div>
     <div class="mb-3">
       <label for="precio" class="form-label">Precio:</label>
-      <input type="number" id="precio" step="0.01" min="0" v-model="precio" />
+      <input type="number" id="precio" step="0.01" min="0" v-model="precio" /><span> €</span>
     </div>
     <div class="mb-3">
-      <label for="imagen" class="form-label">Imagen:</label>
-      <input type="file" id="imagen" :v-model="imagen" />
+      <label for="imagen" class="form-label">Imágenes:</label>
+      <input type="file" id="images" name="image[]" multiple ref="imagen"/>
     </div>
     <div class="mb-3">
       <div class="categorias">
@@ -54,9 +55,10 @@
       ></textarea>
     </div>
     <div class="options mb-2">
-      <button type="button" class="btn btn-primary">Añadir</button>
+      <button type="button" class="btn btn-primary" @click="handleFileUpload()">Añadir</button>
     </div>
-  </div>
+  </form>
+</div>
 </template>
 
 <script lang="ts" setup>
@@ -68,7 +70,7 @@ import { ref, onBeforeMount, reactive } from "vue";
 //#region REF
 const nombre = ref<String>("");
 const precio = ref<Number>(1);
-const imagen = ref<File>();
+const imagen = ref<any>(null);
 const descripcion = ref<String>("");
 
 const categoria = ref<any>("Seleccione una categoría");
@@ -88,6 +90,11 @@ onBeforeMount(() => {
 });
 
 //#region FUNCTIONS
+ const handleFileUpload = async() => {
+           // debugger;
+            console.log("selected file",imagen.value.files)
+            //Upload to server
+        }
 
 function getCategorias() {
   //Recuperamos las categorías
@@ -97,7 +104,7 @@ function getCategorias() {
       switch (res.status) {
         case 200:
           // console.log(res);
-          res.data.categorias.data.forEach((element: any) => {
+          res.data.categorias.data.forEach((element:any) => {
             categorias.push({ text: element.categnom, value: element.categid });
           });
           break;
@@ -135,7 +142,7 @@ function getTipos() {
       switch (res.status) {
         case 200:
           // console.log(res);
-          res.data.categorias.data.forEach((element: any) => {
+          res.data.categorias.data.forEach((element:any) => {
             tipos.push({ text: element.tipnom, value: element.tipid });
           });
           break;
@@ -173,7 +180,7 @@ function getMarcas() {
       switch (res.status) {
         case 200:
           // console.log(res);
-          res.data.categorias.data.forEach((element: any) => {
+          res.data.categorias.data.forEach((element:any) => {
             marcas.push({ text: element.marcnom, value: element.marcid });
           });
           break;
@@ -206,10 +213,16 @@ function getMarcas() {
 </script>
 
 <style lang="scss">
+.main{
+
+display: flex;
+justify-content: center;
+
 .containt {
   border-radius: 5px;
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-direction: column;
   background-color: rgb(201, 201, 201);
   width: fit-content;
@@ -220,5 +233,11 @@ function getMarcas() {
   textarea {
     width: 25vw;
   }
+
+  #precio{
+    width: 10vw;
+  }
 }
+}
+
 </style>
