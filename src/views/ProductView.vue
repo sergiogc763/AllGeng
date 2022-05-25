@@ -3,7 +3,35 @@
     <div class="banner"></div>
     <div class="top-p">
       <div class="img-p">
-        <img src="@/assets/n64.jpg" style="width: 75%" />
+        <div
+          id="carouselExampleInterval"
+          class="carousel slide"
+          data-bs-ride="carousel"
+        >
+          <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="10000">
+              <img :src="producto.img" class="d-block w-75" />
+            </div>
+          </div>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExampleInterval"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExampleInterval"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
       </div>
       <div class="price-p">
         <div class="nombre">
@@ -69,6 +97,7 @@ export default {
         img: "",
         precio: 0,
         descripcion: "",
+        imagenes: [],
       },
       opcion: 0,
     };
@@ -91,7 +120,6 @@ export default {
       this.total = this.cantidad * this.producto.precio;
     },
     getProductById() {
-
       const formData = new FormData();
       formData.append("id", this.$route.params.id);
 
@@ -103,7 +131,46 @@ export default {
               this.producto.nombre = response.data.response.prodnom;
               this.producto.precio = response.data.response.prodprec;
               this.producto.descripcion = response.data.response.proddesc;
+              this.producto.img =
+                RoutePaths.BASE + response.data.response.imagen;
               this.total = this.producto.precio;
+
+              axios
+                .get(`${RoutePaths.API}getFotosProducto.php`, formData)
+                .then((response) => {
+                  switch (response.status) {
+                    case 200:
+                       res.data.products.data.forEach((element) => {
+                        
+                       })
+
+                      break;
+
+                    case 404:
+                      Swal.fire({
+                        icon: "error",
+                        title: "ERROR",
+                        text: "Error interno. No se ha encontrado la ruta",
+                        showConfirmButton: false,
+                        timer: 2000,
+                      });
+                      break;
+
+                    case 500:
+                      Swal.fire({
+                        icon: "error",
+                        title: "ERROR",
+                        text: "Error interno. Fallo de API",
+                        showConfirmButton: false,
+                        timer: 2000,
+                      });
+                      break;
+                  }
+                })
+                .catch((error) => {
+                  console.error("There was an error!", error);
+                });
+
               break;
 
             case 404:
@@ -150,16 +217,16 @@ export default {
           },
           onApprove: async (data, actions) => {
             const order = await actions.order.capture();
-            let date = new Date()
+            let date = new Date();
 
-            let day = date.getDate()
-            let month = date.getMonth() + 1
-            let year = date.getFullYear()
+            let day = date.getDate();
+            let month = date.getMonth() + 1;
+            let year = date.getFullYear();
             let fecha = "";
-            if(month < 10){
-              fecha = `${year}-0${month}-${day}`
-            }else{
-              fecha = `${year}-${month}-${day}`
+            if (month < 10) {
+              fecha = `${year}-0${month}-${day}`;
+            } else {
+              fecha = `${year}-${month}-${day}`;
             }
             Swal.fire({
               icon: "success",
@@ -176,14 +243,14 @@ export default {
               .then((response) => {
                 switch (response.status) {
                   case 200:
-                    if(response.data){
-                       Swal.fire({
-                      icon: "success",
-                      title: "Guardado los datos de compra",
-                      text: "Se ha registrado la compra en su historial",
-                      showConfirmButton: false,
-                      timer: 1000,
-                    });
+                    if (response.data) {
+                      Swal.fire({
+                        icon: "success",
+                        title: "Guardado los datos de compra",
+                        text: "Se ha registrado la compra en su historial",
+                        showConfirmButton: false,
+                        timer: 1000,
+                      });
                     }
                     break;
 
