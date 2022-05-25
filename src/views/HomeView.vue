@@ -28,7 +28,7 @@ onBeforeMount(() => {
               id: element.prodid,
               nombre: element.prodnom,
               descripcion: element.proddesc,
-              img: "",
+              img: element.imagen,
               precio: element.prodprec,
             };
             productos.value.push(p);

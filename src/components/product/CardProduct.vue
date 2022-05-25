@@ -1,6 +1,6 @@
 <template>
   <div class="card product">
-    <img src="@/assets/n64.jpg" class="card-img-top" alt="..." />
+    <img :src="src" class="card-img-top" alt="..." />
     <div class="card-body">
       <div class="top-body">
         <h5 class="card-title">{{ props.producto.nombre }}</h5>
@@ -54,10 +54,12 @@
 </template>
 
 <script lang="ts" setup>
+import { RoutePaths } from "@/core/general/RoutePaths";
 import Swal from "sweetalert2";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { RolUser } from "../../core/general/RolUser";
+
 
 //#region PROPS
 
@@ -69,6 +71,7 @@ const props = defineProps({
 });
 //#endregion
 
+const src = RoutePaths.BASE+props.producto.img;
 //#region USE
 const router = useRouter();
 const store = useStore();
