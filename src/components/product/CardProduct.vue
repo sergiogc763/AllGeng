@@ -4,10 +4,14 @@
     <div class="card-body">
       <div class="top-body">
         <h5 class="card-title">{{ props.producto.nombre }}</h5>
-        <img src="@/assets/eliminar.png" v-if="store.getters.rolId === RolUser.Gestor" style="width: 25px;height: 25px;">
-        
-        </div>
-      
+        <img
+          src="@/assets/eliminar.png"
+          v-if="store.getters.rolId === RolUser.Gestor"
+          style="width: 25px; height: 25px"
+        />
+        <!-- <font-awesome-icon icon="trash-can" /> -->
+      </div>
+
       <p class="card-text">{{ props.producto.precio }} €</p>
     </div>
     <div class="card-footer text-muted">
@@ -20,34 +24,25 @@
         Ver
       </button>
       <div class="options-gestor" v-else>
-        <button
-          type="button"
-          class="btn btn-primary"
-          @click="actualizarProducto()"
-        >
-          Nombre
-        </button>
-        <button
-          type="button"
-          class="btn btn-primary"
-          @click="eliminarProducto()"
-        >
-          Precio
-        </button>
-        <button
-          type="button"
-          class="btn btn-primary"
-          @click="eliminarProducto()"
-        >
-          Descripcion
-        </button>
-        <button
-          type="button"
-          class="btn btn-primary"
-          @click="eliminarProducto()"
-        >
-          Imagen
-        </button>
+        <div class="btn-group" role="group">
+          <button
+            id="btnOpciones"
+            type="button"
+            class="btn btn-primary dropdown-toggle"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Modifcar
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="btnOpciones">
+            <li><span class="dropdown-item" @click="actualizarNombre()">Nombre</span></li>
+            <li><span class="dropdown-item">Precio</span></li>
+            <li><span class="dropdown-item">Descripcion</span></li>
+            <li><span class="dropdown-item">Marca</span></li>
+            <li><span class="dropdown-item">Categoria</span></li>
+            <li><span class="dropdown-item">Tipo</span></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -60,7 +55,6 @@ import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { RolUser } from "../../core/general/RolUser";
 
-
 //#region PROPS
 
 const props = defineProps({
@@ -71,7 +65,7 @@ const props = defineProps({
 });
 //#endregion
 
-const src = RoutePaths.BASE+props.producto.img;
+const src = RoutePaths.BASE + props.producto.img;
 //#region USE
 const router = useRouter();
 const store = useStore();
@@ -88,28 +82,26 @@ function verProducto() {
   });
 }
 
-function actualizarProducto() {
-  // router.push({
-  //   name: "UpdateProductView",
-  //   params: {
-  //     nombre: props.producto.nombre.replace(/\s+/g, "-"),
-  //     id: props.producto.id,
-  //   },
-  // });
-  Swal.fire({
-      icon: "success",
-      title: "Formato datos erroneo",
-      text: "Los datos introducidos no cumplen el formato correcto",
-      showConfirmButton: false,
-      timer: 2000,
-    });
+async function actualizarNombre() {
 
+  const { value: name } = await Swal.fire({
+    title: "Modificar nombre",
+    input: "text",
+    inputLabel: "Nuevo nombre:",
+    inputValue: props.producto.nombre,
+    showCancelButton: true,
+  });
+
+  if (name) {
+    Swal.fire(`EL nuevo nombre del producto es-> ${name}`);
+  }else{
+    Swal.fire(`No puede dejar el campo vacio`);
+  }
 }
 
-function eliminarProducto() {
-
-}
+function eliminarProducto() {}
 //#endregion
+let formData = new FormData();
 </script>
 
 <style lang="scss" scoped>
@@ -119,7 +111,7 @@ function eliminarProducto() {
   margin: 10px;
 }
 
-.top-body{
+.top-body {
   display: flex;
   justify-content: space-between;
 }
@@ -130,12 +122,7 @@ function eliminarProducto() {
   .options-gestor {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
-    
-    button{
-      width: 5vw;
-      margin: 2px;
-    }
+    width: fit-content;
   }
 }
 </style>
