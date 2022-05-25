@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <form ENCTYPE="multipart/form-data" class="containt">
+    <form enctype="multipart/form-data" class="containt">
       <div class="mb-3">
         <label for="nombre" class="form-label">Nombre:</label>
         <input
@@ -23,7 +23,7 @@
       </div>
       <div class="mb-3">
         <label for="imagen" class="form-label">Imágenes:</label>
-        <input type="file" id="images" name="image[]" multiple ref="imagen" />
+        <input type="file" id="images" name="images[]" multiple ref="imagen" />
       </div>
       <div class="mb-3">
         <div class="categorias">
@@ -57,7 +57,7 @@
           class="form-control"
           id="descripcion"
           rows="3"
-          :v-model="descripcion"
+          v-model="descripcion"
         ></textarea>
       </div>
       <div class="options mb-2">
@@ -79,7 +79,7 @@ import { ref, onBeforeMount, reactive } from "vue";
 const nombre = ref<String>("");
 const precio = ref<Number>(1);
 const imagen = ref<any>(null);
-const descripcion = ref<String>("");
+const descripcion = ref<any>("");
 
 const categoria = ref<any>("Seleccione una categoría");
 const categorias = reactive<Array<any>>([]);
@@ -105,10 +105,9 @@ const add = async () => {
 
   axiosUpload();
   //Upload to server
-}
+};
 
 function axiosUpload() {
-
   axios
     .post(`${RoutePaths.API}addProducto.php`, null, {
       params: {
@@ -118,20 +117,61 @@ function axiosUpload() {
         categoria: categoria.value,
         tipo: tipo.value,
         marca: marca.value,
-        imagenes: imagen.value,
       },
     })
     .then((response) => {
       switch (response.status) {
         case 200:
           if (response.data) {
-            Swal.fire({
-              icon: "success",
-              title: "Nuevo producto añadido",
-              text: "Se ha añadido correctamente el nuevo producto",
-              showConfirmButton: false,
-              timer: 1000,
-            });
+            let formData = new FormData();
+            for(let i=0; i<imagen.value.files.length;i++){
+              formData.append("files[]", imagen.value.files[i]);
+            }
+            // formData.append("imagenes", imagen.value.files[0]);
+            axios
+              .post(`${RoutePaths.API}addFotosProducto.php`, formData, {
+                headers:{
+                  'Content-Type': 'multipart/form-data'
+                }    
+              })
+              .then((response) => {
+                switch (response.status) {
+                  case 200:
+                    if (response.data) {
+                      Swal.fire({
+                        icon: "success",
+                        title: "Nuevo producto añadido",
+                        text: "Se ha añadido correctamente el nuevo producto",
+                        showConfirmButton: false,
+                        timer: 1000,
+                      });
+                    }
+                    break;
+
+                  case 404:
+                    Swal.fire({
+                      icon: "error",
+                      title: "ERROR",
+                      text: "Error interno. No se ha encontrado la ruta",
+                      showConfirmButton: false,
+                      timer: 2000,
+                    });
+                    break;
+
+                  case 500:
+                    Swal.fire({
+                      icon: "error",
+                      title: "ERROR",
+                      text: "Error interno. Fallo de API",
+                      showConfirmButton: false,
+                      timer: 2000,
+                    });
+                    break;
+                }
+              })
+              .catch((error) => {
+                console.error("There was an error!", error);
+              });
           }
           break;
 
