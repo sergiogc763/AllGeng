@@ -9,8 +9,11 @@
           data-bs-ride="carousel"
         >
           <div class="carousel-inner">
-            <div class="carousel-item active" data-bs-interval="10000">
-              <img :src="producto.img" class="d-block w-75" />
+             <div class="carousel-item active w-100" data-bs-interval="5000">
+              <img :src="producto.img" class="d-block" />
+            </div>
+             <div class="carousel-item w-100" data-bs-interval="5000"  v-for="imgagen in producto.imagenes">
+              <img :src="imgagen" class="d-block" />
             </div>
           </div>
           <button
@@ -137,11 +140,12 @@ export default {
 
               axios
                 .get(`${RoutePaths.API}getFotosProducto.php`, formData)
-                .then((response) => {
-                  switch (response.status) {
+                .then((res) => {
+                  console.log(res);
+                  switch (res.status) {
                     case 200:
-                       res.data.products.data.forEach((element) => {
-                        
+                       res.data.fotos.data.forEach((element) => {
+                        this.producto.imagenes.push(RoutePaths.BASE +element.ruta)
                        })
 
                       break;
@@ -292,6 +296,16 @@ export default {
 <style lang="scss" scoped>
 .main {
   background-color: white;
+
+  img{
+    width: 40vw;
+    height: 40vw;
+  }
+
+  .carousel-item{
+    width: 45vw;
+    
+  }
 
   .banner {
     margin: 0;
