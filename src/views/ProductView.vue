@@ -122,11 +122,11 @@ export default {
       this.cantidad = event.target.value;
       this.total = this.cantidad * this.producto.precio;
     },
-    getProductById() {
+  async getProductById() {
       const formData = new FormData();
       formData.append("id", this.$route.params.id);
 
-      axios
+     await axios
         .post(`${RoutePaths.API}getProductById.php`, formData)
         .then((response) => {
           switch (response.status) {
@@ -138,8 +138,8 @@ export default {
                 RoutePaths.BASE + response.data.response.imagen;
               this.total = this.producto.precio;
 
-              axios
-                .get(`${RoutePaths.API}getFotosProducto.php`, formData)
+               axios
+                .post(`${RoutePaths.API}getFotosProducto.php`, formData)
                 .then((res) => {
                   console.log(res);
                   switch (res.status) {
