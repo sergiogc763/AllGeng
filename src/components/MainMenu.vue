@@ -24,14 +24,14 @@
               @click="uploadProduct"
               v-if="store.state.User.rolid === RolUser.Gestor"
             >
-              <button class="button btnAccount"><img src="@/assets/user.png" class="img-icons" /><span>Upload</span></button>
+              <button class="button btnAccount"><font-awesome-icon icon="upload" /><span>Upload</span></button>
             </li>
             <li
               class="nav-item"
               @click="goLogin"
               v-if="!store.state.User.logged"
             >
-              <button class="button btnAccount"><font-awesome-icon icon=user-astronaut /><span>Cuenta</span></button>
+              <button class="button btnAccount"><font-awesome-icon icon="user-secret"/><span>Cuenta</span></button>
 
             </li>
             <li class="nav-item dropdown" v-else>
@@ -39,11 +39,12 @@
                 class="useraccount nav-link"
                 data-bs-toggle="dropdown"
               >
-                <button class="button btnAccount"><img src="@/assets/user.png" class="img-icons" /><span>Cuenta</span></button>
+                <button class="button btnAccount"><font-awesome-icon icon="circle-user"/><span>Cuenta</span></button>
               </div>
 
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
+                  <font-awesome-icon icon="gears"/>
                   <router-link
                     class="dropdown-item"
                     :to="RoutePaths.UserOptions"
@@ -51,6 +52,7 @@
                   >
                 </li>
                 <li>
+                  <font-awesome-icon icon="right-from-bracket" />
                   <router-link class="dropdown-item" to=""
                     >Desconectar</router-link
                   >
