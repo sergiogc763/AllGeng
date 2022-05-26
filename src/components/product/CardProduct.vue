@@ -31,7 +31,7 @@
           </button>
           <ul class="dropdown-menu" aria-labelledby="btnOpciones">
             <li><span class="dropdown-item" @click="actualizarNombre()">Nombre</span></li>
-            <li><span class="dropdown-item">Precio</span></li>
+            <li><span class="dropdown-item" @click="actualizarPrecio()">Precio</span></li>
             <li><span class="dropdown-item">Descripcion</span></li>
             <li><span class="dropdown-item">Marca</span></li>
             <li><span class="dropdown-item">Categoria</span></li>
@@ -61,7 +61,7 @@ const props = defineProps({
 });
 //#endregion
 
-const emit = defineEmits(['actualizarNombre'])
+const emit = defineEmits(['actualizarNombre','actualizarPrecio'])
 
 const src = RoutePaths.BASE + props.producto.img;
 //#region USE
@@ -150,9 +150,77 @@ async function actualizarNombre() {
   }
 }
 
-function eliminarProducto() {}
-//#endregion
-let formData = new FormData();
+async function actualizarPrecio() {
+
+  const { value: precio } = await Swal.fire({
+    title: "Modificar precio",
+    input: "text",
+    inputLabel: "Nuevo precio:",
+    inputValue: props.producto.precio,
+    showCancelButton: true,
+  });
+
+  if (precio) {
+    Swal.fire(`El nuevo nombre del producto es-> ${precio}`);
+
+    let formData = new FormData();
+    formData.append("id", props.producto.id)
+    formData.append("precio", precio)
+
+     await axios.post(`${RoutePaths.API}updatePrecioProducto.php`, formData)
+     .then((response) => {
+              switch (response.status) {
+                case 200:
+                  if (response.data) {
+                    emit('actualizarPrecio');
+                    Swal.fire({
+                      icon: "success",
+                      title: "Precio actualizado",
+                      showConfirmButton: false,
+                      timer: 2000,
+                    });
+                  } else {
+                    Swal.fire({
+                      icon: "error",
+                      title: "ERROR",
+                      text: "Error interno. Perdone las molestias",
+                      showConfirmButton: false,
+                      timer: 2000,
+                    });
+                  }
+                  break;
+
+                case 404:
+                  Swal.fire({
+                    icon: "error",
+                    title: "ERROR",
+                    text: "Error interno. No se ha encontrado la ruta",
+                    showConfirmButton: false,
+                    timer: 2000,
+                  });
+                  break;
+
+                case 500:
+                  Swal.fire({
+                    icon: "error",
+                    title: "ERROR",
+                    text: "Error interno. Fallo de API",
+                    showConfirmButton: false,
+                    timer: 2000,
+                  });
+                  break;
+              }
+            })
+            .catch((error) => {
+              console.error("There was an error!", error);
+            });
+   
+  }else{
+    Swal.fire(`No puede dejar el campo vacio`);
+  }
+}
+
+
 </script>
 
 <style lang="scss" scoped>
