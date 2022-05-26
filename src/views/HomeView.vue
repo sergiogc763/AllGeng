@@ -1,7 +1,7 @@
 <template>
   <div class="body">
     <div class="content">
-      <CardProduct :producto="ob" v-for="ob in productos" />
+      <CardProduct :producto="ob" v-for="ob in productos" @actualizarNombre="refreshDatos"/>
     </div>
   </div>
 </template>
@@ -17,6 +17,10 @@ import Swal from "sweetalert2";
 const productos = ref<Array<Producto>>([]);
 
 onBeforeMount(() => {
+  refreshDatos();
+});
+
+function refreshDatos(){
   axios
     .get(`${RoutePaths.API}getProductos.php`)
     .then((res) => {
@@ -58,7 +62,7 @@ onBeforeMount(() => {
     .catch((error) => {
       console.error("There was an error!", error);
     });
-});
+}
 </script>
 
 <style lang="scss" scoped>

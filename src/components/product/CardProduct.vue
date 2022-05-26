@@ -4,12 +4,7 @@
     <div class="card-body">
       <div class="top-body">
         <h5 class="card-title">{{ props.producto.nombre }}</h5>
-        <img
-          src="@/assets/eliminar.png"
-          v-if="store.getters.rolId === RolUser.Gestor"
-          style="width: 25px; height: 25px"
-        />
-        <!-- <font-awesome-icon icon="trash-can" /> -->
+        <font-awesome-icon icon="trash-can"  v-if="store.getters.rolId === RolUser.Gestor"/>
       </div>
 
       <p class="card-text">{{ props.producto.precio }} €</p>
@@ -50,6 +45,7 @@
 
 <script lang="ts" setup>
 import { RoutePaths } from "@/core/general/RoutePaths";
+import axios from "axios";
 import Swal from "sweetalert2";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
@@ -64,6 +60,8 @@ const props = defineProps({
   },
 });
 //#endregion
+
+const emit = defineEmits(['actualizarNombre'])
 
 const src = RoutePaths.BASE + props.producto.img;
 //#region USE
@@ -93,7 +91,60 @@ async function actualizarNombre() {
   });
 
   if (name) {
-    Swal.fire(`EL nuevo nombre del producto es-> ${name}`);
+    Swal.fire(`El nuevo nombre del producto es-> ${name}`);
+
+    let formData = new FormData();
+    formData.append("id", props.producto.id)
+    formData.append("name", name)
+
+     await axios.put(`${RoutePaths.API}updateNombreProducto.php`, formData)
+     .then((response) => {
+              switch (response.status) {
+                case 200:
+                  if (response.data) {
+                    emit('actualizarNombre');
+                    Swal.fire({
+                      icon: "success",
+                      title: "Nombre actualizado",
+                      showConfirmButton: false,
+                      timer: 2000,
+                    });
+                  } else {
+                    Swal.fire({
+                      icon: "error",
+                      title: "ERROR",
+                      text: "Error interno. Perdone las molestias",
+                      showConfirmButton: false,
+                      timer: 2000,
+                    });
+                  }
+                  break;
+
+                case 404:
+                  Swal.fire({
+                    icon: "error",
+                    title: "ERROR",
+                    text: "Error interno. No se ha encontrado la ruta",
+                    showConfirmButton: false,
+                    timer: 2000,
+                  });
+                  break;
+
+                case 500:
+                  Swal.fire({
+                    icon: "error",
+                    title: "ERROR",
+                    text: "Error interno. Fallo de API",
+                    showConfirmButton: false,
+                    timer: 2000,
+                  });
+                  break;
+              }
+            })
+            .catch((error) => {
+              console.error("There was an error!", error);
+            });
+   
   }else{
     Swal.fire(`No puede dejar el campo vacio`);
   }
