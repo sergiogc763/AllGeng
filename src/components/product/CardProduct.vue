@@ -97,7 +97,7 @@ async function actualizarNombre() {
     formData.append("id", props.producto.id)
     formData.append("name", name)
 
-     await axios.put(`${RoutePaths.API}updateNombreProducto.php`, formData)
+     await axios.post(`${RoutePaths.API}updateNombreProducto.php`, formData)
      .then((response) => {
               switch (response.status) {
                 case 200:

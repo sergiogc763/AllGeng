@@ -70,7 +70,7 @@
           <TextOptionProduct :text="producto.caracteristicas" />
         </div>
         <div class="comentarios" v-if="opcion === 3">
-          <p>{{ producto.descripcion }}</p>
+          
         </div>
       </div>
     </div>

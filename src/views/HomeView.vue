@@ -21,6 +21,7 @@ onBeforeMount(() => {
 });
 
 function refreshDatos(){
+  productos.value = []
   axios
     .get(`${RoutePaths.API}getProductos.php`)
     .then((res) => {
