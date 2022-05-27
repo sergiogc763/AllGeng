@@ -1,7 +1,7 @@
 <template>
   <div class="body">
     <div class="content">
-      <CardProduct :producto="ob" v-for="ob in productos" @actualizarNombre="refreshDatos" @actualizarPrecio="refreshDatos" @actualizarDescripcion="refreshDatos"/>
+      <CardProduct :producto="ob" v-for="ob in productos" @actualizarNombre="refreshDatos" @actualizarPrecio="refreshDatos" @actualizarDescripcion="refreshDatos" @deleteProduct="refreshDatos"/>
     </div>
   </div>
 </template>
@@ -27,8 +27,8 @@ function refreshDatos(){
     .then((res) => {
       switch (res.status) {
         case 200:
-          // console.log(res);
-          res.data.products.data.forEach((element: any) => {
+          if(res.data.products.length > 0){
+             res.data.products.data.forEach((element: any) => {
             const p: Producto = {
               id: element.prodid,
               nombre: element.prodnom,
@@ -38,6 +38,8 @@ function refreshDatos(){
             };
             productos.value.push(p);
           });
+          }
+         
           break;
         case 404:
           Swal.fire({

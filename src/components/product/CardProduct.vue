@@ -4,7 +4,11 @@
     <div class="card-body">
       <div class="top-body">
         <h5 class="card-title">{{ props.producto.nombre }}</h5>
-        <font-awesome-icon icon="trash-can"  v-if="store.getters.rolId === RolUser.Gestor" @click="deleteProduct()"/>
+        <font-awesome-icon
+          icon="trash-can"
+          v-if="store.getters.rolId === RolUser.Gestor"
+          @click="deleteProduct()"
+        />
       </div>
 
       <p class="card-text">{{ props.producto.precio }} €</p>
@@ -30,9 +34,21 @@
             Modifcar
           </button>
           <ul class="dropdown-menu" aria-labelledby="btnOpciones">
-            <li><span class="dropdown-item" @click="actualizarNombre()">Nombre</span></li>
-            <li><span class="dropdown-item" @click="actualizarPrecio()">Precio</span></li>
-            <li><span class="dropdown-item" @click="actualizarDescripcion()">Descripcion</span></li>
+            <li>
+              <span class="dropdown-item" @click="actualizarNombre()"
+                >Nombre</span
+              >
+            </li>
+            <li>
+              <span class="dropdown-item" @click="actualizarPrecio()"
+                >Precio</span
+              >
+            </li>
+            <li>
+              <span class="dropdown-item" @click="actualizarDescripcion()"
+                >Descripcion</span
+              >
+            </li>
           </ul>
         </div>
       </div>
@@ -58,7 +74,12 @@ const props = defineProps({
 });
 //#endregion
 
-const emit = defineEmits(['actualizarNombre','actualizarPrecio','actualizarDescripcion'])
+const emit = defineEmits([
+  "actualizarNombre",
+  "actualizarPrecio",
+  "actualizarDescripcion",
+  "deleteProduct"
+]);
 
 const src = RoutePaths.BASE + props.producto.img;
 //#region USE
@@ -78,7 +99,6 @@ function verProducto() {
 }
 
 async function actualizarNombre() {
-
   const { value: name } = await Swal.fire({
     title: "Modificar nombre",
     input: "text",
@@ -91,64 +111,63 @@ async function actualizarNombre() {
     Swal.fire(`El nuevo nombre del producto es-> ${name}`);
 
     let formData = new FormData();
-    formData.append("id", props.producto.id)
-    formData.append("name", name)
+    formData.append("id", props.producto.id);
+    formData.append("name", name);
 
-     await axios.post(`${RoutePaths.API}updateNombreProducto.php`, formData)
-     .then((response) => {
-              switch (response.status) {
-                case 200:
-                  if (response.data) {
-                    emit('actualizarNombre');
-                    Swal.fire({
-                      icon: "success",
-                      title: "Nombre actualizado",
-                      showConfirmButton: false,
-                      timer: 2000,
-                    });
-                  } else {
-                    Swal.fire({
-                      icon: "error",
-                      title: "ERROR",
-                      text: "Error interno. Perdone las molestias",
-                      showConfirmButton: false,
-                      timer: 2000,
-                    });
-                  }
-                  break;
+    await axios
+      .post(`${RoutePaths.API}updateNombreProducto.php`, formData)
+      .then((response) => {
+        switch (response.status) {
+          case 200:
+            if (response.data) {
+              emit("actualizarNombre");
+              Swal.fire({
+                icon: "success",
+                title: "Nombre actualizado",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "ERROR",
+                text: "Error interno. Perdone las molestias",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            }
+            break;
 
-                case 404:
-                  Swal.fire({
-                    icon: "error",
-                    title: "ERROR",
-                    text: "Error interno. No se ha encontrado la ruta",
-                    showConfirmButton: false,
-                    timer: 2000,
-                  });
-                  break;
-
-                case 500:
-                  Swal.fire({
-                    icon: "error",
-                    title: "ERROR",
-                    text: "Error interno. Fallo de API",
-                    showConfirmButton: false,
-                    timer: 2000,
-                  });
-                  break;
-              }
-            })
-            .catch((error) => {
-              console.error("There was an error!", error);
+          case 404:
+            Swal.fire({
+              icon: "error",
+              title: "ERROR",
+              text: "Error interno. No se ha encontrado la ruta",
+              showConfirmButton: false,
+              timer: 2000,
             });
-   
-  }else{
+            break;
+
+          case 500:
+            Swal.fire({
+              icon: "error",
+              title: "ERROR",
+              text: "Error interno. Fallo de API",
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
+        }
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
+  } else {
     Swal.fire(`No puede dejar el campo vacio`);
   }
 }
 
 async function actualizarPrecio() {
-
   const { value: precio } = await Swal.fire({
     title: "Modificar precio",
     input: "text",
@@ -161,64 +180,63 @@ async function actualizarPrecio() {
     Swal.fire(`El nuevo nombre del producto es-> ${precio}`);
 
     let formData = new FormData();
-    formData.append("id", props.producto.id)
-    formData.append("precio", precio)
+    formData.append("id", props.producto.id);
+    formData.append("precio", precio);
 
-     await axios.post(`${RoutePaths.API}updatePrecioProducto.php`, formData)
-     .then((response) => {
-              switch (response.status) {
-                case 200:
-                  if (response.data) {
-                    emit('actualizarPrecio');
-                    Swal.fire({
-                      icon: "success",
-                      title: "Precio actualizado",
-                      showConfirmButton: false,
-                      timer: 2000,
-                    });
-                  } else {
-                    Swal.fire({
-                      icon: "error",
-                      title: "ERROR",
-                      text: "Error interno. Perdone las molestias",
-                      showConfirmButton: false,
-                      timer: 2000,
-                    });
-                  }
-                  break;
+    await axios
+      .post(`${RoutePaths.API}updatePrecioProducto.php`, formData)
+      .then((response) => {
+        switch (response.status) {
+          case 200:
+            if (response.data) {
+              emit("actualizarPrecio");
+              Swal.fire({
+                icon: "success",
+                title: "Precio actualizado",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "ERROR",
+                text: "Error interno. Perdone las molestias",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            }
+            break;
 
-                case 404:
-                  Swal.fire({
-                    icon: "error",
-                    title: "ERROR",
-                    text: "Error interno. No se ha encontrado la ruta",
-                    showConfirmButton: false,
-                    timer: 2000,
-                  });
-                  break;
-
-                case 500:
-                  Swal.fire({
-                    icon: "error",
-                    title: "ERROR",
-                    text: "Error interno. Fallo de API",
-                    showConfirmButton: false,
-                    timer: 2000,
-                  });
-                  break;
-              }
-            })
-            .catch((error) => {
-              console.error("There was an error!", error);
+          case 404:
+            Swal.fire({
+              icon: "error",
+              title: "ERROR",
+              text: "Error interno. No se ha encontrado la ruta",
+              showConfirmButton: false,
+              timer: 2000,
             });
-   
-  }else{
+            break;
+
+          case 500:
+            Swal.fire({
+              icon: "error",
+              title: "ERROR",
+              text: "Error interno. Fallo de API",
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
+        }
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
+  } else {
     Swal.fire(`No puede dejar el campo vacio`);
   }
 }
 
 async function actualizarDescripcion() {
-
   const { value: descripcion } = await Swal.fire({
     title: "Modificar descripción",
     input: "textarea",
@@ -231,66 +249,115 @@ async function actualizarDescripcion() {
     Swal.fire(`Se ha modificado la descripción del producto`);
 
     let formData = new FormData();
-    formData.append("id", props.producto.id)
-    formData.append("descripcion", descripcion)
+    formData.append("id", props.producto.id);
+    formData.append("descripcion", descripcion);
 
-     await axios.post(`${RoutePaths.API}updateDescripcionProducto.php`, formData)
-     .then((response) => {
-              switch (response.status) {
-                case 200:
-                  if (response.data) {
-                    emit('actualizarDescripcion');
-                    Swal.fire({
-                      icon: "success",
-                      title: "Descripcion actualizada",
-                      showConfirmButton: false,
-                      timer: 2000,
-                    });
-                  } else {
-                    Swal.fire({
-                      icon: "error",
-                      title: "ERROR",
-                      text: "Error interno. Perdone las molestias",
-                      showConfirmButton: false,
-                      timer: 2000,
-                    });
-                  }
-                  break;
+    await axios
+      .post(`${RoutePaths.API}updateDescripcionProducto.php`, formData)
+      .then((response) => {
+        switch (response.status) {
+          case 200:
+            if (response.data) {
+              emit("actualizarDescripcion");
+              Swal.fire({
+                icon: "success",
+                title: "Descripcion actualizada",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "ERROR",
+                text: "Error interno. Perdone las molestias",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            }
+            break;
 
-                case 404:
-                  Swal.fire({
-                    icon: "error",
-                    title: "ERROR",
-                    text: "Error interno. No se ha encontrado la ruta",
-                    showConfirmButton: false,
-                    timer: 2000,
-                  });
-                  break;
-
-                case 500:
-                  Swal.fire({
-                    icon: "error",
-                    title: "ERROR",
-                    text: "Error interno. Fallo de API",
-                    showConfirmButton: false,
-                    timer: 2000,
-                  });
-                  break;
-              }
-            })
-            .catch((error) => {
-              console.error("There was an error!", error);
+          case 404:
+            Swal.fire({
+              icon: "error",
+              title: "ERROR",
+              text: "Error interno. No se ha encontrado la ruta",
+              showConfirmButton: false,
+              timer: 2000,
             });
-   
-  }else{
+            break;
+
+          case 500:
+            Swal.fire({
+              icon: "error",
+              title: "ERROR",
+              text: "Error interno. Fallo de API",
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
+        }
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
+  } else {
     Swal.fire(`No puede dejar el campo vacio`);
   }
 }
 
-function deleteProduct(){
-  
-}
+async function deleteProduct() {
+  let formData = new FormData();
+  formData.append("id", props.producto.id);
 
+  await axios
+    .post(`${RoutePaths.API}deleteProduct.php`, formData)
+    .then((response) => {
+      switch (response.status) {
+        case 200:
+          if (response.data) {
+            emit("deleteProduct");
+            Swal.fire({
+              icon: "success",
+              title: "Producto eliminado",
+              showConfirmButton: false,
+              timer: 2000,
+            });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "ERROR",
+              text: "Error interno. Perdone las molestias",
+              showConfirmButton: false,
+              timer: 2000,
+            });
+          }
+          break;
+
+        case 404:
+          Swal.fire({
+            icon: "error",
+            title: "ERROR",
+            text: "Error interno. No se ha encontrado la ruta",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          break;
+
+        case 500:
+          Swal.fire({
+            icon: "error",
+            title: "ERROR",
+            text: "Error interno. Fallo de API",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          break;
+      }
+    })
+    .catch((error) => {
+      console.error("There was an error!", error);
+    });
+}
 </script>
 
 <style lang="scss" scoped>
