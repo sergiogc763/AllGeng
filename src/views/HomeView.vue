@@ -1,12 +1,5 @@
 <template>
   <div class="body">
-    <div class="filters">
-      <select class="categoria"></select>
-      <select class="tipo"></select>
-      <select class="marca"></select>
-      <select class="order"></select>
-      <input type="search">
-    </div>
     <div class="content">
       <CardProduct :producto="ob" v-for="ob in productos" @actualizarNombre="refreshDatos" @actualizarPrecio="refreshDatos" @actualizarDescripcion="refreshDatos" @deleteProduct="refreshDatos"/>
     </div>
@@ -34,7 +27,8 @@ function refreshDatos(){
     .then((res) => {
       switch (res.status) {
         case 200:
-          if(res.data.products.length > 0){
+          console.log(res);
+          if(res.data.products.data.length > 0){
              res.data.products.data.forEach((element: any) => {
             const p: Producto = {
               id: element.prodid,
