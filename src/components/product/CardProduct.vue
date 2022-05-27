@@ -4,7 +4,7 @@
     <div class="card-body">
       <div class="top-body">
         <h5 class="card-title">{{ props.producto.nombre }}</h5>
-        <font-awesome-icon icon="trash-can"  v-if="store.getters.rolId === RolUser.Gestor"/>
+        <font-awesome-icon icon="trash-can"  v-if="store.getters.rolId === RolUser.Gestor" @click="deleteProduct()"/>
       </div>
 
       <p class="card-text">{{ props.producto.precio }} €</p>
@@ -32,10 +32,7 @@
           <ul class="dropdown-menu" aria-labelledby="btnOpciones">
             <li><span class="dropdown-item" @click="actualizarNombre()">Nombre</span></li>
             <li><span class="dropdown-item" @click="actualizarPrecio()">Precio</span></li>
-            <li><span class="dropdown-item">Descripcion</span></li>
-            <li><span class="dropdown-item">Marca</span></li>
-            <li><span class="dropdown-item">Categoria</span></li>
-            <li><span class="dropdown-item">Tipo</span></li>
+            <li><span class="dropdown-item" @click="actualizarDescripcion()">Descripcion</span></li>
           </ul>
         </div>
       </div>
@@ -61,7 +58,7 @@ const props = defineProps({
 });
 //#endregion
 
-const emit = defineEmits(['actualizarNombre','actualizarPrecio'])
+const emit = defineEmits(['actualizarNombre','actualizarPrecio','actualizarDescripcion'])
 
 const src = RoutePaths.BASE + props.producto.img;
 //#region USE
@@ -220,6 +217,79 @@ async function actualizarPrecio() {
   }
 }
 
+async function actualizarDescripcion() {
+
+  const { value: descripcion } = await Swal.fire({
+    title: "Modificar descripción",
+    input: "textarea",
+    inputLabel: "Nueva descripcion:",
+    inputValue: props.producto.descripcion,
+    showCancelButton: true,
+  });
+
+  if (descripcion) {
+    Swal.fire(`Se ha modificado la descripción del producto`);
+
+    let formData = new FormData();
+    formData.append("id", props.producto.id)
+    formData.append("descripcion", descripcion)
+
+     await axios.post(`${RoutePaths.API}updateDescripcionProducto.php`, formData)
+     .then((response) => {
+              switch (response.status) {
+                case 200:
+                  if (response.data) {
+                    emit('actualizarDescripcion');
+                    Swal.fire({
+                      icon: "success",
+                      title: "Descripcion actualizada",
+                      showConfirmButton: false,
+                      timer: 2000,
+                    });
+                  } else {
+                    Swal.fire({
+                      icon: "error",
+                      title: "ERROR",
+                      text: "Error interno. Perdone las molestias",
+                      showConfirmButton: false,
+                      timer: 2000,
+                    });
+                  }
+                  break;
+
+                case 404:
+                  Swal.fire({
+                    icon: "error",
+                    title: "ERROR",
+                    text: "Error interno. No se ha encontrado la ruta",
+                    showConfirmButton: false,
+                    timer: 2000,
+                  });
+                  break;
+
+                case 500:
+                  Swal.fire({
+                    icon: "error",
+                    title: "ERROR",
+                    text: "Error interno. Fallo de API",
+                    showConfirmButton: false,
+                    timer: 2000,
+                  });
+                  break;
+              }
+            })
+            .catch((error) => {
+              console.error("There was an error!", error);
+            });
+   
+  }else{
+    Swal.fire(`No puede dejar el campo vacio`);
+  }
+}
+
+function deleteProduct(){
+  
+}
 
 </script>
 

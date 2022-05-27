@@ -1,7 +1,7 @@
 <template>
   <div class="body">
     <div class="content">
-      <CardProduct :producto="ob" v-for="ob in productos" @actualizarNombre="refreshDatos" @actualizarPrecio="refreshDatos"/>
+      <CardProduct :producto="ob" v-for="ob in productos" @actualizarNombre="refreshDatos" @actualizarPrecio="refreshDatos" @actualizarDescripcion="refreshDatos"/>
     </div>
   </div>
 </template>
