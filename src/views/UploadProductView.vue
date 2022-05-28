@@ -107,8 +107,8 @@ const add = async () => {
   //Upload to server
 };
 
-function axiosUpload() {
-  axios
+async function axiosUpload() {
+  await axios
     .post(`${RoutePaths.API}addProducto.php`, null, {
       params: {
         nombre: nombre.value,
@@ -201,9 +201,9 @@ function axiosUpload() {
     });
 }
 
-function getCategorias() {
+async function getCategorias() {
   //Recuperamos las categorías
-  axios
+  await axios
     .get(`${RoutePaths.API}getCategorias.php`)
     .then((res) => {
       switch (res.status) {
@@ -239,9 +239,9 @@ function getCategorias() {
     });
 }
 
-function getTipos() {
+async function getTipos() {
   //Recuperamos las categorías
-  axios
+ await axios
     .get(`${RoutePaths.API}getTipos.php`)
     .then((res) => {
       switch (res.status) {
@@ -277,9 +277,9 @@ function getTipos() {
     });
 }
 
-function getMarcas() {
+async function getMarcas() {
   //Recuperamos las categorías
-  axios
+  await axios
     .get(`${RoutePaths.API}getMarcas.php`)
     .then((res) => {
       switch (res.status) {
