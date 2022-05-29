@@ -1,6 +1,6 @@
 <template>
   <div class="card product">
-    <img :src="RoutePaths.BASE+src" class="card-img-top" alt="..." />
+    <img :src="RoutePaths.BASE + src" class="card-img-top" alt="..." />
     <div class="card-body">
       <div class="top-body">
         <h5 class="card-title">{{ props.producto.nombre }}</h5>
@@ -60,7 +60,7 @@
 import { RoutePaths } from "@/core/general/RoutePaths";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { ref, computed } from 'vue';
+import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { RolUser } from "../../core/general/RolUser";
@@ -79,13 +79,12 @@ const emit = defineEmits([
   "actualizarNombre",
   "actualizarPrecio",
   "actualizarDescripcion",
-  "deleteProduct"
+  "deleteProduct",
 ]);
 
-
-const src = computed(()=>{
-  return props.producto.img
-})
+const src = computed(() => {
+  return props.producto.img;
+});
 //#region USE
 const router = useRouter();
 const store = useStore();
@@ -309,58 +308,70 @@ async function actualizarDescripcion() {
   }
 }
 
-async function deleteProduct() {
-  let formData = new FormData();
-  formData.append("id", props.producto.id);
+function deleteProduct() {
+  Swal.fire({
+    title: "¿ Seguro que desea eliminar el producto ?",
+    showDenyButton: true,
+    confirmButtonText: "Eliminar",
+    denyButtonText: "Cancelar",
+  }).then(async (result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      let formData = new FormData();
+      formData.append("id", props.producto.id);
 
-  await axios
-    .post(`${RoutePaths.API}deleteProduct.php`, formData)
-    .then((response) => {
-      switch (response.status) {
-        case 200:
-          if (response.data) {
-            emit("deleteProduct");
-            Swal.fire({
-              icon: "success",
-              title: "Producto eliminado",
-              showConfirmButton: false,
-              timer: 2000,
-            });
-          } else {
-            Swal.fire({
-              icon: "error",
-              title: "ERROR",
-              text: "Error interno. Perdone las molestias",
-              showConfirmButton: false,
-              timer: 2000,
-            });
+      await axios
+        .post(`${RoutePaths.API}deleteProduct.php`, formData)
+        .then((response) => {
+          switch (response.status) {
+            case 200:
+              if (response.data) {
+                emit("deleteProduct");
+                Swal.fire({
+                  icon: "success",
+                  title: "Producto eliminado",
+                  showConfirmButton: false,
+                  timer: 2000,
+                });
+              } else {
+                Swal.fire({
+                  icon: "error",
+                  title: "ERROR",
+                  text: "Error interno. Perdone las molestias",
+                  showConfirmButton: false,
+                  timer: 2000,
+                });
+              }
+              break;
+
+            case 404:
+              Swal.fire({
+                icon: "error",
+                title: "ERROR",
+                text: "Error interno. No se ha encontrado la ruta",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+              break;
+
+            case 500:
+              Swal.fire({
+                icon: "error",
+                title: "ERROR",
+                text: "Error interno. Fallo de API",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+              break;
           }
-          break;
-
-        case 404:
-          Swal.fire({
-            icon: "error",
-            title: "ERROR",
-            text: "Error interno. No se ha encontrado la ruta",
-            showConfirmButton: false,
-            timer: 2000,
-          });
-          break;
-
-        case 500:
-          Swal.fire({
-            icon: "error",
-            title: "ERROR",
-            text: "Error interno. Fallo de API",
-            showConfirmButton: false,
-            timer: 2000,
-          });
-          break;
-      }
-    })
-    .catch((error) => {
-      console.error("There was an error!", error);
-    });
+        })
+        .catch((error) => {
+          console.error("There was an error!", error);
+        });
+    } else if (result.isDenied) {
+      Swal.fire("Ha cancelado el proceso de eliminación");
+    }
+  });
 }
 </script>
 
