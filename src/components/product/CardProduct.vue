@@ -1,6 +1,6 @@
 <template>
   <div class="card product">
-    <img :src="src" class="card-img-top" alt="..." />
+    <img :src="RoutePaths.BASE+src" class="card-img-top" alt="..." />
     <div class="card-body">
       <div class="top-body">
         <h5 class="card-title">{{ props.producto.nombre }}</h5>
@@ -60,6 +60,7 @@
 import { RoutePaths } from "@/core/general/RoutePaths";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { ref, computed } from 'vue';
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { RolUser } from "../../core/general/RolUser";
@@ -81,7 +82,10 @@ const emit = defineEmits([
   "deleteProduct"
 ]);
 
-const src = RoutePaths.BASE + props.producto.img;
+
+const src = computed(()=>{
+  return props.producto.img
+})
 //#region USE
 const router = useRouter();
 const store = useStore();

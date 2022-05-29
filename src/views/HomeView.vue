@@ -2,11 +2,7 @@
   <div class="body">
     <div class="filters mb-5">
       <div class="categorias">
-        <select
-          class="form-select"
-          v-model="categoria"
-          @change="filtro"
-        >
+        <select class="form-select" v-model="categoria" @change="filtro">
           <option selected disabled>Seleccione una categoría</option>
           <option v-for="options in categorias" v-bind:value="options.value">
             {{ options.text }}
@@ -21,11 +17,24 @@
           </option>
         </select>
       </div>
+      <div class="marcas">
+        <select class="form-select" v-model="marca" @change="filtro">
+          <option selected disabled>Seleccione una marca</option>
+          <option v-for="option in marcas" v-bind:value="option.value">
+            {{ option.text }}
+          </option>
+        </select>
+      </div>
+      <div class="option">
+        <button class="btn btn-primary" @click="resetFilters()">
+          Reiniciar filtro
+        </button>
+      </div>
     </div>
     <div class="cards">
       <CardProduct
-        :producto="ob"
         v-for="ob in productosMostrar"
+        :producto="ob"
         @actualizarNombre="refreshDatos"
         @actualizarPrecio="refreshDatos"
         @actualizarDescripcion="refreshDatos"
@@ -51,13 +60,16 @@ const categorias = reactive<Array<any>>([]);
 const tipo = ref<any>("Seleccione un tipo");
 const tipos = reactive<Array<any>>([]);
 
+const marca = ref<any>("Seleccione una marca");
+const marcas = reactive<Array<any>>([]);
+
 const productosMostrar = ref<Array<Producto>>([]);
 
 onBeforeMount(() => {
   refreshDatos();
   getCategorias();
   getTipos();
-  console.log(categoria.value);
+  getMarcas();
 });
 
 async function refreshDatos() {
@@ -67,7 +79,6 @@ async function refreshDatos() {
     .then((res) => {
       switch (res.status) {
         case 200:
-          console.log(res);
           if (res.data.products.data.length > 0) {
             res.data.products.data.forEach((element: any) => {
               const p: Producto = {
@@ -78,6 +89,7 @@ async function refreshDatos() {
                 precio: element.prodprec,
                 categoria: element.prodcategoria,
                 tipo: element.prodtipo,
+                marca: element.prodmarca,
               };
               productos.value.push(p);
             });
@@ -186,35 +198,72 @@ async function getTipos() {
       console.error("There was an error!", error);
     });
 }
+async function getMarcas() {
+  //Recuperamos las categorías
+  await axios
+    .get(`${RoutePaths.API}getMarcas.php`)
+    .then((res) => {
+      switch (res.status) {
+        case 200:
+          // console.log(res);
+          res.data.categorias.data.forEach((element: any) => {
+            marcas.push({ text: element.marcnom, value: element.marcid });
+          });
+          break;
+        case 404:
+          Swal.fire({
+            icon: "error",
+            title: "ERROR",
+            text: "Error interno. No se ha encontrado la ruta",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          break;
 
+        case 500:
+          Swal.fire({
+            icon: "error",
+            title: "ERROR",
+            text: "Error interno. Fallo de API",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          break;
+      }
+    })
+    .catch((error) => {
+      console.error("There was an error!", error);
+    });
+}
 function filtro() {
+ 
+  productosMostrar.value = productos.value;
+
   if (!isNaN(categoria.value)) {
-    productosMostrar.value = productos.value.filter((p) => {
+    productosMostrar.value = productosMostrar.value.filter((p) => {
       return p.categoria === categoria.value;
     });
   }
 
-  if (!isNaN(tipo.value) && !isNaN(categoria.value)) {
+  if (!isNaN(tipo.value)) {
     productosMostrar.value = productosMostrar.value.filter((p) => {
-      return p.tipo === tipo.value;
-    });
-  } else if (!isNaN(tipo.value)) {
-    productosMostrar.value = productos.value.filter((p) => {
       return p.tipo === tipo.value;
     });
   }
 
-  // if (!isNaN(marca.value) && !isNaN(tipo.value)) {
-  //   productosMostrar.value = productosMostrar.value.filter((p) => {
-  //     return p.marca === tipo.marca;
-  //   });
-  // } else if (!isNaN(marca.value)) {
-  //   productosMostrar.value = productos.value.filter((p) => {
-  //     return p.marca === tipo.marca;
-  //   });
-  // }
+  if (!isNaN(marca.value)) {
+    productosMostrar.value = productosMostrar.value.filter((p) => {
+      return p.marca === marca.value;
+    });
+  }
 }
 
+function resetFilters() {
+  productosMostrar.value = productos.value;
+  categoria.value = "Seleccione una categoría";
+  tipo.value = "Seleccione un tipo";
+  marca.value = "Seleccione una marca";
+}
 </script>
 
 <style lang="scss" scoped>
