@@ -1,6 +1,6 @@
 <template>
   <div class="body">
-    <div class="filters mb-5">
+    <div class="filters mb-2">
       <div class="categorias">
         <select class="form-select" v-model="categoria" @change="filtro">
           <option selected disabled>Seleccione una categoría</option>
@@ -25,12 +25,13 @@
           </option>
         </select>
       </div>
-      <div class="option">
+      
+    </div>
+    <div class="option mb-2">
         <button class="btn btn-primary" @click="resetFilters()">
           Reiniciar filtro
         </button>
       </div>
-    </div>
     <div class="cards">
       <CardProduct
         v-for="ob in productosMostrar"
@@ -272,6 +273,14 @@ function resetFilters() {
   flex-direction: column;
   align-items: center;
   margin-top: 5vh;
+
+  .filters{
+    display: flex;
+    
+    div{
+      margin: 10px;
+    }
+  }
   .cards {
     background-color: white;
     display: flex;
