@@ -25,14 +25,21 @@
           </option>
         </select>
       </div>
-      
+    </div>
+    <div class="order mb-1">
+      <select class="form-select" v-model="orden" @change="ordenar">
+        <option selected disabled>Ordenar por:</option>
+        <option value="1">Precio de menor a mayor</option>
+        <option value="2">Precio de mayor a menor</option>
+        <option value="3">Nombre</option>
+      </select>
     </div>
     <div class="option mb-2">
-        <button class="btn btn-primary" @click="resetFilters()">
-          Reiniciar filtro
-        </button>
-      </div>
-    <div class="cards">
+      <button class="btn btn-primary" @click="resetFilters()">
+        Reiniciar filtro
+      </button>
+    </div>
+    <div class="cards mb-2">
       <CardProduct
         v-for="ob in productosMostrar"
         :producto="ob"
@@ -63,6 +70,8 @@ const tipos = reactive<Array<any>>([]);
 
 const marca = ref<any>("Seleccione una marca");
 const marcas = reactive<Array<any>>([]);
+
+const orden = ref<any>("Ordenar por:");
 
 const productosMostrar = ref<Array<Producto>>([]);
 
@@ -237,7 +246,6 @@ async function getMarcas() {
     });
 }
 function filtro() {
- 
   productosMostrar.value = productos.value;
 
   if (!isNaN(categoria.value)) {
@@ -259,11 +267,32 @@ function filtro() {
   }
 }
 
+function ordenar() {
+  switch (orden.value) {
+    case "1":
+      productosMostrar.value.sort((a, b) => {
+        return a.precio - b.precio;
+      });
+      break;
+    
+    case "2":
+      productosMostrar.value.sort((a, b) => {
+        return b.precio - a.precio;
+      });
+      break;
+
+    case "3":
+      productosMostrar.value.sort((a, b) => a.nombre.localeCompare(b.nombre))
+      break;
+  }
+}
+
 function resetFilters() {
   productosMostrar.value = productos.value;
   categoria.value = "Seleccione una categoría";
   tipo.value = "Seleccione un tipo";
   marca.value = "Seleccione una marca";
+  orden.value = "Ordenar por:"
 }
 </script>
 
@@ -274,13 +303,14 @@ function resetFilters() {
   align-items: center;
   margin-top: 5vh;
 
-  .filters{
+  .filters {
     display: flex;
-    
-    div{
+
+    div {
       margin: 10px;
     }
   }
+
   .cards {
     background-color: white;
     display: flex;
