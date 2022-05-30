@@ -1,8 +1,5 @@
 <template>
-  <section
-    class="bg-image"
-    v-if="!store.state.User.logged"
-  >
+  <section class="bg-image" v-if="!store.state.User.logged">
     <div class="mask d-flex align-items-center h-100">
       <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -89,13 +86,17 @@
                       type="checkbox"
                       value=""
                       id="terms"
+                      v-model="state.acceptTerms"
                     />
                     <label class="form-check-label" for="formTerms">
                       I agree all statements in
-                      <a href="#!" class="text-body" id="formTerms"
-                        ><u>Terms of service</u></a
+                      <a class="text-body" id="formTerms"
+                        ><u @click="showTerms">Terms of service</u></a
                       >
                     </label>
+                    <span class="error" v-if="v$.password.confirm.$error">
+                      {{ v$.acceptTerms.$errors[0].$message }}
+                    </span>
                   </div>
 
                   <div class="d-flex justify-content-center">
@@ -125,7 +126,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, computed } from "vue";
+import { reactive, computed, onBeforeMount } from "vue";
 import useVuelidate from "@vuelidate/core";
 import {
   required,
@@ -137,10 +138,14 @@ import {
   numeric,
 } from "@vuelidate/validators";
 import { useRouter } from "vue-router";
-import axios from "axios";
 import Swal from "sweetalert2";
-import { RoutePaths } from "@/core/general/RoutePaths";
 import { useStore } from "vuex";
+
+onBeforeMount(() => {
+  if (store.state.User.logged) {
+    redirectHome();
+  }
+});
 
 //#region CONST
 const store = useStore();
@@ -153,6 +158,7 @@ const state = reactive({
     password: "",
     confirm: "",
   },
+  acceptTerms: false
 });
 //#endregion
 
@@ -204,6 +210,14 @@ const rules = computed(() => {
         ),
       },
     },
+     acceptTerms: {
+      required,
+      sameAs: helpers.withMessage(
+          "*Debe acceptar los términos y políticas de la empresa",
+          sameAs(() => true)), // add this line in validation
+
+    },
+    
   };
 });
 
@@ -219,7 +233,7 @@ function register() {
       name: state.name,
       email: state.email,
       password: state.password.password,
-      phone: state.phone
+      phone: state.phone,
     };
     store.dispatch("register", u);
   } else {
@@ -243,14 +257,16 @@ function redirectHome() {
   });
   router.push({ name: "HomeView" });
 }
-//#endregion
 
-mounted: {
-  if(store.state.User.logged){
-      redirectHome();
-  }
-    
+function showTerms() {
+  Swal.fire({
+    icon: "info",
+    title: "Pólitica de privacidad",
+    text: "La visita a este sitio Web no implica que el usuario esté obligado a facilitar ninguna información. En el caso de que el usuario facilite alguna información de carácter personal, los datos recogidos en este sitio web serán tratados de forma leal y lícita con sujeción en todo momento a los principios y derechos recogidos en el Reglamento (UE) 2016/679, de 27 de abril, General de Protección de Datos (RGPD) y demás normativa aplicable.",
+    showConfirmButton: true,
+  });
 }
+//#endregion
 </script>
 
 <style lang="scss" scoped>

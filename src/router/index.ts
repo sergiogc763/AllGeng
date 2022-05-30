@@ -5,6 +5,7 @@ import RegisterView from '../views/RegisterView.vue'
 import UserOptionsView from '../views/UserOptionsView.vue'
 import ProductView from '../views/ProductView.vue'
 import UploadProductView from '../views/UploadProductView.vue'
+import UserHistorialView from '../views/UserHistorialView.vue'
 import { RoutePaths } from '../core/general/RoutePaths';
 const routes: Array<RouteRecordRaw> = [
 {
@@ -37,6 +38,12 @@ const routes: Array<RouteRecordRaw> = [
   name: 'UploadProductView',
   component: UploadProductView,
 },
+{
+  path: '/user/historial',
+  name: 'UserHistorialView',
+  component: UserHistorialView,
+},
+
 
 
 

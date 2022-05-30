@@ -95,7 +95,14 @@ function uploadProduct(){
 }
 
 function showHistorial(){
-
+  store.dispatch("logout");
+  router.push({ name: "HomeView" });
+  Swal.fire({
+      icon: "success",
+      title: "Se ha desconectado correctamente",
+      showConfirmButton: false,
+      timer: 2000,
+    });
 }
 
 function logout(){
