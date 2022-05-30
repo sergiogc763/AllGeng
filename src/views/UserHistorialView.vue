@@ -1,6 +1,10 @@
 <template>
   <div class="content">
-
+      <select class="form-select" v-model="fecha">
+          <option selected v-for="options in fechas" v-bind:value="options">
+            {{ options }}
+          </option>
+        </select>
       <div class="producto" v-for="p in historial">
           {{p}}
       </div>
@@ -11,14 +15,19 @@
 import { RoutePaths } from "@/core/general/RoutePaths";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { onBeforeMount, ref } from "vue";
+import { onBeforeMount, reactive, ref } from "vue";
 import { useStore } from "vuex";
 
 //#region CONST
+
+const fecha = ref<any>("Seleccione una categoría");
+
+const fechas = ref<Array<any>>([]);
+
 const store = useStore();
 
 const historial = ref<Array<any>>([]);
-const fechas = ref<Array<any>>([])
+
 onBeforeMount(() => {
   const formData = new FormData();
   formData.append("id", store.getters.userId);
@@ -28,13 +37,14 @@ onBeforeMount(() => {
     .then((response) => {
       switch (response.status) {
         case 200:
+        const fechasBD : Array<any> =[]
           response.data.products.data.forEach((element: any) => {
         
             historial.value.push(element);
-            fechas.value.push(element.histfecha);
+            fechasBD.push(element.histfecha);
           });
 
-        fechas.value = Array.from(new Set(fechas.value))//Quitamos fechas duplicadas
+        fechas.value = Array.from(new Set(fechasBD))//Quitamos fechas duplicadas
         console.log(fechas.value);
           break;
 

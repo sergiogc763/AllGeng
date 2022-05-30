@@ -386,9 +386,6 @@ const store = createStore({
     rolId(state) {
       return state.User.rolid;
     },
-    carrito(state){
-      return state.User.carrito;
-    }
   },
 });
 
