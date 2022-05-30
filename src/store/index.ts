@@ -2,7 +2,6 @@ import { createStore } from "vuex";
 import servicesUser from "./servicesUser";
 import Swal from "sweetalert2";
 import router from "@/router";
-import { Producto } from '@/core/types/Product';
 
 // Create a new store instance.
 const store = createStore({
@@ -13,7 +12,6 @@ const store = createStore({
       usutelf: "",
       usuemail: "",
       rolid:"",
-      carrito: [],
       logged: false,
     },
   },
@@ -352,6 +350,7 @@ const store = createStore({
         
       }
     },
+
   },
   actions: {
     getProducts({ commit }){
@@ -369,6 +368,7 @@ const store = createStore({
     changeDataUser({ commit }, o) {
       commit("CHANGE_DATA_USER", o);
     },
+
   },
   getters: {
     userId(state) {
@@ -386,6 +386,9 @@ const store = createStore({
     rolId(state) {
       return state.User.rolid;
     },
+    carrito(state){
+      return state.User.carrito;
+    }
   },
 });
 

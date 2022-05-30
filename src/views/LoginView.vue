@@ -126,6 +126,7 @@ async function login() {
       password: state.password,
     };
     store.dispatch("saveUserLogin", u);
+    
   } else {
     Swal.fire({
       icon: "warning",

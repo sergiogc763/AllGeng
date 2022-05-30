@@ -214,7 +214,7 @@ const rules = computed(() => {
       required,
       sameAs: helpers.withMessage(
           "*Debe acceptar los términos y políticas de la empresa",
-          sameAs(() => true)), // add this line in validation
+          sameAs(() => true)),
 
     },
     
