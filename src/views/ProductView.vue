@@ -43,7 +43,7 @@
         <div class="precio">{{ producto.precio }} €</div>
         <div class="cantidad">
           <span>Cantidad:</span
-          ><input @change="onChange($event)" type="number" min="1" value="1" />
+          ><input class="cantidad-p" @change="onChange($event)" type="number" min="1" value="1" />
         </div>
         <div class="total">Precio total: {{ total }} €</div>
         <div ref="paypal"></div>
@@ -55,9 +55,9 @@
         <li class="nav-item">
           <a class="nav-link" @click="optionSelected(1)">Descripción</a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link" @click="optionSelected(2)">Características</a>
-        </li>
+        </li> -->
         <li class="nav-item">
           <a class="nav-link" @click="optionSelected(3)">Comentarios</a>
         </li>
@@ -66,9 +66,9 @@
         <div class="descripcion" v-if="opcion === 1">
           <TextOptionProduct :text="producto.descripcion" />
         </div>
-        <div class="caracterisitcas" v-if="opcion === 2">
+        <!-- <div class="caracterisitcas" v-if="opcion === 2">
           <TextOptionProduct :text="producto.caracteristicas" />
-        </div>
+        </div> -->
         <div class="comentarios" v-if="opcion === 3">
           
         </div>
@@ -333,6 +333,10 @@ export default {
         font-weight: bold;
         font-size: 25px;
       }
+
+      .cantidad-p{
+        width: 50px;
+      }
     }
   }
 
@@ -340,6 +344,16 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .option-show{
+      background-color: rgb(255, 71, 20);
+      margin-top: 10px;
+      margin-bottom: 5px;
+      margin-right: 10vw;
+      margin-left: 10vw;
+      border-radius: 5px;
+      color: white;
+    }
   }
 }
 </style>

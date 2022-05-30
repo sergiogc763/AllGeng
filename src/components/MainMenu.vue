@@ -24,14 +24,21 @@
               @click="uploadProduct"
               v-if="store.state.User.rolid === RolUser.Gestor"
             >
-              <button class="button btnAccount"><font-awesome-icon icon="upload" /><span>Upload</span></button>
+              <button class="button btnAccount"><font-awesome-icon icon="upload" class="img-icons"/><span>Upload</span></button>
+            </li>
+            <li
+              class="nav-item"
+              @click="showHistorial"
+              v-if="store.state.User.rolid === RolUser.Usuario && store.state.User.logged === true"
+            >
+              <button class="button btnAccount"><font-awesome-icon icon="scroll" class="img-icons"/><span>Purchase</span></button>
             </li>
             <li
               class="nav-item"
               @click="goLogin"
               v-if="!store.state.User.logged"
             >
-              <button class="button btnAccount"><font-awesome-icon icon="user-secret"/><span>Cuenta</span></button>
+              <button class="button btnAccount"><font-awesome-icon icon="user-secret" class="img-icons"/><span>Cuenta</span></button>
 
             </li>
             <li class="nav-item dropdown" v-else>
@@ -39,7 +46,7 @@
                 class="useraccount nav-link"
                 data-bs-toggle="dropdown"
               >
-                <button class="button btnAccount"><font-awesome-icon icon="circle-user"/><span>Cuenta</span></button>
+                <button class="button btnAccount"><font-awesome-icon icon="circle-user" class="img-icons"/><span>Cuenta</span></button>
               </div>
 
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -53,8 +60,8 @@
                 </li>
                 <li>
                   <font-awesome-icon icon="right-from-bracket" />
-                  <router-link class="dropdown-item" to=""
-                    >Desconectar</router-link
+                  <a class="dropdown-item" @click="logout"
+                    >Desconectar</a
                   >
                 </li>
               </ul>
@@ -71,6 +78,7 @@ import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { RoutePaths } from "@/core/general/RoutePaths";
 import { RolUser } from '@/core/general/RolUser';
+import Swal from "sweetalert2";
 
 
 //#region CONST
@@ -84,6 +92,21 @@ function goLogin() {
 }
 function uploadProduct(){
    router.push({ name: "UploadProductView" });
+}
+
+function showHistorial(){
+
+}
+
+function logout(){
+  store.dispatch("logout");
+  router.push({ name: "HomeView" });
+  Swal.fire({
+      icon: "success",
+      title: "Se ha desconectado correctamente",
+      showConfirmButton: false,
+      timer: 2000,
+    });
 }
 //#endregion
 
@@ -134,6 +157,7 @@ function uploadProduct(){
   margin: 5px;
   .img-icons{
     margin-right: 10px;
+    width: 25px;
   }
   span {
     cursor: pointer;

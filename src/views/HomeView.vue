@@ -314,8 +314,9 @@ function resetFilters() {
   .cards {
     background-color: white;
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
-    width: 95vw;
+    width: 64.5vw;
     border-radius: 5px;
   }
 }

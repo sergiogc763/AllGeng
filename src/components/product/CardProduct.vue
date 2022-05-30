@@ -378,7 +378,7 @@ function deleteProduct() {
 <style lang="scss" scoped>
 .product {
   background-color: rgb(199, 199, 199);
-  width: 14vw;
+  width: 200px;
   margin: 10px;
 }
 
