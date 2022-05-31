@@ -386,6 +386,9 @@ const store = createStore({
     rolId(state) {
       return state.User.rolid;
     },
+    logged(state){
+      return state.User.logged
+    }
   },
 });
 
