@@ -1,5 +1,5 @@
 <template>
-  <div class="main" v-if="store.getters.logged">
+  <div class="main" v-if="store.getters.logged && store.getters.rolId === RolUser.Usuario">
     <div class="fechas">
       <select
         class="form-select"
@@ -23,7 +23,7 @@
             </div>
             <div class="total apartado">
               <span class="titulo">TOTAL</span>
-              <span>{{ p.histprecio }}</span>
+              <span>{{ p.histprecio }}€</span>
             </div>
             <div class="cantidad apartado">
               <span class="titulo">CANTIDAD</span>
@@ -57,6 +57,7 @@
 <script lang="ts" setup>
 import { RoutePaths } from "@/core/general/RoutePaths";
 import Page404 from "@/components/Page404.vue";
+import { RolUser } from "@/core/general/RolUser";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { onBeforeMount, ref } from "vue";
@@ -80,52 +81,51 @@ onBeforeMount(() => {
     const formData = new FormData();
     formData.append("id", store.getters.userId);
 
-    axios.post(`${RoutePaths.API}getFechasHistorial.php`, formData).then((response) =>{
-        console.log(response);
-         response.data.products.data.forEach((element: any) => {
-              console.log(element);
-        });
-    })
-    // axios
-    //   .post(`${RoutePaths.API}getFechasHistorial.php`, formData)
-    //   .then((response) => {
-    //     switch (response.status) {
-    //       case 200:
-    //         const fechasBD: Array<any> = [];
-    //         response.data.products.data.forEach((element: any) => {
-    //           historial.value.push(element);
-    //           fechasBD.push(element.anio);
-    //         });
+    // axios.post(`${RoutePaths.API}getFechasHistorial.php`, formData).then((response) =>{
+    //     console.log(response);
+    //      response.data.products.data.forEach((element: any) => {
+    //           console.log(element);
+    //     });
+    // })
+    axios
+      .post(`${RoutePaths.API}getFechasHistorial.php`, formData)
+      .then((response) => {
+        switch (response.status) {
+          case 200:
+            const fechasBD: Array<any> = [];
+            response.data.products.data.forEach((element: any) => {
+              fechasBD.push(element.anio);
+            });
 
-    //         fechas.value = Array.from(new Set(fechasBD)); //Quitamos fechas duplicadas
+            fechas.value = Array.from(new Set(fechasBD)); //Quitamos fechas duplicadas
 
-    //         //obtenerHistorialFitro(); //obtenemos historial principal con el filtro de 3 meses
-    //         break;
+            obtenerHistorialFitro(); //obtenemos historial principal con el filtro de 3 meses
+            break;
 
-    //       case 404:
-    //         Swal.fire({
-    //           icon: "error",
-    //           title: "ERROR",
-    //           text: "Error interno. No se ha encontrado la ruta",
-    //           showConfirmButton: false,
-    //           timer: 2000,
-    //         });
-    //         break;
+          case 404:
+            Swal.fire({
+              icon: "error",
+              title: "ERROR",
+              text: "Error interno. No se ha encontrado la ruta",
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
 
-    //       case 500:
-    //         Swal.fire({
-    //           icon: "error",
-    //           title: "ERROR",
-    //           text: "Error interno. Fallo de API",
-    //           showConfirmButton: false,
-    //           timer: 2000,
-    //         });
-    //         break;
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error("There was an error!", error);
-    //   });
+          case 500:
+            Swal.fire({
+              icon: "error",
+              title: "ERROR",
+              text: "Error interno. Fallo de API",
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
+        }
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
   }
 });
 
@@ -216,6 +216,11 @@ function verProducto(p :any) {
           display: flex;
           flex-direction: column;
           margin: 5px;
+
+          .titulo{
+              font-weight: bold;
+              font-size: 16px;
+          }
         }
         .datos-left {
           display: flex;
@@ -229,7 +234,7 @@ function verProducto(p :any) {
       .content-p{
           
           background-color: white;
-          border-radius: 2px;
+          border-radius: 0px 0px 10px 10px;
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -240,8 +245,8 @@ function verProducto(p :any) {
             }
           .img-p{
               img{
-                  width: 17vw;
-                  height: 17vw;
+                  width: 15.5vw;
+                  height: 15.5vw;
               }
           }
       }

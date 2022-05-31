@@ -1,5 +1,5 @@
 <template>
-<div class="content">
+<div class="content" v-if="store.getters.logged">
   <div class="container">
     <div class="menu">
       <ul class="nav">
@@ -19,7 +19,8 @@
       <SegurityUser v-if="option === 2"/>
     </div>
   </div>
-</div>  
+</div>
+<Page404 v-else/>
 </template>
 
 <script lang="ts" setup>
@@ -30,6 +31,7 @@ import SegurityUser from '@/components/useroptions/SegurityUser.vue';
 import { useStore } from 'vuex';
 import router from '../router/index';
 import Swal from 'sweetalert2';
+import Page404 from '@/components/Page404.vue';
 
 //#region CONST
 

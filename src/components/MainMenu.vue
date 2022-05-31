@@ -31,7 +31,7 @@
               @click="showHistorial"
               v-if="store.state.User.rolid === RolUser.Usuario && store.state.User.logged === true"
             >
-              <button class="button btnAccount"><font-awesome-icon icon="scroll" class="img-icons"/><span>Purchase</span></button>
+              <button class="button btnAccount"><font-awesome-icon icon="scroll" class="img-icons"/><span>Historial</span></button>
             </li>
             <li
               class="nav-item"

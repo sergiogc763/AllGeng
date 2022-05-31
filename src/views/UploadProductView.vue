@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="main" v-if="store.getters.logged && store.getters.rolId === RolUser.Gestor">
     <form enctype="multipart/form-data" class="containt">
       <div class="mb-3">
         <label for="nombre" class="form-label">Nombre:</label>
@@ -67,13 +67,21 @@
       </div>
     </form>
   </div>
+  <Page404 v-else/>
 </template>
 
 <script lang="ts" setup>
+import Page404 from "@/components/Page404.vue";
+import { RolUser } from "@/core/general/RolUser";
 import { RoutePaths } from "@/core/general/RoutePaths";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { ref, onBeforeMount, reactive } from "vue";
+import { useStore } from "vuex";
+
+//#region USE
+const store = useStore();
+//#endregion
 
 //#region REF
 const nombre = ref<String>("");

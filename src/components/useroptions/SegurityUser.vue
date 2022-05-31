@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="store.getters.logged">
     <h1 class="mb-5">Información Seguridad</h1>
     <div class="old-pass">
       <h6>Contraseña antigua</h6>
@@ -32,6 +32,7 @@
       </div>
     </div>
   </div>
+  <Page404 v-else/>
 </template>
 
 <script lang="ts" setup>
@@ -40,6 +41,7 @@ import useVuelidate from "@vuelidate/core";
 import { required, minLength, sameAs, helpers } from "@vuelidate/validators";
 import { useStore } from "vuex";
 import Swal from "sweetalert2";
+import Page404 from '@/components/Page404.vue';
 //#region CONST
 const state = reactive({
   oldPass: "",
