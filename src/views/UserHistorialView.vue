@@ -14,8 +14,12 @@
 
     <div class="productos">
       <div class="producto" v-for="p in historialMostrar">
-        <div class="f">
-          {{ p }}
+              {{p}}
+        <div class="p-img">
+            <img class="img" :src="RoutePaths.BASE + p.imagen" />
+        </div>
+        <div class="p-datos">
+            
         </div>
       </div>
     </div>

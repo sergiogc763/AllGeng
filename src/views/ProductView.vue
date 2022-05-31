@@ -43,7 +43,7 @@
         <div class="precio">{{ producto.precio }} €</div>
         <div class="cantidad">
           <span>Cantidad:</span
-          ><input class="cantidad-p" @change="onChange($event)" type="number" min="1" value="1" />
+          ><input class="cantidad-p" v-model="cantidad" @change="onChange($event)" type="number" min="1" />
         </div>
         <div class="total">Precio total: {{ total }} €</div>
         <div ref="paypal"></div>
@@ -93,7 +93,7 @@ export default {
     return {
       loaded: false,
       paidFor: false,
-      cantidad: 0,
+      cantidad: 1,
       total: 0,
       producto: {
         nombre: "",
@@ -226,7 +226,12 @@ export default {
             let day = date.getDate();
             let month = date.getMonth() + 1;
             let year = date.getFullYear();
+
             let fecha = "";
+
+            let hora = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+
+            let numpedido = `${Math.floor(Math.random() * (999 - 100)) + 100}-${Math.floor(Math.random() * (9999999 - 1000000)) + 1000000}-${Math.floor(Math.random() * (9999999 - 1000000)) + 1000000}` ;
             if (month < 10) {
               fecha = `${year}-0${month}-${day}`;
             } else {
@@ -242,9 +247,14 @@ export default {
                   iduser: store.getters.userId,
                   idproduct: this.$route.params.id,
                   fecha: fecha,
+                  hora: hora,
+                  numpedido: numpedido,
+                  cantidad: this.cantidad,
+                  total: this.total
                 },
               })
               .then((response) => {
+                console.log(response);
                 switch (response.status) {
                   case 200:
                     if (response.data) {
