@@ -67,6 +67,8 @@ onBeforeMount(() => {
             });
 
             fechas.value = Array.from(new Set(fechasBD)); //Quitamos fechas duplicadas
+
+            obtenerHistorialFitro();//obtenemos historial principal con el filtro de 3 meses
             break;
 
           case 404:
@@ -112,7 +114,7 @@ function obtenerHistorialFitro() {
     .then((response) => {
       switch (response.status) {
         case 200:
-            historial.value = []
+        historial.value = []
           response.data.products.data.forEach((element: any) => {
             historial.value.push(element);
           });
