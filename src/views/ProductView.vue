@@ -141,7 +141,6 @@ export default {
                axios
                 .post(`${RoutePaths.API}getFotosProducto.php`, formData)
                 .then((res) => {
-                  console.log(res);
                   switch (res.status) {
                     case 200:
                        res.data.fotos.data.forEach((element) => {

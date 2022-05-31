@@ -43,7 +43,12 @@
           <div class="img-p">
             <img :src="RoutePaths.BASE + p.imagen" />
           </div>
-          <div class="datos-p"></div>
+          <div class="datos-p">
+              <h2>{{p.prodnom}}</h2>
+          </div>
+          <div class="options-p">
+              <button type="button" class="btn btn-outline-primary" @click="verProducto(p)">Volver a comprar</button>
+          </div>
         </div>
       </div>
     </div>
@@ -58,8 +63,10 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { onBeforeMount, ref } from "vue";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 //#region CONST USE
+const router = useRouter();
 const store = useStore();
 //#endregion
 
@@ -165,6 +172,16 @@ function obtenerHistorialFitro() {
       console.error("There was an error!", error);
     });
 }
+
+function verProducto(p :any) {
+  router.push({
+    name: "ProductView",
+    params: {
+      nombre: p.prodnom.replace(/\s+/g, "-"),
+      id: p.prodid,
+    },
+  });
+}
 </script>
 
 <style lang="scss" scoped>
@@ -202,13 +219,21 @@ function obtenerHistorialFitro() {
       }
 
       .content-p{
+          
           background-color: white;
           border-radius: 2px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
 
+            div{
+                margin-right: 10px;
+          margin-left: 10px;
+            }
           .img-p{
               img{
-                  width: 255px;
-                  height: 255px;
+                  width: 17vw;
+                  height: 17vw;
               }
           }
       }
