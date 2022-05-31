@@ -16,8 +16,8 @@
     </div>
 
     <div class="productos">
-      <div class="producto" v-for="p in historialMostrar">
-        {{ p.anio }}
+      <div class="producto" v-for="p in historial">
+        {{ p }}
 
         <div class="top-banner"></div>
         <div class="p-img">
@@ -47,7 +47,6 @@ const fechas = ref<Array<any>>([]);
 const store = useStore();
 
 const historial = ref<Array<any>>([]);
-const historialMostrar = ref<Array<any>>([]);
 
 onBeforeMount(() => {
   //Lo primero que hacemos es comprobar que el usuario se encuentre logeado con éxito antes de realizar la obtención de los datos
@@ -97,25 +96,26 @@ onBeforeMount(() => {
   }
 });
 
+
+
+function mostrarProductosFecha() {
+ obtenerHistorialFitro();
+}
+
 function obtenerHistorialFitro() {
   const formData = new FormData();
   formData.append("id", store.getters.userId);
-  formData.append("filtro", fecha);
+  formData.append("filtro", fecha.value);
 
   axios
     .post(`${RoutePaths.API}getHistorialUsuario.php`, formData)
     .then((response) => {
       switch (response.status) {
         case 200:
-          const fechasBD: Array<any> = [];
+            historial.value = []
           response.data.products.data.forEach((element: any) => {
             historial.value.push(element);
-            fechasBD.push(element.anio);
           });
-
-          fechas.value = Array.from(new Set(fechasBD)); //Quitamos fechas duplicadas
-          fecha.value = fechas.value[0];
-          console.log(fecha.value);
           break;
 
         case 404:
@@ -144,9 +144,6 @@ function obtenerHistorialFitro() {
     });
 }
 
-function mostrarProductosFecha() {
-  console.log(fecha.value);
-}
 </script>
 
 <style lang="scss" scoped>
