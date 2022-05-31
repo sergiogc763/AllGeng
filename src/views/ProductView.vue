@@ -254,7 +254,6 @@ export default {
                 },
               })
               .then((response) => {
-                console.log(response);
                 switch (response.status) {
                   case 200:
                     if (response.data) {
