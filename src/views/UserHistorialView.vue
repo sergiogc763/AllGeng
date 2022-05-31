@@ -15,8 +15,6 @@
 
     <div class="productos">
       <div class="producto" v-for="p in historial">
-        {{ p }}
-
         <div class="top-banner">
           <div class="datos-left">
             <div class="fecha apartado">
@@ -82,46 +80,52 @@ onBeforeMount(() => {
     const formData = new FormData();
     formData.append("id", store.getters.userId);
 
-    axios
-      .post(`${RoutePaths.API}getFechasHistorial.php`, formData)
-      .then((response) => {
-        switch (response.status) {
-          case 200:
-            const fechasBD: Array<any> = [];
-            response.data.products.data.forEach((element: any) => {
-              historial.value.push(element);
-              fechasBD.push(element.anio);
-            });
+    axios.post(`${RoutePaths.API}getFechasHistorial.php`, formData).then((response) =>{
+        console.log(response);
+         response.data.products.data.forEach((element: any) => {
+              console.log(element);
+        });
+    })
+    // axios
+    //   .post(`${RoutePaths.API}getFechasHistorial.php`, formData)
+    //   .then((response) => {
+    //     switch (response.status) {
+    //       case 200:
+    //         const fechasBD: Array<any> = [];
+    //         response.data.products.data.forEach((element: any) => {
+    //           historial.value.push(element);
+    //           fechasBD.push(element.anio);
+    //         });
 
-            fechas.value = Array.from(new Set(fechasBD)); //Quitamos fechas duplicadas
+    //         fechas.value = Array.from(new Set(fechasBD)); //Quitamos fechas duplicadas
 
-            obtenerHistorialFitro(); //obtenemos historial principal con el filtro de 3 meses
-            break;
+    //         //obtenerHistorialFitro(); //obtenemos historial principal con el filtro de 3 meses
+    //         break;
 
-          case 404:
-            Swal.fire({
-              icon: "error",
-              title: "ERROR",
-              text: "Error interno. No se ha encontrado la ruta",
-              showConfirmButton: false,
-              timer: 2000,
-            });
-            break;
+    //       case 404:
+    //         Swal.fire({
+    //           icon: "error",
+    //           title: "ERROR",
+    //           text: "Error interno. No se ha encontrado la ruta",
+    //           showConfirmButton: false,
+    //           timer: 2000,
+    //         });
+    //         break;
 
-          case 500:
-            Swal.fire({
-              icon: "error",
-              title: "ERROR",
-              text: "Error interno. Fallo de API",
-              showConfirmButton: false,
-              timer: 2000,
-            });
-            break;
-        }
-      })
-      .catch((error) => {
-        console.error("There was an error!", error);
-      });
+    //       case 500:
+    //         Swal.fire({
+    //           icon: "error",
+    //           title: "ERROR",
+    //           text: "Error interno. Fallo de API",
+    //           showConfirmButton: false,
+    //           timer: 2000,
+    //         });
+    //         break;
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error("There was an error!", error);
+    //   });
   }
 });
 
@@ -192,6 +196,10 @@ function verProducto(p :any) {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  .fechas{
+      margin-bottom: 10px;
+  }
   .productos {
     .producto {
       display: flex;
