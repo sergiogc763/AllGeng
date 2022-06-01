@@ -1,9 +1,9 @@
 <template>
-  <div class="card product">
-    <img :src="RoutePaths.BASE + src" class="card-img-top" alt="..." />
+  <div class="card product" >
+    <img :src="RoutePaths.BASE + src" class="card-img-top imgTop" alt="..." @click="verProducto()"/>
     <div class="card-body">
       <div class="top-body">
-        <h5 class="card-title">{{ props.producto.nombre }}</h5>
+        <h5 class="card-title" @click="verProducto()">{{ props.producto.nombre }} </h5>
         <font-awesome-icon
           icon="trash-can"
           v-if="store.getters.rolId === RolUser.Gestor"
@@ -11,18 +11,18 @@
         />
       </div>
 
-      <p class="card-text">{{ props.producto.precio }} €</p>
+      <p class="card-text" @click="verProducto()">{{ props.producto.precio }} €</p>
     </div>
-    <div class="card-footer text-muted">
-      <button
+    <div class="card-footer" v-if="store.getters.rolId === RolUser.Gestor">
+      <!-- <button
         type="button"
         class="btn btn-primary"
         @click="verProducto()"
         v-if="store.getters.rolId !== RolUser.Gestor"
       >
         Ver
-      </button>
-      <div class="options-gestor" v-else>
+      </button> -->
+      <div class="options-gestor" >
         <div class="btn-group" role="group">
           <button
             id="btnOpciones"
@@ -60,7 +60,7 @@
 import { RoutePaths } from "@/core/general/RoutePaths";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { ref, computed } from "vue";
+import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { RolUser } from "../../core/general/RolUser";
@@ -377,12 +377,22 @@ function deleteProduct() {
 
 <style lang="scss" scoped>
 .product {
+  border: 1px solid #212529;
   background-color: rgb(199, 199, 199);
   width: 200px;
   margin: 10px;
-}
+  cursor: pointer;
 
-.top-body {
+  .imgTop{
+    width: 198px;
+    height: 198px;
+  }
+
+  .card-body{
+    background-color: #212529;
+    color: rgba(255, 255, 255, 0.861);
+  }
+  .top-body {
   display: flex;
   justify-content: space-between;
 }
@@ -396,4 +406,7 @@ function deleteProduct() {
     width: fit-content;
   }
 }
+}
+
+
 </style>

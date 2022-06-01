@@ -327,6 +327,7 @@ async function getMarcas() {
 
 <style lang="scss" scoped>
 .main {
+  background-color: rgba(255, 255, 255, 0.964);
   display: flex;
   justify-content: center;
 

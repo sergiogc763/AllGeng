@@ -24,21 +24,24 @@
               @click="uploadProduct"
               v-if="store.state.User.rolid === RolUser.Gestor"
             >
-              <button class="button btnAccount"><font-awesome-icon icon="upload" class="img-icons"/><span>Upload</span></button>
+            <OptionMainMenu :icono="'upload'" :texto="'Upload'" />
+              <!-- <button class="button btnAccount"><font-awesome-icon icon="upload" class="img-icons"/><span>Upload</span></button> -->
             </li>
             <li
               class="nav-item"
               @click="showHistorial"
               v-if="store.state.User.rolid === RolUser.Usuario && store.state.User.logged === true"
             >
-              <button class="button btnAccount"><font-awesome-icon icon="scroll" class="img-icons"/><span>Historial</span></button>
+            <OptionMainMenu :icono="'scroll'" :texto="'Historial'" />
+              <!-- <button class="button btnAccount"><font-awesome-icon icon="scroll" class="img-icons"/><span>Historial</span></button> -->
             </li>
             <li
               class="nav-item"
               @click="goLogin"
               v-if="!store.state.User.logged"
             >
-              <button class="button btnAccount"><font-awesome-icon icon="user-secret" class="img-icons"/><span>Cuenta</span></button>
+            <OptionMainMenu :icono="'user-secret'" :texto="'Cuenta'" />
+              <!-- <button class="button btnAccount"><font-awesome-icon icon="user-secret" class="img-icons"/><span>Cuenta</span></button> -->
 
             </li>
             <li class="nav-item dropdown" v-else>
@@ -46,7 +49,8 @@
                 class="useraccount nav-link"
                 data-bs-toggle="dropdown"
               >
-                <button class="button btnAccount"><font-awesome-icon icon="circle-user" class="img-icons"/><span>Cuenta</span></button>
+              <OptionMainMenu :icono="'circle-user'" :texto="'Cuenta'" />
+                <!-- <button class="button btnAccount"><font-awesome-icon icon="circle-user" class="img-icons"/><span>Cuenta</span></button> -->
               </div>
 
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -79,6 +83,7 @@ import { useStore } from "vuex";
 import { RoutePaths } from "@/core/general/RoutePaths";
 import { RolUser } from '@/core/general/RolUser';
 import Swal from "sweetalert2";
+import OptionMainMenu from "./general/OptionMainMenu.vue";
 
 
 //#region CONST
@@ -127,10 +132,10 @@ function logout(){
   padding: 0;
 }
 
-.img-icons {
-  width: 30px;
-  height: 30px;
-}
+// .img-icons {
+//   width: 30px;
+//   height: 30px;
+// }
 
 .content-right {
   display: flex;
@@ -186,4 +191,6 @@ function logout(){
     right: 0;
   }
 }
+
+
 </style>

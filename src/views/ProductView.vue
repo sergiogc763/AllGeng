@@ -303,7 +303,7 @@ export default {
 
 <style lang="scss" scoped>
 .main {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.964)
 
   img{
     width: 40vw;

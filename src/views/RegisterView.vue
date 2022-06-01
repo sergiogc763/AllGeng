@@ -91,7 +91,7 @@
                     <label class="form-check-label" for="formTerms">
                       I agree all statements in
                       <a class="text-body" id="formTerms"
-                        ><u @click="showTerms">Terms of service</u></a
+                        ><u @click="showTerms" class="link">Terms of service</u></a
                       >
                     </label>
                     <span class="error" v-if="v$.password.confirm.$error">
@@ -111,7 +111,7 @@
 
                   <p class="text-center text-muted mt-5 mb-0">
                     Have already an account?
-                    <router-link to="/login" class="fw-bold text-body"
+                    <router-link to="/login" class="link"
                       ><u>Login here</u></router-link
                     >
                   </p>
@@ -270,30 +270,19 @@ function showTerms() {
 </script>
 
 <style lang="scss" scoped>
-.gradient-custom {
-  /* fallback for old browsers */
-  background: #ff7056;
 
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: -webkit-linear-gradient(
-    to right,
-    rgb(5, 226, 178),
-    rgba(143, 211, 244, 1)
-  );
-
-  background: linear-gradient(
-    to right,
-    rgba(132, 250, 176, 1),
-    rgba(143, 211, 244, 1)
-  );
+.bg-image{
+  background-color: rgba(255, 255, 255, 0.964)
 }
-
 .content-form {
-  background-color: rgb(218, 218, 218);
+  background-color: #212529;
+  color: whitesmoke;
+
+  
 }
-.btnRegister {
-  color: white;
-}
+.link{
+    color: whitesmoke;
+  }
 
 .error {
   color: red;

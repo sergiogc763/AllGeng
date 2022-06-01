@@ -81,12 +81,6 @@ onBeforeMount(() => {
     const formData = new FormData();
     formData.append("id", store.getters.userId);
 
-    // axios.post(`${RoutePaths.API}getFechasHistorial.php`, formData).then((response) =>{
-    //     console.log(response);
-    //      response.data.products.data.forEach((element: any) => {
-    //           console.log(element);
-    //     });
-    // })
     axios
       .post(`${RoutePaths.API}getFechasHistorial.php`, formData)
       .then((response) => {
@@ -190,6 +184,7 @@ function verProducto(p :any) {
 
 <style lang="scss" scoped>
 .main {
+    background-color: rgba(255, 255, 255, 0.964);
   margin: 3.5vh;
 
   display: flex;
@@ -235,6 +230,7 @@ function verProducto(p :any) {
           
           background-color: white;
           border-radius: 0px 0px 10px 10px;
+          border: 2px solid rgb(198, 198, 198);
           display: flex;
           align-items: center;
           justify-content: space-between;

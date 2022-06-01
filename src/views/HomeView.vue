@@ -35,12 +35,11 @@
       </select>
     </div>
     <div class="option mb-2">
-      <button class="btn btn-primary" @click="resetFilters()">
-        Reiniciar filtro
-      </button>
+      <ButtonFilter @click="resetFilters"/>
     </div>
     <div class="cards mb-2">
       <CardProduct
+        class="card zoom"
         v-for="ob in productosMostrar"
         :producto="ob"
         @actualizarNombre="refreshDatos"
@@ -55,10 +54,11 @@
 <script lang="ts" setup>
 import { RoutePaths } from "@/core/general/RoutePaths";
 import axios from "axios";
-import { computed, onBeforeMount, reactive, ref } from "vue";
+import { onBeforeMount, reactive, ref } from "vue";
 import { Producto } from "../core/types/Product";
 import CardProduct from "@/components/product/CardProduct.vue";
 import Swal from "sweetalert2";
+import ButtonFilter from "@/components/general/ButtonFilter.vue";
 
 const productos = ref<Array<Producto>>([]);
 
@@ -274,7 +274,7 @@ function ordenar() {
         return a.precio - b.precio;
       });
       break;
-    
+
     case "2":
       productosMostrar.value.sort((a, b) => {
         return b.precio - a.precio;
@@ -282,7 +282,7 @@ function ordenar() {
       break;
 
     case "3":
-      productosMostrar.value.sort((a, b) => a.nombre.localeCompare(b.nombre))
+      productosMostrar.value.sort((a, b) => a.nombre.localeCompare(b.nombre));
       break;
   }
 }
@@ -292,12 +292,13 @@ function resetFilters() {
   categoria.value = "Seleccione una categoría";
   tipo.value = "Seleccione un tipo";
   marca.value = "Seleccione una marca";
-  orden.value = "Ordenar por:"
+  orden.value = "Ordenar por:";
 }
 </script>
 
 <style lang="scss" scoped>
 .body {
+  background-color: rgba(255, 255, 255, 0.964);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -318,6 +319,36 @@ function resetFilters() {
     flex-wrap: wrap;
     width: 64.5vw;
     border-radius: 5px;
+
+    .card {
+
+      &::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 4px;
+        border-radius: 4px;
+        background-color: #e13426;
+        bottom: 0;
+        left: 0;
+        transform-origin: right;
+        transform: scaleX(0);
+        transition: transform 0.3s ease-in-out;
+      }
+
+      &:hover::before {
+        transform-origin: left;
+        transform: scaleX(1);
+      }
+      
+    }
+    .zoom {
+    transition: transform .2s; 
+}
+ 
+.zoom:hover {
+    transform: scale(1.10); 
+}
   }
 }
 </style>
