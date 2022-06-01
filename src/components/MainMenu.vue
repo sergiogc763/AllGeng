@@ -49,7 +49,11 @@
                 class="useraccount nav-link"
                 data-bs-toggle="dropdown"
               >
-              <OptionMainMenu :icono="'circle-user'" :texto="'Cuenta'" />
+              <div class="datos-cuenta">
+                <OptionMainMenu :icono="'circle-user'" :texto="'Cuenta'" />
+                <span>Sergio Garcia Calzada</span>
+              </div>
+              
                 <!-- <button class="button btnAccount"><font-awesome-icon icon="circle-user" class="img-icons"/><span>Cuenta</span></button> -->
               </div>
 
@@ -139,13 +143,19 @@ function logout(){
 
 .content-right {
   display: flex;
-
+  align-items: center;
   .optionsnav{
     display: flex;
     align-items: center;
+
+    
   }
 }
-
+.datos-cuenta{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
 .btnAccount {
   display: flex;
