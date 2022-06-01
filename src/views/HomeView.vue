@@ -85,7 +85,7 @@ onBeforeMount(() => {
 async function refreshDatos() {
   productos.value = [];
   await axios
-    .get(`${RoutePaths.API}getProductos.php`)
+    .get(`${RoutePaths.API}getProductosAlmacen.php`)
     .then((res) => {
       switch (res.status) {
         case 200:

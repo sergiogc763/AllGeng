@@ -22,14 +22,14 @@
         /><span> €</span>
       </div>
       <div class="mb-3">
-        <label for="unidades" class="form-label">Unidades:</label>
+        <label for="stock" class="form-label">Unidades:</label>
         <input
           type="number"
-          id="precio"
+          id="stock"
           step="0.01"
           min="0"
-          v-model="unidades"
-        /><span> €</span>
+          v-model="stock"
+        /><span> uds</span>
       </div>
       <div class="mb-3">
         <label for="imagen" class="form-label">Imágenes:</label>
@@ -96,7 +96,7 @@ const store = useStore();
 //#region REF
 const nombre = ref<String>("");
 const precio = ref<Number>(1);
-const unidades = ref<Number>(1);
+const stock = ref<Number>(1);
 const imagen = ref<any>(null);
 const descripcion = ref<any>("");
 
@@ -136,6 +136,7 @@ async function axiosUpload() {
         categoria: categoria.value,
         tipo: tipo.value,
         marca: marca.value,
+        stock: stock.value
       },
     })
     .then((response) => {
