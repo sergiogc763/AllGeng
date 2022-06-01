@@ -1,5 +1,8 @@
 <template>
-  <div class="main" v-if="store.getters.logged && store.getters.rolId === RolUser.Usuario">
+  <div
+    class="main"
+    v-if="store.getters.logged && store.getters.rolId === RolUser.Usuario"
+  >
     <div class="fechas">
       <select
         class="form-select"
@@ -42,10 +45,16 @@
             <img :src="RoutePaths.BASE + p.imagen" />
           </div>
           <div class="datos-p">
-              <h2>{{p.prodnom}}</h2>
+            <h4>{{ p.prodnom }}</h4>
           </div>
           <div class="options-p">
-              <button type="button" class="btn btn-outline-primary" @click="verProducto(p)">Volver a comprar</button>
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              @click="verProducto(p)"
+            >
+              Volver a comprar
+            </button>
           </div>
         </div>
       </div>
@@ -60,10 +69,12 @@ import Page404 from "@/components/Page404.vue";
 import { RolUser } from "@/core/general/RolUser";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { onBeforeMount, ref } from "vue";
+import { onBeforeMount, reactive, ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 
+
+let paginate= [];
 //#region CONST USE
 const router = useRouter();
 const store = useStore();
@@ -73,6 +84,7 @@ const store = useStore();
 const fecha = ref<any>(3);
 const fechas = ref<Array<any>>([]);
 const historial = ref<Array<any>>([]);
+let pages= [];
 //#endregion
 
 onBeforeMount(() => {
@@ -171,7 +183,8 @@ function obtenerHistorialFitro() {
     });
 }
 
-function verProducto(p :any) {
+
+function verProducto(p: any) {
   router.push({
     name: "ProductView",
     params: {
@@ -180,11 +193,13 @@ function verProducto(p :any) {
     },
   });
 }
+
+
 </script>
 
 <style lang="scss" scoped>
 .main {
-    background-color: rgba(255, 255, 255, 0.964);
+  background-color: rgba(255, 255, 255, 0.964);
   margin: 3.5vh;
 
   display: flex;
@@ -192,11 +207,12 @@ function verProducto(p :any) {
   justify-content: center;
   align-items: center;
 
-  .fechas{
-      margin-bottom: 10px;
+  .fechas {
+    margin-bottom: 10px;
   }
   .productos {
     .producto {
+      margin-bottom: 10px;
       display: flex;
       flex-direction: column;
 
@@ -212,9 +228,9 @@ function verProducto(p :any) {
           flex-direction: column;
           margin: 5px;
 
-          .titulo{
-              font-weight: bold;
-              font-size: 16px;
+          .titulo {
+            font-weight: bold;
+            font-size: 16px;
           }
         }
         .datos-left {
@@ -226,25 +242,24 @@ function verProducto(p :any) {
         }
       }
 
-      .content-p{
-          
-          background-color: white;
-          border-radius: 0px 0px 10px 10px;
-          border: 2px solid rgb(198, 198, 198);
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
+      .content-p {
+        background-color: white;
+        border-radius: 0px 0px 10px 10px;
+        border: 2px solid rgb(198, 198, 198);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
-            div{
-                margin-right: 10px;
+        div {
+          margin-right: 10px;
           margin-left: 10px;
-            }
-          .img-p{
-              img{
-                  width: 15.5vw;
-                  height: 15.5vw;
-              }
+        }
+        .img-p {
+          img {
+            width: 13.2vw;
+            height: 13.2vw;
           }
+        }
       }
     }
   }

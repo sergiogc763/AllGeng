@@ -16,9 +16,8 @@ import store from "./store";
 
 library.add(fas,far,fab)
 
-import JwPagination from 'jw-vue-pagination';
 
-createApp(App).use(router).use(VueSweetalert2).use(store).component('font-awesome-icon', FontAwesomeIcon).component('jw-pagination', JwPagination).mount("#app");
+createApp(App).use(router).use(VueSweetalert2).use(store).component('font-awesome-icon', FontAwesomeIcon).mount("#app");
 import "bootstrap/dist/js/bootstrap.js"
 import "bootstrap/dist/css/bootstrap.css";
 

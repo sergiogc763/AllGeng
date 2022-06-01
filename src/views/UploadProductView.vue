@@ -22,6 +22,16 @@
         /><span> €</span>
       </div>
       <div class="mb-3">
+        <label for="unidades" class="form-label">Unidades:</label>
+        <input
+          type="number"
+          id="precio"
+          step="0.01"
+          min="0"
+          v-model="unidades"
+        /><span> €</span>
+      </div>
+      <div class="mb-3">
         <label for="imagen" class="form-label">Imágenes:</label>
         <input type="file" id="images" name="images[]" multiple ref="imagen" />
       </div>
@@ -86,6 +96,7 @@ const store = useStore();
 //#region REF
 const nombre = ref<String>("");
 const precio = ref<Number>(1);
+const unidades = ref<Number>(1);
 const imagen = ref<any>(null);
 const descripcion = ref<any>("");
 
