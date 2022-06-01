@@ -1,5 +1,6 @@
 <template>
-  <section class="notFound body">
+<div class="body">
+  <section class="notFound ">
     <div class="img">
       <img src="@/assets/backToTheHomepage.png" alt="Back to the Homepage" />
       <img
@@ -15,6 +16,7 @@
       <span class="yes router" @click="options">NO</span>
     </div>
   </section>
+</div>
 </template>
 
 <script lang="ts" setup>
@@ -82,7 +84,8 @@ h3 {
 }
 
 div.text {
-  height: 50vh;
+  height: 55vh;
+  margin-bottom: 40px;
 }
 
 div.text .router {
