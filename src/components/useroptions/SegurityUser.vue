@@ -42,6 +42,8 @@ import { required, minLength, sameAs, helpers } from "@vuelidate/validators";
 import { useStore } from "vuex";
 import Swal from "sweetalert2";
 import Page404 from '@/components/Page404.vue';
+import md5 from "crypto-js/md5";
+
 //#region CONST
 const state = reactive({
   oldPass: "",
@@ -95,8 +97,8 @@ function updatePass() {
   if (!v$.value.$error) {
     const o = {
       option: "Password",
-      oldPassword: state.oldPass,
-      newPassword: state.password.newPass,
+      oldPassword: md5(state.oldPass).toString(),
+      newPassword: md5(state.password.newPass).toString(),
     };
     store.dispatch("changeDataUser", o);
   } else {

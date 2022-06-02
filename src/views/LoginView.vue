@@ -132,10 +132,9 @@ async function login() {
     }
     const u = {
       email: state.email,
-      password: state.password,
+      password: md5(state.password).toString(),
       token: token
     };
-    console.log(rememberLogin.value);
     store.dispatch("saveUserLogin", u);
     
 

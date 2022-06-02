@@ -140,6 +140,7 @@ import {
 import { useRouter } from "vue-router";
 import Swal from "sweetalert2";
 import { useStore } from "vuex";
+import md5 from "crypto-js/md5";
 
 onBeforeMount(() => {
   if (store.state.User.logged) {
@@ -212,10 +213,11 @@ const rules = computed(() => {
     },
      acceptTerms: {
       required,
-      sameAs: helpers.withMessage(
-          "*Debe acceptar los términos y políticas de la empresa",
-          sameAs(() => true)),
-
+        sameAs: helpers.withMessage(
+          "*Obligarorio",
+          sameAs(true)
+        ),
+      
     },
     
   };
@@ -232,11 +234,12 @@ function register() {
     const u = {
       name: state.name,
       email: state.email,
-      password: state.password.password,
+      password: md5(state.password.password).toString(),
       phone: state.phone,
     };
     store.dispatch("register", u);
   } else {
+    console.log(v$.value.$error);
     Swal.fire({
       icon: "warning",
       title: "Formato datos erroneo",

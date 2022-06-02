@@ -19,7 +19,7 @@ const store = createStore({
     SAVE_USER_LOGIN(state, u) {
       //u hace referencia al objeto json formado por los datos del login
       servicesUser
-        .login(u.email, u.password)
+        .login(u.email, u.password, u.token)
         .then((res) => {
           switch (res.status) {
             case 200:
