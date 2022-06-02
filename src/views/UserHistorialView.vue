@@ -73,8 +73,7 @@ import { onBeforeMount, reactive, ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 
-
-let paginate= [];
+let paginate = [];
 //#region CONST USE
 const router = useRouter();
 const store = useStore();
@@ -84,7 +83,7 @@ const store = useStore();
 const fecha = ref<any>(3);
 const fechas = ref<Array<any>>([]);
 const historial = ref<Array<any>>([]);
-let pages= [];
+let pages = [];
 //#endregion
 
 onBeforeMount(() => {
@@ -99,13 +98,16 @@ onBeforeMount(() => {
         switch (response.status) {
           case 200:
             const fechasBD: Array<any> = [];
-            response.data.products.data.forEach((element: any) => {
-              fechasBD.push(element.anio);
-            });
+            if (response.data.products.data !== undefined) {
+              response.data.products.data.forEach((element: any) => {
+                fechasBD.push(element.anio);
+              });
 
-            fechas.value = Array.from(new Set(fechasBD)); //Quitamos fechas duplicadas
+              fechas.value = Array.from(new Set(fechasBD)); //Quitamos fechas duplicadas
 
-            obtenerHistorialFitro(); //obtenemos historial principal con el filtro de 3 meses
+              obtenerHistorialFitro(); //obtenemos historial principal con el filtro de 3 meses
+            }
+
             break;
 
           case 404:
@@ -183,7 +185,6 @@ function obtenerHistorialFitro() {
     });
 }
 
-
 function verProducto(p: any) {
   router.push({
     name: "ProductView",
@@ -193,8 +194,6 @@ function verProducto(p: any) {
     },
   });
 }
-
-
 </script>
 
 <style lang="scss" scoped>
