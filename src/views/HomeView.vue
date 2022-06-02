@@ -89,7 +89,7 @@ async function refreshDatos() {
     .then((res) => {
       switch (res.status) {
         case 200:
-          if(res.data.products.data !== undefined){
+          if(res.data.products.data !== undefined){//Comprobamos que solo se actualice si en la base de datos (almacen) contiene productos
             if (res.data.products.data.length > 0) {
             res.data.products.data.forEach((element: any) => {
               const p: Producto = {
@@ -101,6 +101,7 @@ async function refreshDatos() {
                 categoria: element.prodcategoria,
                 tipo: element.prodtipo,
                 marca: element.prodmarca,
+                stock: element.stock
               };
               productos.value.push(p);
             });

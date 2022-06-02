@@ -6,5 +6,6 @@ export type Producto = {
     precio: number,
     categoria: number,
     tipo: number,
-    marca: number
+    marca: number,
+    stock: number
 }
