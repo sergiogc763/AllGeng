@@ -8,6 +8,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import md5 from 'crypto-js/md5';
 
 import { createApp } from 'vue';
 import App from './App.vue';
@@ -17,7 +18,7 @@ import store from "./store";
 library.add(fas,far,fab)
 
 
-createApp(App).use(router).use(VueSweetalert2).use(store).component('font-awesome-icon', FontAwesomeIcon).mount("#app");
+createApp(App).use(router).use(VueSweetalert2).use(store).use(md5).component('font-awesome-icon', FontAwesomeIcon).mount("#app");
 import "bootstrap/dist/js/bootstrap.js"
 import "bootstrap/dist/css/bootstrap.css";
 

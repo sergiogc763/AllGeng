@@ -87,6 +87,7 @@ import useVuelidate from "@vuelidate/core";
 import { required, email, helpers } from "@vuelidate/validators";
 import Swal from "sweetalert2";
 import { useStore } from "vuex";
+import md5 from "crypto-js/md5";
 
 
 
@@ -108,7 +109,7 @@ const rules = computed(() => {
       required: helpers.withMessage("*Campo email no puede estar vacío", required),
       email,
     },
-    password: { 
+    password: {
       required: helpers.withMessage("*Indique una contraseña", required) },
   };
 });
@@ -121,12 +122,23 @@ const v$ = useVuelidate(rules, state);
 async function login() {
   v$.value.$validate();
   if (!v$.value.$error) {
+    
+    let token = "";
+
+    if(rememberLogin.value){
+
+      localStorage.setItem("userSession", md5(generateRandomString(25)).toString());
+      token = md5(generateRandomString(25)).toString();
+    }
     const u = {
       email: state.email,
       password: state.password,
+      token: token
     };
+    console.log(rememberLogin.value);
     store.dispatch("saveUserLogin", u);
     
+
   } else {
     Swal.fire({
       icon: "warning",
@@ -140,6 +152,22 @@ async function login() {
 
 function register() {
   router.push({ name: "RegisterView" });
+}
+
+//#endregion
+
+
+//#region UTIL
+
+const  generateRandomString = (num) => {
+    const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result1= ' ';
+    const charactersLength = characters.length;
+    for ( let i = 0; i < num; i++ ) {
+        result1 += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return result1;
 }
 
 //#endregion
@@ -176,8 +204,6 @@ function register() {
   background-repeat: no-repeat;
   background-position: center center;
 }
-
-
 
 .error {
   color: red;

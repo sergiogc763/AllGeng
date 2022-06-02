@@ -11,6 +11,14 @@ export default {
     });
     return res;
   },
+  async session(id: string): Promise<any> {
+    const res = await axios.post(`${RoutePaths.API}getUserSession.php`, null, {
+      params: {
+        id: id,
+      },
+    });
+    return res;
+  },
   async register(
     name: string,
     email: string,
