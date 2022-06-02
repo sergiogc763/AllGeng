@@ -24,15 +24,18 @@
               @click="uploadProduct"
               v-if="store.state.User.rolid === RolUser.Gestor"
             >
-            <OptionMainMenu :icono="'upload'" :texto="'Upload'" />
+              <OptionMainMenu :icono="'upload'" :texto="'Upload'" />
               <!-- <button class="button btnAccount"><font-awesome-icon icon="upload" class="img-icons"/><span>Upload</span></button> -->
             </li>
             <li
               class="nav-item"
               @click="showHistorial"
-              v-if="store.state.User.rolid === RolUser.Usuario && store.state.User.logged === true"
+              v-if="
+                store.state.User.rolid === RolUser.Usuario &&
+                store.state.User.logged === true
+              "
             >
-            <OptionMainMenu :icono="'scroll'" :texto="'Historial'" />
+              <OptionMainMenu :icono="'scroll'" :texto="'Historial'" />
               <!-- <button class="button btnAccount"><font-awesome-icon icon="scroll" class="img-icons"/><span>Historial</span></button> -->
             </li>
             <li
@@ -40,37 +43,36 @@
               @click="goLogin"
               v-if="!store.state.User.logged"
             >
-            <OptionMainMenu :icono="'user-secret'" :texto="'Cuenta'" />
+              <OptionMainMenu :icono="'user-secret'" :texto="'Cuenta'" />
               <!-- <button class="button btnAccount"><font-awesome-icon icon="user-secret" class="img-icons"/><span>Cuenta</span></button> -->
-
             </li>
             <li class="nav-item dropdown" v-else>
-              <div
-                class="useraccount nav-link"
-                data-bs-toggle="dropdown"
-              >
-              <div class="datos-cuenta">
-                <OptionMainMenu :icono="'circle-user'" :texto="'Cuenta'" />
-                <span>Sergio Garcia Calzada</span>
-              </div>
-              
+              <div class="useraccount nav-link" data-bs-toggle="dropdown">
+                <div class="datos-cuenta">
+                  <OptionMainMenu :icono="'circle-user'" :texto="''" />
+                  <span>{{ store.getters.userName }}</span>
+                </div>
+
                 <!-- <button class="button btnAccount"><font-awesome-icon icon="circle-user" class="img-icons"/><span>Cuenta</span></button> -->
               </div>
 
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <ul
+                class="dropdown-menu cuenta-opciones"
+                aria-labelledby="navbarDropdown"
+              >
                 <li>
-                  <font-awesome-icon icon="gears"/>
                   <router-link
                     class="dropdown-item"
                     :to="RoutePaths.UserOptions"
-                    >Configuración</router-link
+                    ><font-awesome-icon
+                      icon="gears"
+                      class="icon"
+                    />Configuración</router-link
                   >
                 </li>
                 <li>
-                  <font-awesome-icon icon="right-from-bracket" />
-                  <a class="dropdown-item" @click="logout"
-                    >Desconectar</a
-                  >
+                  
+                  <a class="dropdown-item" @click="logout"><font-awesome-icon icon="right-from-bracket" class="icon"/>Desconectar</a>
                 </li>
               </ul>
             </li>
@@ -85,40 +87,38 @@
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { RoutePaths } from "@/core/general/RoutePaths";
-import { RolUser } from '@/core/general/RolUser';
+import { RolUser } from "@/core/general/RolUser";
 import Swal from "sweetalert2";
 import OptionMainMenu from "./general/OptionMainMenu.vue";
-
 
 //#region CONST
 const store = useStore();
 const router = useRouter();
 //#endregion
 
-//#region 
+//#region
 function goLogin() {
   router.push({ name: "LoginView" });
 }
-function uploadProduct(){
-   router.push({ name: "UploadProductView" });
+function uploadProduct() {
+  router.push({ name: "UploadProductView" });
 }
 
-function showHistorial(){
+function showHistorial() {
   router.push({ name: "UserHistorialView" });
 }
 
-function logout(){
+function logout() {
   store.dispatch("logout");
   router.push({ name: "HomeView" });
   Swal.fire({
-      icon: "success",
-      title: "Se ha desconectado correctamente",
-      showConfirmButton: false,
-      timer: 2000,
-    });
+    icon: "success",
+    title: "Se ha desconectado correctamente",
+    showConfirmButton: false,
+    timer: 2000,
+  });
 }
 //#endregion
-
 </script>
 
 <style lang="scss" scoped>
@@ -143,19 +143,27 @@ function logout(){
 
 .content-right {
   display: flex;
-  align-items: center;
-  .optionsnav{
+
+  .optionsnav {
     display: flex;
     align-items: center;
 
-    
+    .cuenta-opciones {
+      li {
+        .dropdown-item {
+          .icon {
+            margin-right: 10px;
+          }
+        }
+      }
+    }
   }
 }
-.datos-cuenta{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+.datos-cuenta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .btnAccount {
   display: flex;
@@ -170,7 +178,7 @@ function logout(){
   transition: all 0.5s;
   cursor: pointer;
   margin: 5px;
-  .img-icons{
+  .img-icons {
     margin-right: 10px;
     width: 25px;
   }
@@ -201,6 +209,4 @@ function logout(){
     right: 0;
   }
 }
-
-
 </style>

@@ -24,9 +24,10 @@ const props = defineProps({
 <style lang="scss" scoped>
 .btnAccount {
 
+
     .img-icons{
-    margin-right: 10px;
-    width: 25px;
+   
+    width: 30px;
   }
     color: whitesmoke;
   --_g1: conic-gradient(from 90deg at 50% 75%,rgba(223, 223, 223, 0.898),rgba(223, 223, 223, 0.898) 0) no-repeat;

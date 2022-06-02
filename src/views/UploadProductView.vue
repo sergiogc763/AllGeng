@@ -118,12 +118,7 @@ onBeforeMount(() => {
 
 //#region FUNCTIONS
 const add = async () => {
-  // debugger;
-  console.log(categoria.value);
-  console.log("selected file", imagen.value.files);
-
   axiosUpload();
-  //Upload to server
 };
 
 async function axiosUpload() {

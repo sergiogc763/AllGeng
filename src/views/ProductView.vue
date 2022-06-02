@@ -9,10 +9,10 @@
           data-bs-ride="carousel"
         >
           <div class="carousel-inner">
-             <div class="carousel-item active w-100" data-bs-interval="5000">
+             <div class="carousel-item active w-50" data-bs-interval="5000">
               <img :src="producto.img" class="d-block" />
             </div>
-             <div class="carousel-item w-100" data-bs-interval="5000"  v-for="imgagen in producto.imagenes">
+             <div class="carousel-item w-50" data-bs-interval="5000"  v-for="imgagen in producto.imagenes">
               <img :src="imgagen" class="d-block" />
             </div>
           </div>
@@ -46,7 +46,7 @@
           ><input class="cantidad-p" v-model="cantidad" @change="onChange($event)" type="number" min="1" />
         </div>
         <div class="total">Precio total: {{ total }} €</div>
-        <div ref="paypal"></div>
+        <div ref="paypal" class="btn-paypal"></div>
       </div>
     </div>
     <div class="banner"></div>
@@ -55,9 +55,6 @@
         <li class="nav-item">
           <a class="nav-link" @click="optionSelected(1)">Descripción</a>
         </li>
-        <!-- <li class="nav-item">
-          <a class="nav-link" @click="optionSelected(2)">Características</a>
-        </li> -->
         <li class="nav-item">
           <a class="nav-link" @click="optionSelected(3)">Comentarios</a>
         </li>
@@ -65,12 +62,6 @@
       <div class="option-show">
         <div class="descripcion" v-if="opcion === 1">
           <TextOptionProduct :text="producto.descripcion" />
-        </div>
-        <!-- <div class="caracterisitcas" v-if="opcion === 2">
-          <TextOptionProduct :text="producto.caracteristicas" />
-        </div> -->
-        <div class="comentarios" v-if="opcion === 3">
-          
         </div>
       </div>
     </div>
@@ -303,17 +294,14 @@ export default {
 
 <style lang="scss" scoped>
 .main {
-  background-color: rgba(255, 255, 255, 0.964)
+  background-color: rgba(255, 255, 255, 0.964);
 
   img{
-    width: 40vw;
-    height: 40vw;
+    width: 35vw;
+    height:35vw;
   }
 
-  .carousel-item{
-    width: 45vw;
-    
-  }
+
 
   .banner {
     margin: 0;
@@ -325,11 +313,19 @@ export default {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+
+    .img-p{
+      width: 35vw;
+    }
     .price-p {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       // margin-top: 15vh;
       background-color: rgb(183, 183, 183);
       padding: 20px;
       border-radius: 5px;
+
       height: fit-content;
       .nombre {
         display: flex;
