@@ -193,17 +193,17 @@ export default {
         });
     },
     setLoaded() {
-      this.loaded = true;
+      
       window.paypal
         .Buttons({
-          createOrder: (data, actions) => {
-            return actions.order.create({
+          createOrder: (data, actions) => {  
+            return actions.order.create({    
               purchase_units: [
                 {
                   description: this.producto.nombre,
                   amount: {
                     currency_code: "USD",
-                    value: this.total,
+                    value: `${(this.total*1.09885).toFixed(2)}`,
                   },
                 },
               ],
