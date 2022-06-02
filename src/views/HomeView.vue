@@ -89,7 +89,8 @@ async function refreshDatos() {
     .then((res) => {
       switch (res.status) {
         case 200:
-          if (res.data.products.data.length > 0) {
+          if(res.data.products.data !== undefined){
+            if (res.data.products.data.length > 0) {
             res.data.products.data.forEach((element: any) => {
               const p: Producto = {
                 id: element.prodid,
@@ -105,6 +106,8 @@ async function refreshDatos() {
             });
             productosMostrar.value = productos.value;
           }
+          }
+          
 
           break;
         case 404:

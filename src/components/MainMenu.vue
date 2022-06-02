@@ -143,10 +143,11 @@ function logout() {
 
 .content-right {
   display: flex;
-
+  margin-right: 85px;
   .optionsnav {
     display: flex;
     align-items: center;
+    
 
     .cuenta-opciones {
       li {
