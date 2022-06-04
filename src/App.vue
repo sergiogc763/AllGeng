@@ -1,29 +1,34 @@
 <template>
   <MainMenu />
-  <router-view/>
+
+  <router-view />
   <!-- <Footer /> -->
 </template>
 
 <script setup lang="ts">
-import MainMenu from '@/components/MainMenu.vue';
-import Footer from './components/Footer.vue';
-import { onBeforeMount } from 'vue';
-import CryptoJS from 'crypto-js';
+import MainMenu from "@/components/MainMenu.vue";
+import Footer from "./components/Footer.vue";
+import { onBeforeMount } from "vue";
+import { useStore } from 'vuex';
 
+//#region USE
+const store = useStore();
+//#endregion
 
+onBeforeMount(() => {
+  if (localStorage) {
+    console.log("exite algun localstorage");
 
-var data = [{id: 1}, {id: 2}]
-
-// Encrypt
-// var ciphertext = CryptoJS.MD5
-// console.log(ciphertext);
-// onBeforeMount(()=>{
-// console.log("dasdadsad");
-// })
-
-
+    if (
+      localStorage.getItem("userSession") !== undefined &&
+      localStorage.getItem("userSession")
+    ) {
+      store.dispatch("getUserRemember", localStorage.getItem("userSession"));
+      console.log(localStorage.getItem("userSession"));
+      
+    }
+  }
+});
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

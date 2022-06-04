@@ -75,6 +75,50 @@ const store = createStore({
         });
     },
 
+    USER_SESSION(state, token) {
+      //u hace referencia al objeto json formado por los datos del login
+      servicesUser
+        .session(token)
+        .then((res) => {
+          switch (res.status) {
+            case 200:
+              if (res.data.found) {
+                //Guardamos los datos del usuario en el store
+                state.User.usuid = res.data.response.usuid;
+                state.User.usunom = res.data.response.usunom;
+                state.User.usutelf = res.data.response.usutelf;
+                state.User.usuemail = res.data.response.usuemail;
+                state.User.rolid = res.data.response.rolid;
+                state.User.logged = true;
+              }
+              break;
+
+            case 404:
+              Swal.fire({
+                icon: "error",
+                title: "ERROR",
+                text: "Error interno. No se ha encontrado la ruta",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+              break;
+
+            case 500:
+              Swal.fire({
+                icon: "error",
+                title: "ERROR",
+                text: "Error interno. Fallo de API",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+              break;
+          }
+        })
+        .catch((error) => {
+          console.error("There was an error!", error);
+        });
+    },
+
     REGISTER(state, u) {
       servicesUser
         .register(u.name, u.email, u.phone, u.password)
@@ -358,6 +402,9 @@ const store = createStore({
     },
     saveUserLogin({ commit }, u) {
       commit("SAVE_USER_LOGIN", u);
+    },
+    getUserRemember({ commit }, token){
+      commit("USER_SESSION",token);
     },
     register({ commit }, u) {
       commit("REGISTER", u);

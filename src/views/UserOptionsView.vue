@@ -31,9 +31,9 @@
               class="btn btn-danger btn-lg"
               data-bs-toggle="button"
               autocomplete="off"
-              @click="logout()"
+              @click="deleteAccount()"
             >
-              Desconectar
+              Eliminar cuenta
             </button>
           </li>
         </ul>
@@ -56,6 +56,8 @@ import { useStore } from "vuex";
 import router from "../router/index";
 import Swal from "sweetalert2";
 import Page404 from "@/components/Page404.vue";
+import { RoutePaths } from "@/core/general/RoutePaths";
+import axios from "axios";
 
 //#region CONST
 
@@ -69,14 +71,70 @@ function changeOption(selected: number) {
   option.value = selected;
 }
 
-function logout() {
-  store.dispatch("logout");
-  router.push({ name: "HomeView" });
+function deleteAccount() {
   Swal.fire({
-    icon: "success",
-    title: "Se ha desconectado correctamente",
-    showConfirmButton: false,
-    timer: 2000,
+    title: "¿Realmente desea eliminar permanentemente su cuenta?",
+    showCancelButton: true,
+    confirmButtonText: "Eliminar",
+    denyButtonText: `Cancelar`,
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      let formData = new FormData();
+      formData.append("id", store.getters.userId);
+
+      await axios
+        .post(`${RoutePaths.API}deleteAccount.php`, formData)
+        .then((response) => {
+          switch (response.status) {
+            case 200:
+              if (response.data) {
+                store.dispatch("logout");
+                router.push({ name: "HomeView" });
+                Swal.fire({
+                  icon: "success",
+                  title: "Se ha eliminado la cuenta.",
+                  showConfirmButton: false,
+                  timer: 2000,
+                });
+                
+              } else {
+                Swal.fire({
+                  icon: "error",
+                  title: "ERROR",
+                  text: "Error interno. Perdone las molestias",
+                  showConfirmButton: false,
+                  timer: 2000,
+                });
+              }
+              break;
+
+            case 404:
+              Swal.fire({
+                icon: "error",
+                title: "ERROR",
+                text: "Error interno. No se ha encontrado la ruta",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+              break;
+
+            case 500:
+              Swal.fire({
+                icon: "error",
+                title: "ERROR",
+                text: "Error interno. Fallo de API",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+              break;
+          }
+        })
+        .catch((error) => {
+          console.error("There was an error!", error);
+        });
+
+      
+    }
   });
 }
 

@@ -12,10 +12,10 @@ export default {
     });
     return res;
   },
-  async session(id: string): Promise<any> {
-    const res = await axios.post(`${RoutePaths.API}getUserSession.php`, null, {
+  async session(token: string): Promise<any> {
+    const res = await axios.post(`${RoutePaths.API}getUserRemember.php`, null, {
       params: {
-        id: id,
+        token: token,
       },
     });
     return res;

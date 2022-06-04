@@ -126,9 +126,9 @@ async function login() {
     let token = "";
 
     if(rememberLogin.value){
-
-      localStorage.setItem("userSession", md5(generateRandomString(25)).toString());
       token = md5(generateRandomString(25)).toString();
+      localStorage.setItem("userSession", token);
+      
     }
     const u = {
       email: state.email,
