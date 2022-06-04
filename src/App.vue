@@ -17,7 +17,6 @@ const store = useStore();
 
 onBeforeMount(() => {
   if (localStorage) {
-    console.log("exite algun localstorage");
 
     if (
       localStorage.getItem("userSession") !== undefined &&

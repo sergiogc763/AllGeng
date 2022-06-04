@@ -177,6 +177,17 @@ const store = createStore({
       state.User.usutelf = "";
       state.User.rolid = "";
       state.User.logged = false;
+
+      if (localStorage) {
+
+        if (
+          localStorage.getItem("userSession") !== undefined &&
+          localStorage.getItem("userSession")
+        ) {
+          localStorage.removeItem("userSession")
+          
+        }
+      }
     },
 
     CHANGE_DATA_USER(state, o) {
