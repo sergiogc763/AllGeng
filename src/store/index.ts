@@ -23,6 +23,7 @@ const store = createStore({
         .then((res) => {
           switch (res.status) {
             case 200:
+              console.log(res);
               if (res.data.found) {
 
                 //Guardamos los datos del usuario en el store

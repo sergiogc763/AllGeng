@@ -50,7 +50,7 @@
                   <div class="mb-3">
                     <p>
                       Forget password?
-                      <router-link to="/">Click here for recovery</router-link>
+                      <span class="resetPassword" @click="resetPassword()">Click here for recovery</span>
                     </p>
                   </div>
                   <div class="d-grid gap-2 mt-2">
@@ -81,6 +81,7 @@
 </template>
 
 <script lang="ts" setup>
+
 import { computed, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import useVuelidate from "@vuelidate/core";
@@ -88,7 +89,8 @@ import { required, email, helpers } from "@vuelidate/validators";
 import Swal from "sweetalert2";
 import { useStore } from "vuex";
 import md5 from "crypto-js/md5";
-
+import axios from "axios";
+import { RoutePaths } from "@/core/general/RoutePaths";
 
 
 //#region CONST
@@ -166,16 +168,18 @@ async function resetPassword() {
 
     let formData = new FormData();
     formData.append("emailU", emailU);
-    const newPass = generateRandomString(25);
 
-    formData.append("newPass", newPass);
-    formData.append("cryptPass", md5(newPass).toString());
+    const newPass = generateRandomString(25).trim();
+
+    formData.append("newPass", newPass.trim());
+    formData.append("cryptPass", md5(newPass).toString().trim());
 
     await axios
       .post(`${RoutePaths.API}resetPassword.php`, formData)
       .then((response) => {
         switch (response.status) {
           case 200:
+            console.log(response);
             if (response.data) {
               Swal.fire({
                 icon: "success",
@@ -271,6 +275,11 @@ const  generateRandomString = (num) => {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+}
+
+.resetPassword{
+  color: blue;
+  cursor: pointer;
 }
 
 .error {

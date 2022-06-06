@@ -30,7 +30,7 @@ onBeforeMount(() => {
   }
 
 //   axios
-//     .get(`${RoutePaths.BASE}/resetPassword.php`)
+//     .get(`${RoutePaths.API}resetPassword.php`)
 //     .then((res) => {
 //       console.log(res);
 //     })
