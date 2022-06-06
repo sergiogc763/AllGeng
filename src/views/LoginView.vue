@@ -153,6 +153,75 @@ function register() {
   router.push({ name: "RegisterView" });
 }
 
+async function resetPassword() {
+  const { value: emailU } = await Swal.fire({
+    title: "Recuperar cuenta",
+    input: "text",
+    inputLabel: "Indique su email",
+    showCancelButton: true,
+  });
+
+  if (emailU) {
+    Swal.fire(`Revise su email para obtener la nueva contraseña asignada. Le recomendamos cambiarla.`);
+
+    let formData = new FormData();
+    formData.append("emailU", emailU);
+    const pass = generateRandomString(25);
+
+    formData.append("newPass", pass);
+    formData.append("cryptPass", md5(pass).toString());
+
+    await axios
+      .post(`${RoutePaths.API}resetPassword.php`, formData)
+      .then((response) => {
+        switch (response.status) {
+          case 200:
+            if (response.data) {
+              Swal.fire({
+                icon: "success",
+                title: "Nombre actualizado",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "ERROR",
+                text: "Error interno. Perdone las molestias",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            }
+            break;
+
+          case 404:
+            Swal.fire({
+              icon: "error",
+              title: "ERROR",
+              text: "Error interno. No se ha encontrado la ruta",
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
+
+          case 500:
+            Swal.fire({
+              icon: "error",
+              title: "ERROR",
+              text: "Error interno. Fallo de API",
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
+        }
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
+  } else {
+    Swal.fire(`No puede dejar el campo vacio`);
+  }
+}
 //#endregion
 
 
