@@ -166,10 +166,10 @@ async function resetPassword() {
 
     let formData = new FormData();
     formData.append("emailU", emailU);
-    const pass = generateRandomString(25);
+    const newPass = generateRandomString(25);
 
-    formData.append("newPass", pass);
-    formData.append("cryptPass", md5(pass).toString());
+    formData.append("newPass", newPass);
+    formData.append("cryptPass", md5(newPass).toString());
 
     await axios
       .post(`${RoutePaths.API}resetPassword.php`, formData)
@@ -179,7 +179,7 @@ async function resetPassword() {
             if (response.data) {
               Swal.fire({
                 icon: "success",
-                title: "Nombre actualizado",
+                title: "Se ha enviado la nueva contraseña al correo indicado",
                 showConfirmButton: false,
                 timer: 2000,
               });

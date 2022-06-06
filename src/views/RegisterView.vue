@@ -94,9 +94,6 @@
                         ><u @click="showTerms" class="link">Terms of service</u></a
                       >
                     </label>
-                    <span class="error" v-if="v$.password.confirm.$error">
-                      {{ v$.acceptTerms.$errors[0].$message }}
-                    </span>
                   </div>
 
                   <div class="d-flex justify-content-center">
@@ -141,6 +138,7 @@ import { useRouter } from "vue-router";
 import Swal from "sweetalert2";
 import { useStore } from "vuex";
 import md5 from "crypto-js/md5";
+
 
 onBeforeMount(() => {
   if (store.state.User.logged) {
@@ -211,14 +209,7 @@ const rules = computed(() => {
         ),
       },
     },
-     acceptTerms: {
-      required,
-        sameAs: helpers.withMessage(
-          "*Obligarorio",
-          sameAs(true)
-        ),
-      
-    },
+    acceptTerms:{ checked: value => value === true }
     
   };
 });
@@ -229,12 +220,13 @@ const v$ = useVuelidate(rules, state);
 //#region FUNCTION
 
 function register() {
+  const md5Pass = md5(state.password.password).toString();
   v$.value.$validate();
   if (!v$.value.$error) {
     const u = {
       name: state.name,
       email: state.email,
-      password: md5(state.password.password).toString(),
+      password: md5Pass,
       phone: state.phone,
     };
     store.dispatch("register", u);
@@ -243,7 +235,7 @@ function register() {
     Swal.fire({
       icon: "warning",
       title: "Formato datos erroneo",
-      text: "Los datos introducidos no cumplen el formato correcto",
+      text: "Los datos introducidos no cumplen el formato correcto o no ha aceptado los términos.",
       showConfirmButton: false,
       timer: 2000,
     });

@@ -24,6 +24,7 @@ const store = createStore({
           switch (res.status) {
             case 200:
               if (res.data.found) {
+
                 //Guardamos los datos del usuario en el store
                 state.User.usuid = res.data.response.usuid;
                 state.User.usunom = res.data.response.usunom;

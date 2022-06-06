@@ -25,20 +25,19 @@ onBeforeMount(() => {
       localStorage.getItem("userSession")
     ) {
       store.dispatch("getUserRemember", localStorage.getItem("userSession"));
-      console.log(localStorage.getItem("userSession"));
-      
+
     }
   }
 
-  axios
-    .get(`${RoutePaths.BASE}/resetPassword.php`)
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((error) => {
-      console.error("There was an error!", error);
-    });
-});
+//   axios
+//     .get(`${RoutePaths.BASE}/resetPassword.php`)
+//     .then((res) => {
+//       console.log(res);
+//     })
+//     .catch((error) => {
+//       console.error("There was an error!", error);
+//     });
+ });
 </script>
 
 <style lang="scss" scoped></style>
