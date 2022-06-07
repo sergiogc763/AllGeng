@@ -1,89 +1,94 @@
 <template>
   <div class="content" v-if="store.getters.logged">
     <div class="wrapper bg-white mt-sm-5">
-      <h4 class="pb-4 border-bottom">Account settings</h4>
-      <div class="d-flex align-items-start py-3 border-bottom">
+      <h4 class="pb-4 d-flex align-items-center justify-content-center">Configuración cuenta</h4>
+      <div class="d-flex align-items-center justify-content-center py-3 border-bottom">
         <img
-          src="https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+          src="@/assets/usuario_config.png"
           class="img"
           alt=""
         />
-        <div class="pl-sm-4 pl-2" id="img-section">
-          <b>Profile Photo</b>
-          <p>Accepted file type .png. Less than 1MB</p>
-          <button class="btn button border"><b>Upload</b></button>
-        </div>
       </div>
-      <div class="py-2">
+      <div class="py-2 border-bottom">
         <div class="row py-2">
           <div class="col-md-6">
-            <label for="firstname">First Name</label>
+            <label for="firstname">Nombre:</label>
             <input
               type="text"
               class="bg-light form-control"
-              placeholder="Steve"
+              v-model="newName"
+              :placeholder="name"
             />
           </div>
           <div class="col-md-6 pt-md-0 pt-3">
-            <label for="lastname">Last Name</label>
+            <label for="lastname">Apellidos:</label>
             <input
               type="text"
               class="bg-light form-control"
-              placeholder="Smith"
+              v-model="newLastName"
+              :placeholder="lastName"
             />
           </div>
         </div>
         <div class="row py-2">
           <div class="col-md-6">
-            <label for="email">Email Address</label>
+            <label for="email">Correo Electrónico:</label>
+            <input
+              type="text"
+              class="bg-light form-control"
+              v-model="newEmail"
+              :placeholder="email"
+            />
+          </div>
+          <div class="col-md-6 pt-md-0 pt-3">
+            <label for="phone">Teléfono</label>
+            <input
+              type="tel"
+              class="bg-light form-control"
+              v-model="phone"
+              :placeholder="newPhone"
+            />
+          </div>
+        </div>
+        <div class="py-3 pb-4 border-bottom">
+          <button class="btn btn-primary mr-3">Guardar cambios</button>
+          <button class="btn border button ml-3">Cancelar</button>
+        </div>
+        <div class="row py-2">
+          <div class="col-md-12">
+            <label for="email">Contraseña antigua:</label>
             <input
               type="text"
               class="bg-light form-control"
               placeholder="steve_@email.com"
             />
           </div>
-          <div class="col-md-6 pt-md-0 pt-3">
-            <label for="phone">Phone Number</label>
+          <div class="col-md-6">
+            <label for="newPass">Nueva contraseña:</label>
             <input
-              type="tel"
+              type="password"
               class="bg-light form-control"
-              placeholder="+1 213-548-6015"
+            />
+          </div>
+          <div class="col-md-6 pt-md-0 pt-3">
+            <label for="repeatPass">Repita la contraseña nueva:</label>
+            <input
+              type="password"
+              class="bg-light form-control"
             />
           </div>
         </div>
-        <div class="row py-2">
-          <div class="col-md-6">
-            <label for="country">Country</label>
-            <select name="country" id="country" class="bg-light">
-              <option value="india" selected>India</option>
-              <option value="usa">USA</option>
-              <option value="uk">UK</option>
-              <option value="uae">UAE</option>
-            </select>
-          </div>
-          <div class="col-md-6 pt-md-0 pt-3" id="lang">
-            <label for="language">Language</label>
-            <div class="arrow">
-              <select name="language" id="language" class="bg-light">
-                <option value="english" selected>English</option>
-                <option value="english_us">English (United States)</option>
-                <option value="enguk">English UK</option>
-                <option value="arab">Arabic</option>
-              </select>
-            </div>
-          </div>
-        </div>
         <div class="py-3 pb-4 border-bottom">
-          <button class="btn btn-primary mr-3">Save Changes</button>
-          <button class="btn border button">Cancel</button>
+          <button class="btn btn-primary mr-3">Guardar cambios</button>
+          <button class="btn border button">Cancelar</button>
         </div>
         <div class="d-sm-flex align-items-center pt-3" id="deactivate">
           <div>
-            <b>Deactivate your account</b>
-            <p>Details about your company account and password</p>
+            <b>Eliminar cuenta</b>
+            <p>Detalles sobre datos de tu cuenta y contraseña</p>
           </div>
           <div class="ml-auto">
-            <button class="btn danger">Deactivate</button>
+            <button class="btn danger" @click="deleteAccount()">Eliminar</button>
           </div>
         </div>
       </div>
@@ -137,29 +142,62 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
-
-import InfoUser from "@/components/useroptions/InfoUser.vue";
-import SegurityUser from "@/components/useroptions/SegurityUser.vue";
 import { useStore } from "vuex";
 import router from "../router/index";
 import Swal from "sweetalert2";
+import { computed, ref } from "vue";
 import Page404 from "@/components/Page404.vue";
 import { RoutePaths } from "@/core/general/RoutePaths";
 import axios from "axios";
 
 //#region CONST
-
 const store = useStore();
-const option = ref<number>(0);
+
+const newName = ref<string>("");
+const name = computed(() => store.getters.userName.split(' ',2)[0]);
+
+const newLastName = ref<string>("");
+const lastName = computed(() => store.getters.userName.split(' ',2)[1]);
+
+const newEmail = ref<string>("");
+const email = computed(() => store.getters.userEmail);
+
+const newPhone = ref<string>("");
+const phone = computed(() => store.getters.userPhone);
+//#endregion
+
+//#region 
+function updateName(){
+
+  const o = {
+      nom: newName.value,
+      option: "Name",
+    };
+    store.dispatch("changeDataUser", o);
+}
+
+function updateEmail(){
+
+  const o = {
+      email: newEmail.value,
+      option: "Email",
+    };
+    store.dispatch("changeDataUser", o);
+}
+
+function updatePhone(){
+
+  const o = {
+      telf: newPhone.value,
+      option: "Phone",
+    };
+    store.dispatch("changeDataUser", o);
+}
 
 //#endregion
 
-//#region FUNCTIONS
-function changeOption(selected: number) {
-  option.value = selected;
-}
 
+//#region FUNCTIONS
 function deleteAccount() {
   Swal.fire({
     title: "¿Realmente desea eliminar permanentemente su cuenta?",

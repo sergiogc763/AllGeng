@@ -193,17 +193,19 @@ const store = createStore({
 
     CHANGE_DATA_USER(state, o) {
       switch (o.option) {
-        case "Name":
+        case "Info":
           servicesUser
-            .updateName(state.User.usuid, o.nom)
+            .update(state.User.usuid, o.User.name, o.User.email, o.User.telf)
             .then((response) => {
               switch (response.status) {
                 case 200:
                   if (response.data) {
-                    state.User.usunom = o.nom;
+                    state.User.usunom = o.User.name;
+                    state.User.usuemail = o.User.email;
+                    state.User.usutelf = o.User.telf;
                     Swal.fire({
                       icon: "success",
-                      title: "Nombre actualizado",
+                      title: "Datos actualizados",
                       showConfirmButton: false,
                       timer: 2000,
                     });
@@ -245,112 +247,6 @@ const store = createStore({
 
           break;
 
-        case "Email":
-          servicesUser
-            .updateEmail(state.User.usuid, o.email)
-            .then((response) => {
-              switch (response.status) {
-                case 200:
-                  if (response.data) {
-                    state.User.usuemail = o.email;
-                    Swal.fire({
-                      icon: "success",
-                      title: "Email actualizado",
-                      showConfirmButton: false,
-                      timer: 2000,
-                    });
-                  } else {
-                    Swal.fire({
-                      icon: "error",
-                      title: "ERROR",
-                      text: "Error interno. Perdone las molestias",
-                      showConfirmButton: false,
-                      timer: 2000,
-                    });
-                  }
-                  break;
-
-                case 404:
-                  Swal.fire({
-                    icon: "error",
-                    title: "ERROR",
-                    text: "Error interno. No se ha encontrado la ruta",
-                    showConfirmButton: false,
-                    timer: 2000,
-                  });
-                  break;
-
-                case 500:
-                  Swal.fire({
-                    icon: "error",
-                    title: "ERROR",
-                    text: "Error interno. Fallo de API",
-                    showConfirmButton: false,
-                    timer: 2000,
-                  });
-                  break;
-              }
-            })
-            .catch((error) => {
-              console.error("There was an error!", error);
-            });
-
-          break;
-
-        case "Phone":
-          servicesUser
-            .updatePhone(state.User.usuid, o.telf)
-            .then((response) => {
-              switch (response.status) {
-                case 200:
-                  if (response.data) {
-                    state.User.usutelf = o.telf;
-                    Swal.fire({
-                      icon: "success",
-                      title: "Teléfono actualizado!",
-                      showConfirmButton: false,
-                      timer: 2000,
-                    });
-                  } else {
-                    Swal.fire({
-                      icon: "error",
-                      title: "ERROR",
-                      text: "Error interno. Perdone las molestias",
-                      showConfirmButton: false,
-                      timer: 2000,
-                    });
-                  }
-                  break;
-
-                case 404:
-                  Swal.fire({
-                    icon: "error",
-                    title: "ERROR",
-                    text: "Error interno. No se ha encontrado la ruta",
-                    showConfirmButton: false,
-                    timer: 2000,
-                  });
-                  break;
-
-                case 500:
-                  Swal.fire({
-                    icon: "error",
-                    title: "ERROR",
-                    text: "Error interno. Fallo de API",
-                    showConfirmButton: false,
-                    timer: 2000,
-                  });
-                  break;
-
-
-              
-              }
-            })
-            .catch((error) => {
-              console.error("There was an error!", error);
-            });
-
-          break;
 
           case "Password":
           servicesUser

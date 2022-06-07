@@ -37,29 +37,13 @@ export default {
     
     return res;
   },
-  async updateName(id: string, name: string): Promise<any> {
-    const res = await axios.post(`${RoutePaths.API}updateName.php`, null, {
+  async update(id: string, name: string, email:string, telf:string): Promise<any> {
+    const res = await axios.post(`${RoutePaths.API}updateUser.php`, null, {
       params: {
         id: id,
         name: name,
-      },
-    });
-    return res;
-  },
-  async updateEmail(id: string, email: string): Promise<any> {
-    const res = await axios.post(`${RoutePaths.API}updateEmail.php`, null, {
-      params: {
-        id: id,
         email: email,
-      },
-    });
-    return res;
-  },
-  async updatePhone(id: string, phone: string): Promise<any> {
-    const res = await axios.post(`${RoutePaths.API}updatePhone.php`, null, {
-      params: {
-        id: id,
-        phone: phone,
+        telf: telf
       },
     });
     return res;
