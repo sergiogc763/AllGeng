@@ -67,6 +67,9 @@
               v-model="state.oldPass"
               placeholder="*************"
             />
+            <span class="error" v-if="v$.oldPass.$error">
+              {{ v$.oldPass.$errors[0].$message }}
+            </span>
           </div>
           <div class="col-md-6">
             <label for="newPass">Nueva contraseña:</label>
@@ -76,6 +79,9 @@
               v-model="state.password.newPass"
               placeholder="*************"
             />
+            <span class="error" v-if="v$.oldPass.$error">
+              {{ v$.password.newPass.$errors[0].$message }}
+            </span>
           </div>
           <div class="col-md-6 pt-md-0 pt-3">
             <label for="repeatPass">Repita la contraseña nueva:</label>
@@ -85,10 +91,15 @@
               v-model="state.password.newConfirmPass"
               placeholder="*************"
             />
+            <span class="error" v-if="v$.oldPass.$error">
+              {{ v$.password.newConfirmPass.$errors[0].$message }}
+            </span>
           </div>
         </div>
         <div class="py-3 pb-4 border-bottom">
-          <button class="btn btn-warning mr-3" @click="updatePass()">Cambiar contraseña</button>
+          <button class="btn btn-warning mr-3" @click="updatePass()">
+            Cambiar contraseña
+          </button>
         </div>
         <div class="d-sm-flex align-items-center pt-3" id="deactivate">
           <div class="m-2">
@@ -147,26 +158,25 @@ function cleanForm() {
   newPhone.value = "";
 }
 function updateInfo() {
-
   let checkName = name.value;
   let checkLastname = lastName.value;
   let fullName = "";
   let checkEmail = email.value;
   let checkPhone = phone.value;
 
-  if(newName.value !== ""){
+  if (newName.value !== "") {
     checkName = newName.value;
   }
-  if(lastName.value !== ""){
+  if (lastName.value !== "") {
     checkLastname = lastName.value;
   }
 
   fullName = `${checkName} ${checkLastname}`;
 
-  if(newEmail.value !== ""){
+  if (newEmail.value !== "") {
     checkEmail = newEmail.value;
   }
-  if(newPhone.value !== ""){
+  if (newPhone.value !== "") {
     checkPhone = newPhone.value;
   }
 
@@ -264,7 +274,7 @@ const state = reactive({
 const rules = computed(() => {
   return {
     oldPass: {
-      required: helpers.withMessage("*Indique una contraseña", required),
+      required: helpers.withMessage("*Debe introducir la antigüa contraseña", required),
       minLength: helpers.withMessage(
         "*La contraseña debe estar tener una longitud mínima de 8 caracteres",
         minLength(8)
@@ -272,14 +282,14 @@ const rules = computed(() => {
     },
     password: {
       newPass: {
-        required: helpers.withMessage("*Indique una contraseña", required),
+        required: helpers.withMessage("*Debe introducir la nueva contraseña", required),
         minLength: helpers.withMessage(
           "*La contraseña debe estar tener una longitud mínima de 8 caracteres",
           minLength(8)
         ),
       },
       newConfirmPass: {
-        required: helpers.withMessage("*Indique una contraseña", required),
+        required: helpers.withMessage("*Debe repetir la nueva contraseña", required),
         minLength: helpers.withMessage(
           "*La contraseña debe estar tener una longitud mínima de 8 caracteres",
           minLength(8)
@@ -308,7 +318,7 @@ function updatePass() {
     Swal.fire({
       icon: "warning",
       title: "Formato datos erroneo",
-      text: "Los datos introducidos no cumplen el formato correcto",
+      text: "Debe rellenar todos los campos. Además ambas constraseñas deben coincidir",
       showConfirmButton: false,
       timer: 2000,
     });
@@ -320,7 +330,6 @@ function updatePass() {
 </script>
 
 <style lang="scss" scoped>
-
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 * {
@@ -423,5 +432,10 @@ select:focus {
   #deactivate {
     line-height: 18px;
   }
+}
+
+.error{
+  color: red;
+  font-weight: bold;
 }
 </style>
