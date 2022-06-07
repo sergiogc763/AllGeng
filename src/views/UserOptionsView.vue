@@ -51,8 +51,8 @@
           </div>
         </div>
         <div class="py-3 pb-4 border-bottom">
-          <button class="btn btn-primary m-2">Guardar cambios</button>
-          <button class="btn btn-secondary m-2">Limpiar</button>
+          <button class="btn btn-primary m-2" @click="updateInfo()">Guardar cambios</button>
+          <button class="btn btn-secondary m-2" @click="cleanForm()">Limpiar</button>
         </div>
         <div class="row py-2">
           <div class="col-md-12">
@@ -123,38 +123,27 @@ const newPhone = ref<string>("");
 const phone = computed(() => store.getters.userPhone);
 //#endregion
 
-//#region 
-function updateName(){
-
-  const o = {
-      nom: newName.value,
-      option: "Name",
-    };
-    store.dispatch("changeDataUser", o);
-}
-
-function updateEmail(){
-
-  const o = {
-      email: newEmail.value,
-      option: "Email",
-    };
-    store.dispatch("changeDataUser", o);
-}
-
-function updatePhone(){
-
-  const o = {
-      telf: newPhone.value,
-      option: "Phone",
-    };
-    store.dispatch("changeDataUser", o);
-}
-
-//#endregion
-
 
 //#region FUNCTIONS
+function cleanForm(){
+  newName.value = '';
+  newLastName.value = '';
+  newEmail.value = '';
+  newPhone.value = '';
+}
+function updateInfo(){
+
+  const o = {
+      User:{
+        name: `${newName.value} ${newLastName.value}`,
+        email: newEmail.value,
+        telf: newPhone.value
+      },
+      option: "Info",
+    };
+    store.dispatch("changeDataUser", o);
+}
+
 function deleteAccount() {
   Swal.fire({
     title: "¿Realmente desea eliminar permanentemente su cuenta?",
