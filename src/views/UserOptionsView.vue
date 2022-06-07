@@ -45,22 +45,22 @@
             <input
               type="tel"
               class="bg-light form-control"
-              v-model="phone"
-              :placeholder="newPhone"
+              v-model="newPhone"
+              :placeholder="phone"
             />
           </div>
         </div>
         <div class="py-3 pb-4 border-bottom">
-          <button class="btn btn-primary mr-3">Guardar cambios</button>
-          <button class="btn border button ml-3">Cancelar</button>
+          <button class="btn btn-primary m-2">Guardar cambios</button>
+          <button class="btn btn-secondary m-2">Limpiar</button>
         </div>
         <div class="row py-2">
           <div class="col-md-12">
-            <label for="email">Contraseña antigua:</label>
+            <label for="oldPass">Contraseña antigua:</label>
             <input
-              type="text"
+              type="password"
               class="bg-light form-control"
-              placeholder="steve_@email.com"
+              placeholder="*************"
             />
           </div>
           <div class="col-md-6">
@@ -68,6 +68,7 @@
             <input
               type="password"
               class="bg-light form-control"
+              placeholder="*************"
             />
           </div>
           <div class="col-md-6 pt-md-0 pt-3">
@@ -75,15 +76,15 @@
             <input
               type="password"
               class="bg-light form-control"
+              placeholder="*************"
             />
           </div>
         </div>
         <div class="py-3 pb-4 border-bottom">
-          <button class="btn btn-primary mr-3">Guardar cambios</button>
-          <button class="btn border button">Cancelar</button>
+          <button class="btn btn-warning mr-3">Cambiar contraseña</button>
         </div>
         <div class="d-sm-flex align-items-center pt-3" id="deactivate">
-          <div>
+          <div class="m-2">
             <b>Eliminar cuenta</b>
             <p>Detalles sobre datos de tu cuenta y contraseña</p>
           </div>
@@ -94,50 +95,6 @@
       </div>
     </div>
   </div>
-  <!-- <div class="container">
-      <div class="menu">
-        <ul class="nav">
-          <li class="nav-item">
-            <button
-              type="button"
-              class="btn btn-primary btn-lg"
-              data-bs-toggle="button"
-              autocomplete="off"
-              @click="changeOption(1)"
-            >
-              Datos Personales
-            </button>
-          </li>
-          <li class="nav-item">
-            <button
-              type="button"
-              class="btn btn-primary btn-lg"
-              data-bs-toggle="button"
-              autocomplete="off"
-              @click="changeOption(2)"
-            >
-              Seguridad
-            </button>
-          </li>
-          <li class="nav-item">
-            <button
-              type="button"
-              class="btn btn-danger btn-lg"
-              data-bs-toggle="button"
-              autocomplete="off"
-              @click="deleteAccount()"
-            >
-              Eliminar cuenta
-            </button>
-          </li>
-        </ul>
-      </div>
-      <div class="options">
-        <InfoUser v-if="option === 1" />
-        <SegurityUser v-if="option === 2" />
-      </div>
-    </div>
-  </div> -->
   <Page404 v-else />
 </template>
 
