@@ -1,13 +1,13 @@
 <template>
   <div class="content" v-if="store.getters.logged">
     <div class="wrapper bg-white mt-sm-5">
-      <h4 class="pb-4 d-flex align-items-center justify-content-center">Configuración cuenta</h4>
-      <div class="d-flex align-items-center justify-content-center py-3 border-bottom">
-        <img
-          src="@/assets/usuario_config.png"
-          class="img"
-          alt=""
-        />
+      <h4 class="pb-4 d-flex align-items-center justify-content-center">
+        Configuración cuenta
+      </h4>
+      <div
+        class="d-flex align-items-center justify-content-center py-3 border-bottom"
+      >
+        <img src="@/assets/usuario_config.png" class="img" alt="" />
       </div>
       <div class="py-2 border-bottom">
         <div class="row py-2">
@@ -51,8 +51,12 @@
           </div>
         </div>
         <div class="py-3 pb-4 border-bottom">
-          <button class="btn btn-primary m-2" @click="updateInfo()">Guardar cambios</button>
-          <button class="btn btn-secondary m-2" @click="cleanForm()">Limpiar</button>
+          <button class="btn btn-primary m-2" @click="updateInfo()">
+            Guardar cambios
+          </button>
+          <button class="btn btn-secondary m-2" @click="cleanForm()">
+            Limpiar
+          </button>
         </div>
         <div class="row py-2">
           <div class="col-md-12">
@@ -60,6 +64,7 @@
             <input
               type="password"
               class="bg-light form-control"
+              v-model="state.oldPass"
               placeholder="*************"
             />
           </div>
@@ -68,6 +73,7 @@
             <input
               type="password"
               class="bg-light form-control"
+              v-model="state.password.newPass"
               placeholder="*************"
             />
           </div>
@@ -76,12 +82,13 @@
             <input
               type="password"
               class="bg-light form-control"
+              v-model="state.password.newConfirmPass"
               placeholder="*************"
             />
           </div>
         </div>
         <div class="py-3 pb-4 border-bottom">
-          <button class="btn btn-warning mr-3">Cambiar contraseña</button>
+          <button class="btn btn-warning mr-3" @click="updatePass()">Cambiar contraseña</button>
         </div>
         <div class="d-sm-flex align-items-center pt-3" id="deactivate">
           <div class="m-2">
@@ -89,7 +96,9 @@
             <p>Detalles sobre datos de tu cuenta y contraseña</p>
           </div>
           <div class="ml-auto">
-            <button class="btn danger" @click="deleteAccount()">Eliminar</button>
+            <button class="btn danger" @click="deleteAccount()">
+              Eliminar
+            </button>
           </div>
         </div>
       </div>
@@ -102,19 +111,26 @@
 import { useStore } from "vuex";
 import router from "../router/index";
 import Swal from "sweetalert2";
-import { computed, ref } from "vue";
+import { computed, ref, reactive } from "vue";
 import Page404 from "@/components/Page404.vue";
 import { RoutePaths } from "@/core/general/RoutePaths";
 import axios from "axios";
+import useVuelidate from "@vuelidate/core";
+import { required, minLength, sameAs, helpers } from "@vuelidate/validators";
+import md5 from "crypto-js/md5";
 
-//#region CONST
+//#region STORE
 const store = useStore();
+//#endregion
 
+//#region CONTROL FORM INFO
+
+//#region CONST FORM INFO
 const newName = ref<string>("");
-const name = computed(() => store.getters.userName.split(' ',2)[0]);
+const name = computed(() => store.getters.userName.split(" ", 2)[0]);
 
 const newLastName = ref<string>("");
-const lastName = computed(() => store.getters.userName.split(' ',2)[1]);
+const lastName = computed(() => store.getters.userName.split(" ", 2)[1]);
 
 const newEmail = ref<string>("");
 const email = computed(() => store.getters.userEmail);
@@ -123,25 +139,46 @@ const newPhone = ref<string>("");
 const phone = computed(() => store.getters.userPhone);
 //#endregion
 
-
 //#region FUNCTIONS
-function cleanForm(){
-  newName.value = '';
-  newLastName.value = '';
-  newEmail.value = '';
-  newPhone.value = '';
+function cleanForm() {
+  newName.value = "";
+  newLastName.value = "";
+  newEmail.value = "";
+  newPhone.value = "";
 }
-function updateInfo(){
+function updateInfo() {
+
+  let checkName = name.value;
+  let checkLastname = lastName.value;
+  let fullName = "";
+  let checkEmail = email.value;
+  let checkPhone = phone.value;
+
+  if(newName.value !== ""){
+    checkName = newName.value;
+  }
+  if(lastName.value !== ""){
+    checkLastname = lastName.value;
+  }
+
+  fullName = `${checkName} ${checkLastname}`;
+
+  if(newEmail.value !== ""){
+    checkEmail = newEmail.value;
+  }
+  if(newPhone.value !== ""){
+    checkPhone = newPhone.value;
+  }
 
   const o = {
-      User:{
-        name: `${newName.value} ${newLastName.value}`,
-        email: newEmail.value,
-        telf: newPhone.value
-      },
-      option: "Info",
-    };
-    store.dispatch("changeDataUser", o);
+    User: {
+      name: fullName,
+      email: checkEmail,
+      telf: checkPhone,
+    },
+    option: "Info",
+  };
+  store.dispatch("changeDataUser", o);
 }
 
 function deleteAccount() {
@@ -207,38 +244,82 @@ function deleteAccount() {
     }
   });
 }
+//#endregion
+
+//#endregion
+
+//#region UPDATE PASSWORD
+
+//#region CONST
+const state = reactive({
+  oldPass: "",
+  password: {
+    newPass: "",
+    newConfirmPass: "",
+  },
+});
+//#endregion
+
+//#region RULES VALIDATION FORM
+const rules = computed(() => {
+  return {
+    oldPass: {
+      required: helpers.withMessage("*Indique una contraseña", required),
+      minLength: helpers.withMessage(
+        "*La contraseña debe estar tener una longitud mínima de 8 caracteres",
+        minLength(8)
+      ),
+    },
+    password: {
+      newPass: {
+        required: helpers.withMessage("*Indique una contraseña", required),
+        minLength: helpers.withMessage(
+          "*La contraseña debe estar tener una longitud mínima de 8 caracteres",
+          minLength(8)
+        ),
+      },
+      newConfirmPass: {
+        required: helpers.withMessage("*Indique una contraseña", required),
+        minLength: helpers.withMessage(
+          "*La contraseña debe estar tener una longitud mínima de 8 caracteres",
+          minLength(8)
+        ),
+        sameAs: helpers.withMessage(
+          "*No coincide con la contraseña indicada anteriormente",
+          sameAs(state.password.newPass)
+        ),
+      },
+    },
+  };
+});
+
+const v$ = useVuelidate(rules, state);
+
+function updatePass() {
+  v$.value.$validate();
+  if (!v$.value.$error) {
+    const o = {
+      option: "Password",
+      oldPassword: md5(state.oldPass).toString(),
+      newPassword: md5(state.password.newPass).toString(),
+    };
+    store.dispatch("changeDataUser", o);
+  } else {
+    Swal.fire({
+      icon: "warning",
+      title: "Formato datos erroneo",
+      text: "Los datos introducidos no cumplen el formato correcto",
+      showConfirmButton: false,
+      timer: 2000,
+    });
+  }
+}
+//#endregion
 
 //#endregion
 </script>
 
 <style lang="scss" scoped>
-// .content {
-//   background-color: rgba(255, 255, 255, 0.964);
-
-//   .container {
-//     display: flex;
-//     justify-content: center;
-//     .menu {
-//       margin-top: 5px;
-//       .nav {
-//         display: flex;
-//         flex-direction: column;
-//         align-items: center;
-//         background-color: rgb(214, 214, 214);
-//         padding: 15px;
-
-//         li {
-//           margin: 4px;
-//         }
-//       }
-//       border-radius: 5px;
-
-//       button {
-//         width: max-content;
-//       }
-//     }
-//   }
-// }
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 

@@ -203,6 +203,7 @@ const store = createStore({
                     state.User.usunom = o.User.name;
                     state.User.usuemail = o.User.email;
                     state.User.usutelf = o.User.telf;
+                    console.log(response);
                     Swal.fire({
                       icon: "success",
                       title: "Datos actualizados",

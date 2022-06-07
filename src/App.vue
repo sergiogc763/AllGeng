@@ -28,15 +28,6 @@ onBeforeMount(() => {
 
     }
   }
-
-//   axios
-//     .get(`${RoutePaths.API}resetPassword.php`)
-//     .then((res) => {
-//       console.log(res);
-//     })
-//     .catch((error) => {
-//       console.error("There was an error!", error);
-//     });
  });
 </script>
 

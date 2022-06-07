@@ -38,7 +38,7 @@ export default {
     return res;
   },
   async update(id: string, name: string, email:string, telf:string): Promise<any> {
-    const res = await axios.post(`${RoutePaths.API}updateUser.php`, null, {
+    const res = await axios.post(`${RoutePaths.API}updateUserInfo.php`, null, {
       params: {
         id: id,
         name: name,
