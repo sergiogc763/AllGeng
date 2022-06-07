@@ -393,7 +393,8 @@ function showTerms() {
 }
 
 .bgColor{
-  background-color:whitesmoke;
+  background-color:#C7F0E9;
+  
 }
 .error {
   color: red;
