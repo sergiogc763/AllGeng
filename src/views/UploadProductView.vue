@@ -1,7 +1,7 @@
 <template>
   <div class="main" v-if="store.getters.logged && store.getters.rolId === RolUser.Gestor">
     <form enctype="multipart/form-data" class="containt">
-      <div class="mb-3">
+      <div class="mb-3 form-show">
         <label for="nombre" class="form-label">Nombre:</label>
         <input
           type="text"
@@ -11,15 +11,16 @@
           placeholder="Nombre del producto"
         />
       </div>
-      <div class="mb-3">
+      <div class="mb-3 form-show">
         <label for="precio" class="form-label">Precio:</label>
-        <input
+        <div class="price"><input
           type="number"
           id="precio"
           step="0.01"
           min="0"
           v-model="precio"
-        /><span> €</span>
+        /><span> €</span></div>
+        
       </div>
       <div class="mb-3">
         <label for="stock" class="form-label">Unidades:</label>
@@ -36,7 +37,7 @@
         <input type="file" id="images" name="images[]" multiple ref="imagen" />
       </div>
       <div class="mb-3">
-        <div class="categorias">
+        <div class="categorias form-show">
           <select class="form-select" v-model="categoria">
             <option selected disabled>Seleccione una categoría</option>
             <option v-for="options in categorias" v-bind:value="options.value">
@@ -357,6 +358,21 @@ async function getMarcas() {
     #precio {
       width: 10vw;
     }
+  }
+
+  .form-label{
+    font-weight: bold;
+  }
+
+  .form-show{
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .price{
+    display:flex;
+    margin: 5px;
   }
 }
 </style>
