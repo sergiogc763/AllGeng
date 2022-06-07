@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <section class="bg-image" v-if="!store.state.User.logged">
     <div class="mask d-flex align-items-center h-100">
       <div class="container h-100">
@@ -120,6 +120,124 @@
       </div>
     </div>
   </section>
+</template> -->
+
+<template>
+  <div class="container-fluid">
+    <div class="row no-gutter d-flex justify-content-center">
+      <div class="col-md-7 d-none d-md-flex bg-image"></div>
+
+      <div class="col-md-5 bgColor">
+        <div class="register d-flex justify-content-center py-3">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-10 col-xl-7 mx-auto">
+                <h2 class="display-4 mb-5">Register</h2>
+                <form>
+                  <div class="form-outline mb-3">
+                      <label class="form-label" for="formName">Name</label>
+                      <input
+                        type="text"
+                        id="formName"
+                        class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
+                        v-model="state.name"
+                      />
+                      <span class="error" v-if="v$.name.$error">
+                        {{ v$.name.$errors[0].$message }}
+                      </span>
+                  </div>
+                  <div class="form-outline mb-3">
+                      <label class="form-label" for="formEmail">Email</label>
+                      <input
+                        type="email"
+                        id="formEmail"
+                        class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
+                        v-model="state.email"
+                      />
+                      <span class="error" v-if="v$.email.$error">
+                        {{ v$.email.$errors[0].$message }}
+                      </span>
+                    </div>
+                  <div class="form-outline mb-3">
+                      <label class="form-label" for="formPhone"
+                        >Number phone</label
+                      >
+                      <input
+                        type="tel"
+                        id="formPhone"
+                        class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
+                        v-model="state.phone"
+                      />
+                      <span class="error" v-if="v$.phone.$error">
+                        {{ v$.phone.$errors[0].$message }}
+                      </span>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="formPass">Password</label>
+                    <input
+                      type="password"
+                      id="formPass"
+                      class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
+                      v-model="state.password.password"
+                    />
+                    <span class="error" v-if="v$.password.password.$error">
+                      {{ v$.password.password.$errors[0].$message }}
+                    </span>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="formPassRepeat"
+                      >Repeat your password</label
+                    >
+                    <input
+                      type="password"
+                      id="formPassRepeat"
+                      class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
+                      v-model="state.password.confirm"
+                    />
+                    <span class="error" v-if="v$.password.confirm.$error">
+                      {{ v$.password.confirm.$errors[0].$message }}
+                    </span>
+                  </div>
+                  <div class="form-check d-flex justify-content-center mb-5">
+                    <input
+                      class="form-check-input me-2"
+                      type="checkbox"
+                      value=""
+                      id="terms"
+                      v-model="state.acceptTerms"
+                    />
+                    <label class="form-check-label" for="formTerms">
+                      I agree all statements in
+                      <a class="text-body" id="formTerms"
+                        ><u @click="showTerms" class="link">Terms of service</u></a
+                      >
+                    </label>
+                  </div>
+
+                  <div class="d-flex justify-content-center">
+                    <button
+                      type="button"
+                      class="btn btn-success btn-block btn-lg"
+                      @click="register"
+                    >
+                      Register
+                    </button>
+                  </div>
+
+                  <p class="text-center text-muted mt-5 mb-0">
+                    Have already an account?
+                    <router-link to="/login" class="link"
+                      ><u>Login here</u></router-link
+                    >
+                  </p>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -139,7 +257,6 @@ import Swal from "sweetalert2";
 import { useStore } from "vuex";
 import md5 from "crypto-js/md5";
 
-
 onBeforeMount(() => {
   if (store.state.User.logged) {
     redirectHome();
@@ -157,7 +274,7 @@ const state = reactive({
     password: "",
     confirm: "",
   },
-  acceptTerms: false
+  acceptTerms: false,
 });
 //#endregion
 
@@ -209,8 +326,7 @@ const rules = computed(() => {
         ),
       },
     },
-    acceptTerms:{ checked: value => value === true }
-    
+    acceptTerms: { checked: (value) => value === true },
   };
 });
 
@@ -265,21 +381,25 @@ function showTerms() {
 </script>
 
 <style lang="scss" scoped>
-
-.bg-image{
-  background-color: rgba(255, 255, 255, 0.964)
+.register,
+.image {
+  min-height: 100vh;
 }
-.content-form {
-  background-color: #212529;
-  color: whitesmoke;
-
-  
+.bg-image {
+  background-image: url("@/assets/img_register.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
-.link{
-    color: whitesmoke;
-  }
 
+.bgColor{
+  background-color:whitesmoke;
+}
 .error {
   color: red;
 }
+.link {
+  color: blue;
+}
+
 </style>
