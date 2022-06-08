@@ -1,5 +1,5 @@
 <template>
-  <div class="container tm-mt-big tm-mb-big">
+  <div class="container tm-mt-big tm-mb-big" v-if="store.getters.logged && store.getters.rolId === RolUser.Gestor">
     <div class="row">
       <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
         <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
@@ -45,7 +45,7 @@
                       v-bind:value="option.value"
                       v-bind:key="option"
                     >
-                      {{ options.text }}
+                      {{ option.text }}
                     </option>
                   </select>
                 </div>
@@ -62,7 +62,7 @@
                       v-bind:value="option.value"
                       v-bind:key="option"
                     >
-                      {{ options.text }}
+                      {{ option.text }}
                     </option>
                   </select>
                 </div>
@@ -123,8 +123,9 @@
             </div>
             <div class="col-12">
               <button
-                type="submit"
+                type="button"
                 class="btn btn-primary btn-block text-uppercase"
+                @click="add()"
               >
                 Añadir producto
               </button>
@@ -134,90 +135,11 @@
       </div>
     </div>
   </div>
-  <!-- <div class="main" v-if="store.getters.logged && store.getters.rolId === RolUser.Gestor">
-    <form enctype="multipart/form-data" class="containt">
-      <div class="mb-3 form-show">
-        <label for="nombre" class="form-label">Nombre:</label>
-        <input
-          type="text"
-          class="form-control"
-          id="nombre"
-          v-model="nombre"
-          placeholder="Nombre del producto"
-        />
-      </div>
-      <div class="mb-3 form-show">
-        <label for="precio" class="form-label">Precio:</label>
-        <div class="price"><input
-          type="number"
-          id="precio"
-          step="0.01"
-          min="0"
-          v-model="precio"
-        /><span> €</span></div>
-        
-      </div>
-      <div class="mb-3">
-        <label for="stock" class="form-label">Unidades:</label>
-        <input
-          type="number"
-          id="stock"
-          step="0.01"
-          min="0"
-          v-model="stock"
-        /><span> uds</span>
-      </div>
-      <div class="mb-3">
-        <label for="imagen" class="form-label">Imágenes:</label>
-        <input type="file" id="images" name="images[]" multiple ref="imagen" />
-      </div>
-      <div class="mb-3">
-        <div class="categorias form-show">
-          <select class="form-select" v-model="categoria">
-            <option selected disabled>Seleccione una categoría</option>
-            <option v-for="options in categorias" v-bind:value="options.value">
-              {{ options.text }}
-            </option>
-          </select>
-        </div>
-        <div class="tipos">
-          <select class="form-select" v-model="tipo">
-            <option selected disabled>Seleccione un tipo</option>
-            <option v-for="options in tipos" v-bind:value="options.value">
-              {{ options.text }}
-            </option>
-          </select>
-        </div>
-        <div class="marcas">
-          <select class="form-select" v-model="marca">
-            <option selected disabled>Seleccione una marca</option>
-            <option v-for="option in marcas" v-bind:value="option.value">
-              {{ option.text }}
-            </option>
-          </select>
-        </div>
-      </div>
-      <div class="mb-5">
-        <label for="descripcion" class="form-label">Descripción:</label>
-        <textarea
-          class="form-control"
-          id="descripcion"
-          rows="3"
-          v-model="descripcion"
-        ></textarea>
-      </div>
-      <div class="options mb-2">
-        <button type="button" class="btn btn-primary" @click="add()">
-          Añadir
-        </button>
-      </div>
-    </form>
-  </div>
-  <Page404 v-else/> -->
+  <Page404 v-else/> 
 </template>
 
 <script lang="ts" setup>
-//import Page404 from "@/components/Page404.vue";
+import Page404 from "@/components/Page404.vue";
 import { RolUser } from "@/core/general/RolUser";
 import { RoutePaths } from "@/core/general/RoutePaths";
 import axios from "axios";
