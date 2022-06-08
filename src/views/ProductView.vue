@@ -96,7 +96,7 @@ export default {
     return {
       loaded: false,
       paidFor: false,
-      cantidad: 1,
+      cantidad: 0,
       total: 0,
       producto: {
         nombre: "",
@@ -332,6 +332,9 @@ export default {
               })
               .then((response) => {
                 switch (response.status) {
+                  case 200:
+                    this.$router.go()	
+                    break;
                   case 404:
                     Swal.fire({
                       icon: "error",
