@@ -9,10 +9,14 @@
           data-bs-ride="carousel"
         >
           <div class="carousel-inner">
-             <div class="carousel-item active w-50" data-bs-interval="5000">
+            <div class="carousel-item active w-50" data-bs-interval="5000">
               <img :src="producto.img" class="d-block" />
             </div>
-             <div class="carousel-item w-50" data-bs-interval="5000"  v-for="imgagen in producto.imagenes">
+            <div
+              class="carousel-item w-50"
+              data-bs-interval="5000"
+              v-for="imgagen in producto.imagenes"
+            >
               <img :src="imgagen" class="d-block" />
             </div>
           </div>
@@ -36,17 +40,25 @@
           </button>
         </div>
       </div>
-      <div class="price-p" v-if="producto.stock > 0">
+      <div class="price-p">
         <div class="nombre">
           <h5>{{ producto.nombre }}</h5>
         </div>
         <div class="precio">{{ producto.precio }} €</div>
         <div class="cantidad">
           <span>Cantidad:</span
-          ><input class="cantidad-p" v-model="cantidad" @change="onChange($event)" type="number" min="1" />
+          ><input
+            class="cantidad-p"
+            v-model="cantidad"
+            @change="onChange($event)"
+            type="number"
+            min="1"
+            :max="this.producto.stock"
+          />
         </div>
         <div class="total">Precio total: {{ total }} €</div>
-        <div ref="paypal" class="btn-paypal"></div>
+        <div ref="paypal" class="btn-paypal" v-if="producto.stock > 0"></div>
+        <div v-else><h6>Fuera de stock</h6></div>
       </div>
     </div>
     <div class="banner"></div>
@@ -92,18 +104,20 @@ export default {
         precio: 0,
         descripcion: "",
         imagenes: [],
+        stock: 0,
       },
       opcion: 0,
     };
   },
-  mounted: function () {
-    const script = document.createElement("script");
-    script.src =
-      "https://www.paypal.com/sdk/js?client-id=AdrZ7GR8G_VOHh4rH3H_P_McBUk7WQdRcWE8EB0gtZm5J0BpFbr5JCN36oAW0b1JS7-k6EC00T5AOZo3";
-    script.addEventListener("load", this.setLoaded);
-    document.body.appendChild(script);
-
-    this.getProductById();
+  mounted: async function() {
+    await this.getProductById();
+    if (this.producto.stock > 0) {
+      const script = document.createElement("script");
+      script.src =
+        "https://www.paypal.com/sdk/js?client-id=AdrZ7GR8G_VOHh4rH3H_P_McBUk7WQdRcWE8EB0gtZm5J0BpFbr5JCN36oAW0b1JS7-k6EC00T5AOZo3";
+      script.addEventListener("load", this.setLoaded);
+      document.body.appendChild(script);
+    }
   },
   methods: {
     optionSelected(option) {
@@ -111,13 +125,27 @@ export default {
     },
     onChange(event) {
       this.cantidad = event.target.value;
-      this.total = this.cantidad * this.producto.precio;
+
+      if(this.cantidad <= this.producto.stock){
+        this.total = this.cantidad * this.producto.precio;
+      }else{
+        Swal.fire({
+                      icon: "warning",
+                      title: "Cantidad erronea",
+                      text: "La cantidad no puede superar el número de stock",
+                      showConfirmButton: false,
+                      timer: 1250,
+        });
+        this.total = this.producto.stock * this.producto.precio;
+        this.cantidad = this.producto.stock;
+      }
+      
     },
-  async getProductById() {
+    async getProductById() {
       const formData = new FormData();
       formData.append("id", this.$route.params.id);
 
-     await axios
+      await axios
         .post(`${RoutePaths.API}getProductById.php`, formData)
         .then((response) => {
           switch (response.status) {
@@ -127,16 +155,19 @@ export default {
               this.producto.descripcion = response.data.response.proddesc;
               this.producto.img =
                 RoutePaths.BASE + response.data.response.imagen;
+                this.producto.stock = response.data.response.stock;
               this.total = this.producto.precio;
 
-               axios
+              axios
                 .post(`${RoutePaths.API}getFotosProducto.php`, formData)
                 .then((res) => {
                   switch (res.status) {
                     case 200:
-                       res.data.fotos.data.forEach((element) => {
-                        this.producto.imagenes.push(RoutePaths.BASE +element.ruta)
-                       })
+                      res.data.fotos.data.forEach((element) => {
+                        this.producto.imagenes.push(
+                          RoutePaths.BASE + element.ruta
+                        );
+                      });
 
                       break;
 
@@ -193,23 +224,23 @@ export default {
         });
     },
     setLoaded() {
-      
       window.paypal
         .Buttons({
-          createOrder: (data, actions) => {  
-            return actions.order.create({    
+          createOrder: (data, actions) => {
+            return actions.order.create({
               purchase_units: [
                 {
                   description: this.producto.nombre,
                   amount: {
                     currency_code: "USD",
-                    value: `${(this.total*1.09885).toFixed(2)}`,
+                    value: `${(this.total * 1.09885).toFixed(2)}`,
                   },
                 },
               ],
             });
           },
           onApprove: async (data, actions) => {
+            
             const order = await actions.order.capture();
             let date = new Date();
 
@@ -219,9 +250,16 @@ export default {
 
             let fecha = "";
 
-            let hora = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+            let hora =
+              date.getHours() +
+              ":" +
+              date.getMinutes() +
+              ":" +
+              date.getSeconds();
 
-            let numpedido = `${Math.floor(Math.random() * (999 - 100)) + 100}-${Math.floor(Math.random() * (9999999 - 1000000)) + 1000000}-${Math.floor(Math.random() * (9999999 - 1000000)) + 1000000}` ;
+            let numpedido = `${Math.floor(Math.random() * (999 - 100)) + 100}-${
+              Math.floor(Math.random() * (9999999 - 1000000)) + 1000000
+            }-${Math.floor(Math.random() * (9999999 - 1000000)) + 1000000}`;
             if (month < 10) {
               fecha = `${year}-0${month}-${day}`;
             } else {
@@ -231,7 +269,9 @@ export default {
               icon: "success",
               title: "Se ha realizado la compra",
             });
-            axios
+
+            //Insertamos la compra realizada en el historial del usuario conectado actualmente
+            await axios
               .post(`${RoutePaths.API}insertHistorial.php`, null, {
                 params: {
                   iduser: store.getters.userId,
@@ -240,7 +280,7 @@ export default {
                   hora: hora,
                   numpedido: numpedido,
                   cantidad: this.cantidad,
-                  total: this.total
+                  total: this.total,
                 },
               })
               .then((response) => {
@@ -281,6 +321,41 @@ export default {
               .catch((error) => {
                 console.error("There was an error!", error);
               });
+
+              //Realizamos el update del stock del producto comprado
+              await axios
+              .post(`${RoutePaths.API}updateStoreProduct.php`, null, {
+                params: {
+                  id: this.$route.params.id,
+                  stock: this.producto.stock - this.cantidad,
+                },
+              })
+              .then((response) => {
+                switch (response.status) {
+                  case 404:
+                    Swal.fire({
+                      icon: "error",
+                      title: "ERROR",
+                      text: "Error interno. No se ha encontrado la ruta",
+                      showConfirmButton: false,
+                      timer: 2000,
+                    });
+                    break;
+
+                  case 500:
+                    Swal.fire({
+                      icon: "error",
+                      title: "ERROR",
+                      text: "Error interno. Fallo de API",
+                      showConfirmButton: false,
+                      timer: 2000,
+                    });
+                    break;
+                }
+              })
+              .catch((error) => {
+                console.error("There was an error!", error);
+              });
           },
           onError: (err) => {
             console.log(err);
@@ -296,12 +371,10 @@ export default {
 .main {
   background-color: rgba(255, 255, 255, 0.964);
 
-  img{
+  img {
     width: 35vw;
-    height:35vw;
+    height: 35vw;
   }
-
-
 
   .banner {
     margin: 0;
@@ -314,7 +387,7 @@ export default {
     justify-content: space-evenly;
     align-items: center;
 
-    .img-p{
+    .img-p {
       width: 35vw;
     }
     .price-p {
@@ -338,7 +411,7 @@ export default {
         font-size: 25px;
       }
 
-      .cantidad-p{
+      .cantidad-p {
         width: 50px;
       }
     }
@@ -349,7 +422,7 @@ export default {
     flex-direction: column;
     align-items: center;
 
-    .option-show{
+    .option-show {
       background-color: rgb(255, 71, 20);
       margin-top: 10px;
       margin-bottom: 5px;

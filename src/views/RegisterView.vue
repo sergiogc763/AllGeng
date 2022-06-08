@@ -347,7 +347,6 @@ function register() {
     };
     store.dispatch("register", u);
   } else {
-    console.log(v$.value.$error);
     Swal.fire({
       icon: "warning",
       title: "Formato datos erroneo",

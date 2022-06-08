@@ -42,10 +42,10 @@
         class="card zoom"
         v-for="ob in productosMostrar"
         :producto="ob"
-        @actualizarNombre="refreshDatos"
-        @actualizarPrecio="refreshDatos"
-        @actualizarDescripcion="refreshDatos"
-        @deleteProduct="refreshDatos"
+        @actualizarNombre="refreshDatos()"
+        @actualizarPrecio="refreshDatos()"
+        @actualizarDescripcion="refreshDatos()"
+        @deleteProduct="refreshDatos()"
       />
     </div>
   </div>
