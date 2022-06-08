@@ -5,54 +5,102 @@
         <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
           <div class="row">
             <div class="col-12">
-              <h2 class="tm-block-title d-flex justify-content-center">Add Product</h2>
+              <h2 class="tm-block-title d-flex justify-content-center">
+                Add Product
+              </h2>
             </div>
           </div>
-          <form class="row tm-edit-product-row"  enctype="multipart/form-data">
+          <form class="row tm-edit-product-row" enctype="multipart/form-data">
             <div class="col-xl-6 col-lg-6 col-md-12">
-              <div action="" class="tm-edit-product-form" enctype="multipart/form-data">
+              <div
+                action=""
+                class="tm-edit-product-form"
+                enctype="multipart/form-data"
+              >
                 <div class="form-group mb-3">
-                  <label for="name">Product Name </label>
+                  <label for="name">Nombre del prodructo </label>
                   <input
                     id="name"
                     name="name"
+                    v-model="nombre"
                     type="text"
                     class="form-control validate"
                     required=""
                   />
                 </div>
                 <div class="form-group mb-3">
-                  <label for="description">Description</label>
-                  <textarea class="form-control validate" rows="3" required=""></textarea>
+                  <label for="description">Descripción</label>
+                  <textarea class="form-control validate" rows="50"></textarea>
                 </div>
                 <div class="form-group mb-3">
-                  <label for="category">Category</label>
-                  <select class="custom-select tm-select-accounts" id="category">
-                    <option selected="">Select category</option>
-                    <option value="1">New Arrival</option>
-                    <option value="2">Most Popular</option>
-                    <option value="3">Trending</option>
+                  <label for="categoria">Categoria</label>
+                  <select
+                  id="categoria"
+                    class="custom-select tm-select-accounts"
+                    v-model="categoria"
+                  >
+                    <option selected disabled>Seleccione una categoría</option>
+                    <option
+                      v-for="option in categorias"
+                      v-bind:value="option.value"
+                      v-bind:key="option"
+                    >
+                      {{ options.text }}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="tipo">Tipo</label>
+                  <select
+                    id="tipo"
+                    class="custom-select tm-select-accounts"
+                    v-model="tipo"
+                  >
+                    <option selected disabled>Seleccione un tipo</option>
+                    <option
+                      v-for="option in tipos"
+                      v-bind:value="option.value"
+                      v-bind:key="option"
+                    >
+                      {{ options.text }}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="marca">Marca</label>
+                  <select class="custom-select tm-select-accounts" v-model="marca">
+                    <option selected disabled>Seleccione una marca</option>
+                    <option
+                      v-for="option in marcas"
+                      v-bind:value="option.value"
+                      v-bind:key="option"
+                    >
+                      {{ option.text }}
+                    </option>
                   </select>
                 </div>
                 <div class="row">
                   <div class="form-group mb-3 col-xs-12 col-sm-6">
-                    <label for="expire_date">Expire Date </label>
+                    <label for="expire_date">Precio €</label>
                     <input
                       id="expire_date"
                       name="expire_date"
-                      type="text"
+                      v-model="precio"
+                      type="number"
+                      min="1"
+                      step="0.01"
                       class="form-control validate hasDatepicker"
-                      data-large-mode="true"
                     />
                   </div>
                   <div class="form-group mb-3 col-xs-12 col-sm-6">
-                    <label for="stock">Units In Stock </label>
+                    <label for="stock">Stock</label>
                     <input
                       id="stock"
                       name="stock"
-                      type="text"
+                      type="number"
+                      min="1"
                       class="form-control validate"
-                      required=""
+                      v-model="stock"
                     />
                   </div>
                 </div>
@@ -60,21 +108,25 @@
             </div>
             <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
               <div class="tm-product-img-dummy mx-auto">
-                <img src="@/assets/new_product.png">
+                <img src="@/assets/new_product.png" />
               </div>
               <div class="custom-file mt-3 mb-3">
-                <input id="fileInput" type="file" style="display: none" />
                 <input
-                  type="button"
                   class="btn btn-primary btn-block mx-auto"
-                  value="UPLOAD PRODUCT IMAGE"
-
+                  type="file"
+                  id="images"
+                  name="images[]"
+                  multiple
+                  ref="imagen"
                 />
               </div>
             </div>
             <div class="col-12">
-              <button type="submit" class="btn btn-primary btn-block text-uppercase">
-                Add Product Now
+              <button
+                type="submit"
+                class="btn btn-primary btn-block text-uppercase"
+              >
+                Añadir producto
               </button>
             </div>
           </form>
@@ -512,16 +564,15 @@ async function getMarcas() {
   -o-border-radius: 0;
   border-radius: 0;
   padding: 15px;
-  background:#50657b;
+  background: #50657b;
 }
 
 .tm-product-img-dummy {
-
   display: flex;
   align-items: center;
   justify-content: center;
 
-  img{
+  img {
     width: 40vw;
   }
 }
