@@ -1,66 +1,87 @@
 <template>
-<div class="container tm-mt-big tm-mb-big">
-      <div class="row">
-        <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
-          <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
-            <div class="row">
-              <div class="col-12">
-                <h2 class="tm-block-title d-inline-block">Add Product</h2>
-              </div>
-            </div>
-            <div class="row tm-edit-product-row">
-              <div class="col-xl-6 col-lg-6 col-md-12">
-                <form action="" class="tm-edit-product-form">
-                  <div class="form-group mb-3">
-                    <label for="name">Product Name
-                    </label>
-                    <input id="name" name="name" type="text" class="form-control validate" required="">
-                  </div>
-                  <div class="form-group mb-3">
-                    <label for="description">Description</label>
-                    <textarea class="form-control validate" rows="3" required=""></textarea>
-                  </div>
-                  <div class="form-group mb-3">
-                    <label for="category">Category</label>
-                    <select class="custom-select tm-select-accounts" id="category">
-                      <option selected="">Select category</option>
-                      <option value="1">New Arrival</option>
-                      <option value="2">Most Popular</option>
-                      <option value="3">Trending</option>
-                    </select>
-                  </div>
-                  <div class="row">
-                      <div class="form-group mb-3 col-xs-12 col-sm-6">
-                          <label for="expire_date">Expire Date
-                          </label>
-                          <input id="expire_date" name="expire_date" type="text" class="form-control validate hasDatepicker" data-large-mode="true">
-                        </div>
-                        <div class="form-group mb-3 col-xs-12 col-sm-6">
-                          <label for="stock">Units In Stock
-                          </label>
-                          <input id="stock" name="stock" type="text" class="form-control validate" required="">
-                        </div>
-                  </div>
-                  
-              </form></div>
-              <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
-                <div class="tm-product-img-dummy mx-auto">
-                  <i class="fas fa-cloud-upload-alt tm-upload-icon" onclick="document.getElementById('fileInput').click();"></i>
-                </div>
-                <div class="custom-file mt-3 mb-3">
-                  <input id="fileInput" type="file" style="display:none;">
-                  <input type="button" class="btn btn-primary btn-block mx-auto" value="UPLOAD PRODUCT IMAGE" onclick="document.getElementById('fileInput').click();">
-                </div>
-              </div>
-              <div class="col-12">
-                <button type="submit" class="btn btn-primary btn-block text-uppercase">Add Product Now</button>
-              </div>
-            
+  <div class="container tm-mt-big tm-mb-big">
+    <div class="row">
+      <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+        <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+          <div class="row">
+            <div class="col-12">
+              <h2 class="tm-block-title d-flex justify-content-center">Add Product</h2>
             </div>
           </div>
+          <form class="row tm-edit-product-row"  enctype="multipart/form-data">
+            <div class="col-xl-6 col-lg-6 col-md-12">
+              <div action="" class="tm-edit-product-form" enctype="multipart/form-data">
+                <div class="form-group mb-3">
+                  <label for="name">Product Name </label>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    class="form-control validate"
+                    required=""
+                  />
+                </div>
+                <div class="form-group mb-3">
+                  <label for="description">Description</label>
+                  <textarea class="form-control validate" rows="3" required=""></textarea>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="category">Category</label>
+                  <select class="custom-select tm-select-accounts" id="category">
+                    <option selected="">Select category</option>
+                    <option value="1">New Arrival</option>
+                    <option value="2">Most Popular</option>
+                    <option value="3">Trending</option>
+                  </select>
+                </div>
+                <div class="row">
+                  <div class="form-group mb-3 col-xs-12 col-sm-6">
+                    <label for="expire_date">Expire Date </label>
+                    <input
+                      id="expire_date"
+                      name="expire_date"
+                      type="text"
+                      class="form-control validate hasDatepicker"
+                      data-large-mode="true"
+                    />
+                  </div>
+                  <div class="form-group mb-3 col-xs-12 col-sm-6">
+                    <label for="stock">Units In Stock </label>
+                    <input
+                      id="stock"
+                      name="stock"
+                      type="text"
+                      class="form-control validate"
+                      required=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+              <div class="tm-product-img-dummy mx-auto">
+                <img src="@/assets/new_product.png">
+              </div>
+              <div class="custom-file mt-3 mb-3">
+                <input id="fileInput" type="file" style="display: none" />
+                <input
+                  type="button"
+                  class="btn btn-primary btn-block mx-auto"
+                  value="UPLOAD PRODUCT IMAGE"
+
+                />
+              </div>
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary btn-block text-uppercase">
+                Add Product Now
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
+  </div>
   <!-- <div class="main" v-if="store.getters.logged && store.getters.rolId === RolUser.Gestor">
     <form enctype="multipart/form-data" class="containt">
       <div class="mb-3 form-show">
@@ -144,7 +165,7 @@
 </template>
 
 <script lang="ts" setup>
-import Page404 from "@/components/Page404.vue";
+//import Page404 from "@/components/Page404.vue";
 import { RolUser } from "@/core/general/RolUser";
 import { RoutePaths } from "@/core/general/RoutePaths";
 import axios from "axios";
@@ -194,7 +215,7 @@ async function axiosUpload() {
         categoria: categoria.value,
         tipo: tipo.value,
         marca: marca.value,
-        stock: stock.value
+        stock: stock.value,
       },
     })
     .then((response) => {
@@ -202,15 +223,15 @@ async function axiosUpload() {
         case 200:
           if (response.data) {
             let formData = new FormData();
-            for(let i=0; i<imagen.value.files.length;i++){
+            for (let i = 0; i < imagen.value.files.length; i++) {
               formData.append("files[]", imagen.value.files[i]);
             }
             // formData.append("imagenes", imagen.value.files[0]);
             axios
               .post(`${RoutePaths.API}addFotosProducto.php`, formData, {
-                headers:{
-                  'Content-Type': 'multipart/form-data'
-                }    
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                },
               })
               .then((response) => {
                 switch (response.status) {
@@ -319,7 +340,7 @@ async function getCategorias() {
 
 async function getTipos() {
   //Recuperamos las categorías
- await axios
+  await axios
     .get(`${RoutePaths.API}getTipos.php`)
     .then((res) => {
       switch (res.status) {
@@ -395,8 +416,7 @@ async function getMarcas() {
 //#endregion
 </script>
 
- <style lang="scss" scoped>
- 
+<style lang="scss" scoped>
 .tm-mt-big {
   margin-top: 57px;
 }
@@ -474,7 +494,6 @@ async function getMarcas() {
   border: 2px solid #f5a623;
 }
 
-
 .tm-bg-primary-dark {
   background-color: #435c70;
 }
@@ -482,42 +501,34 @@ async function getMarcas() {
   background-color: rgba(0, 0, 0, 0.05);
 }
 
-
 .custom-select {
   width: 100%;
   border: none;
   color: #acc6de;
   height: 50px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  -o-appearance: none;
-  appearance: none;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   -ms-border-radius: 0;
   -o-border-radius: 0;
   border-radius: 0;
   padding: 15px;
-  background: url(../img/arrow-down.png) 98% no-repeat #50657b;
+  background:#50657b;
 }
 
-
-
-
 .tm-product-img-dummy {
-  max-width:75%;
-  height: 240px;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
-  background: #aaa;
+
+  img{
+    width: 40vw;
+  }
 }
 
-.custom-file{
-  display:flex;
-  align-items:center;
+.custom-file {
+  display: flex;
+  align-items: center;
 }
 
 ::-webkit-scrollbar {
