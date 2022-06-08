@@ -62,8 +62,11 @@ import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { RolUser } from "../../core/general/RolUser";
 
-//#region PROPS
+/*Muestra los productos que se encuentra en el almacen. A su vez,
+dependiendo del tipo de usuario que acceda a la aplicación, podrá
+ver opciones para gestionar los datos de este*/
 
+//#region PROPS
 const props = defineProps({
   producto: {
     type: Object,
@@ -72,6 +75,7 @@ const props = defineProps({
 });
 //#endregion
 
+//#region EMITS
 const emit = defineEmits([
   "actualizarNombre",
   "actualizarPrecio",
@@ -79,10 +83,14 @@ const emit = defineEmits([
   "actualizarDescripcion",
   "deleteProduct",
 ]);
+//#endregion
 
+//#region COMPUTED
 const src = computed(() => {
   return props.producto.img;
 });
+//#endregion
+
 //#region USE
 const router = useRouter();
 const store = useStore();
@@ -382,7 +390,6 @@ function deleteProduct() {
     confirmButtonText: "Eliminar",
     denyButtonText: "Cancelar",
   }).then(async (result) => {
-    /* Read more about isConfirmed, isDenied below */
     if (result.isConfirmed) {
       let formData = new FormData();
       formData.append("id", props.producto.id);
@@ -440,6 +447,7 @@ function deleteProduct() {
     }
   });
 }
+//#endregion
 </script>
 
 <style lang="scss" scoped>

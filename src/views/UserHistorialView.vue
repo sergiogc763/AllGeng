@@ -73,7 +73,6 @@ import { onBeforeMount, reactive, ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 
-let paginate = [];
 //#region CONST USE
 const router = useRouter();
 const store = useStore();
@@ -83,7 +82,6 @@ const store = useStore();
 const fecha = ref<any>(3);
 const fechas = ref<Array<any>>([]);
 const historial = ref<Array<any>>([]);
-let pages = [];
 //#endregion
 
 onBeforeMount(() => {

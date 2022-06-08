@@ -1,7 +1,9 @@
 <template>
   <div class="content" v-if="store.getters.logged">
     <div class="wrapper bgcolor mt-sm-5">
-      <h4 class="pb-4 d-flex align-items-center justify-content-center text-dark">
+      <h4
+        class="pb-4 d-flex align-items-center justify-content-center text-dark"
+      >
         Configuración cuenta
       </h4>
       <div
@@ -130,13 +132,15 @@ import useVuelidate from "@vuelidate/core";
 import { required, minLength, sameAs, helpers } from "@vuelidate/validators";
 import md5 from "crypto-js/md5";
 
+/*Vista que muestra los datos del usuario actualmente conectado y 
+que permite realizar el cambio de cualquiera de estos, incluso de eliminar
+la cuenta de forma permanente */
+
 //#region STORE
 const store = useStore();
 //#endregion
 
-//#region CONTROL FORM INFO
-
-//#region CONST FORM INFO
+//#region CONST REF,COMPUTED, REACTIVE
 const newName = ref<string>("");
 const name = computed(() => store.getters.userName.split(" ", 2)[0]);
 
@@ -148,6 +152,59 @@ const email = computed(() => store.getters.userEmail);
 
 const newPhone = ref<string>("");
 const phone = computed(() => store.getters.userPhone);
+
+const state = reactive({
+  oldPass: "",
+  password: {
+    newPass: "",
+    newConfirmPass: "",
+  },
+});
+//#endregion
+
+//#region RULES VALIDATION FORM
+const rules = computed(() => {
+  return {
+    oldPass: {
+      required: helpers.withMessage(
+        "*Debe introducir la antigüa contraseña",
+        required
+      ),
+      minLength: helpers.withMessage(
+        "*La contraseña debe estar tener una longitud mínima de 8 caracteres",
+        minLength(8)
+      ),
+    },
+    password: {
+      newPass: {
+        required: helpers.withMessage(
+          "*Debe introducir la nueva contraseña",
+          required
+        ),
+        minLength: helpers.withMessage(
+          "*La contraseña debe estar tener una longitud mínima de 8 caracteres",
+          minLength(8)
+        ),
+      },
+      newConfirmPass: {
+        required: helpers.withMessage(
+          "*Debe repetir la nueva contraseña",
+          required
+        ),
+        minLength: helpers.withMessage(
+          "*La contraseña debe estar tener una longitud mínima de 8 caracteres",
+          minLength(8)
+        ),
+        sameAs: helpers.withMessage(
+          "*No coincide con la contraseña indicada anteriormente",
+          sameAs(state.password.newPass)
+        ),
+      },
+    },
+  };
+});
+
+const v$ = useVuelidate(rules, state);
 //#endregion
 
 //#region FUNCTIONS
@@ -254,56 +311,6 @@ function deleteAccount() {
     }
   });
 }
-//#endregion
-
-//#endregion
-
-//#region UPDATE PASSWORD
-
-//#region CONST
-const state = reactive({
-  oldPass: "",
-  password: {
-    newPass: "",
-    newConfirmPass: "",
-  },
-});
-//#endregion
-
-//#region RULES VALIDATION FORM
-const rules = computed(() => {
-  return {
-    oldPass: {
-      required: helpers.withMessage("*Debe introducir la antigüa contraseña", required),
-      minLength: helpers.withMessage(
-        "*La contraseña debe estar tener una longitud mínima de 8 caracteres",
-        minLength(8)
-      ),
-    },
-    password: {
-      newPass: {
-        required: helpers.withMessage("*Debe introducir la nueva contraseña", required),
-        minLength: helpers.withMessage(
-          "*La contraseña debe estar tener una longitud mínima de 8 caracteres",
-          minLength(8)
-        ),
-      },
-      newConfirmPass: {
-        required: helpers.withMessage("*Debe repetir la nueva contraseña", required),
-        minLength: helpers.withMessage(
-          "*La contraseña debe estar tener una longitud mínima de 8 caracteres",
-          minLength(8)
-        ),
-        sameAs: helpers.withMessage(
-          "*No coincide con la contraseña indicada anteriormente",
-          sameAs(state.password.newPass)
-        ),
-      },
-    },
-  };
-});
-
-const v$ = useVuelidate(rules, state);
 
 function updatePass() {
   v$.value.$validate();
@@ -325,8 +332,6 @@ function updatePass() {
   }
 }
 //#endregion
-
-//#endregion
 </script>
 
 <style lang="scss" scoped>
@@ -343,8 +348,8 @@ body {
   background-color: aliceblue;
 }
 
-.bgcolor{
-  background-color: #E3E3E3;
+.bgcolor {
+  background-color: #e3e3e3;
 }
 .wrapper {
   padding: 30px 50px;
@@ -402,7 +407,6 @@ select {
   border-radius: 10px;
   height: 40px;
   padding: 5px 10px;
-  /* -webkit-appearance: none; */
 }
 
 select:focus {
@@ -437,7 +441,7 @@ select:focus {
   }
 }
 
-.error{
+.error {
   color: red;
   font-weight: bold;
 }

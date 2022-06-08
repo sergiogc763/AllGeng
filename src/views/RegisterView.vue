@@ -257,6 +257,8 @@ import Swal from "sweetalert2";
 import { useStore } from "vuex";
 import md5 from "crypto-js/md5";
 
+/*Vista que tiene la función de realizar el registro de un usuario Normal */
+
 onBeforeMount(() => {
   if (store.state.User.logged) {
     redirectHome();

@@ -147,7 +147,10 @@ import Swal from "sweetalert2";
 import { ref, onBeforeMount, reactive } from "vue";
 import { useStore } from "vuex";
 
-//#region USE
+/*Vista utilizada para mostrar la función principal de un Gestor de productos, que es poder subir
+un producto con sus características correspondientes*/
+
+//#region STORE
 const store = useStore();
 //#endregion
 
@@ -281,7 +284,6 @@ async function getCategorias() {
     .then((res) => {
       switch (res.status) {
         case 200:
-          // console.log(res);
           res.data.categorias.data.forEach((element: any) => {
             categorias.push({ text: element.categnom, value: element.categid });
           });
@@ -313,13 +315,12 @@ async function getCategorias() {
 }
 
 async function getTipos() {
-  //Recuperamos las categorías
+  //Recuperamos los tipos
   await axios
     .get(`${RoutePaths.API}getTipos.php`)
     .then((res) => {
       switch (res.status) {
         case 200:
-          // console.log(res);
           res.data.categorias.data.forEach((element: any) => {
             tipos.push({ text: element.tipnom, value: element.tipid });
           });
@@ -351,13 +352,12 @@ async function getTipos() {
 }
 
 async function getMarcas() {
-  //Recuperamos las categorías
+  //Recuperamos las marcas
   await axios
     .get(`${RoutePaths.API}getMarcas.php`)
     .then((res) => {
       switch (res.status) {
         case 200:
-          // console.log(res);
           res.data.categorias.data.forEach((element: any) => {
             marcas.push({ text: element.marcnom, value: element.marcid });
           });

@@ -90,12 +90,14 @@ import { RolUser } from "@/core/general/RolUser";
 import Swal from "sweetalert2";
 import OptionMainMenu from "./general/OptionMainMenu.vue";
 
-//#region CONST
+/*Menú principal de navegación*/
+
+//#region CONST USE
 const store = useStore();
 const router = useRouter();
 //#endregion
 
-//#region
+//#region FUNCTIONS
 function goLogin() {
   router.push({ name: "LoginView" });
 }
@@ -134,11 +136,6 @@ function logout() {
   margin: 0;
   padding: 0;
 }
-
-// .img-icons {
-//   width: 30px;
-//   height: 30px;
-// }
 
 .content-right {
   display: flex;

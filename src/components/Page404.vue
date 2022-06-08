@@ -24,6 +24,9 @@ import { RoutePaths } from "../core/general/RoutePaths";
 import { useRouter } from "vue-router";
 import Swal from "sweetalert2";
 
+/*La función del componente será aparecer cuando el usuario 
+navegue a una ruta que no existe o no tenga permisos*/
+
 //#region USE
 const router = useRouter();
 //#endregion
@@ -41,6 +44,7 @@ function options() {
     }
   });
 }
+//#endregion
 </script>
 
 <style lang="scss" scoped>

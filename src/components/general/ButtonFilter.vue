@@ -34,7 +34,10 @@
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+/*Componente que tendrá la función de realizar el fildrado de los productos mostrados
+en el HomeView */
+</script>
 
 <style lang="scss">
 .buttons {

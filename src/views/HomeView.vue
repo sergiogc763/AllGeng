@@ -61,6 +61,7 @@ import CardProduct from "@/components/product/CardProduct.vue";
 import Swal from "sweetalert2";
 import ButtonFilter from "@/components/general/ButtonFilter.vue";
 
+//#region CONST REF-REACTIVE
 const productos = ref<Array<Producto>>([]);
 
 const categoria = ref<any>("Seleccione una categoría");
@@ -75,6 +76,7 @@ const marcas = reactive<Array<any>>([]);
 const orden = ref<any>("Ordenar por:");
 
 const productosMostrar = ref<Array<Producto>>([]);
+//#endregion
 
 onBeforeMount(() => {
   refreshDatos();
@@ -83,6 +85,7 @@ onBeforeMount(() => {
   getMarcas();
 });
 
+//#region FUNCTIONS
 async function refreshDatos() {
   productos.value = [];
   await axios
@@ -299,6 +302,8 @@ function resetFilters() {
   marca.value = "Seleccione una marca";
   orden.value = "Ordenar por:";
 }
+
+//#endregion
 </script>
 
 <style lang="scss" scoped>

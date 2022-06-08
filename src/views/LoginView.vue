@@ -92,6 +92,7 @@ import md5 from "crypto-js/md5";
 import axios from "axios";
 import { RoutePaths } from "@/core/general/RoutePaths";
 
+/*Vista que muestra y controla el login de los usuarios */
 
 //#region CONST
 const store = useStore();

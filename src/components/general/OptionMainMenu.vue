@@ -7,7 +7,9 @@
 </template>
 
 <script lang="ts" setup>
+/*Componente que muestra la imagen y el texto de la opciones del menú principal */
 
+//#region PROPS
 const props = defineProps({
   icono: {
     type: String,
@@ -18,7 +20,7 @@ const props = defineProps({
     required: true,
   },
 });
-
+//#endregion
 </script>
 
 <style lang="scss" scoped>
