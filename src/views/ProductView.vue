@@ -13,9 +13,11 @@
               <img :src="producto.img" class="d-block" />
             </div>
             <div
+            v-if="producto.imagenes.lenght > 0"
               class="carousel-item w-50"
               data-bs-interval="5000"
               v-for="imgagen in producto.imagenes"
+              v-bind:key="imagen"
             >
               <img :src="imgagen" class="d-block" />
             </div>
@@ -109,8 +111,9 @@ export default {
       opcion: 0,
     };
   },
-  mounted: async function() {
-    await this.getProductById();
+  mounted:async function() {
+   await this.getProductById();
+
     if (this.producto.stock > 0) {
       const script = document.createElement("script");
       script.src =
@@ -148,7 +151,8 @@ export default {
       await axios
         .post(`${RoutePaths.API}getProductById.php`, formData)
         .then((response) => {
-          switch (response.status) {
+          
+          switch (response.status) {        
             case 200:
               this.producto.nombre = response.data.response.prodnom;
               this.producto.precio = response.data.response.prodprec;

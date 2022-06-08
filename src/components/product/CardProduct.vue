@@ -14,14 +14,6 @@
       <p class="card-text" @click="verProducto()">{{ props.producto.precio }} €</p>
     </div>
     <div class="card-footer" v-if="store.getters.rolId === RolUser.Gestor">
-      <!-- <button
-        type="button"
-        class="btn btn-primary"
-        @click="verProducto()"
-        v-if="store.getters.rolId !== RolUser.Gestor"
-      >
-        Ver
-      </button> -->
       <div class="options-gestor" >
         <div class="btn-group" role="group">
           <button
