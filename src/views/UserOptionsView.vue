@@ -1,7 +1,7 @@
 <template>
   <div class="content" v-if="store.getters.logged">
-    <div class="wrapper bg-dark mt-sm-5">
-      <h4 class="pb-4 d-flex align-items-center justify-content-center text-white">
+    <div class="wrapper bgcolor mt-sm-5">
+      <h4 class="pb-4 d-flex align-items-center justify-content-center text-dark">
         Configuración cuenta
       </h4>
       <div
@@ -103,7 +103,7 @@
         </div>
         <div class="d-sm-flex align-items-center pt-3" id="deactivate">
           <div class="m-2">
-            <b class="text-white">Eliminar cuenta</b>
+            <b class="text-dark">Eliminar cuenta</b>
             <p>Detalles sobre datos de tu cuenta y contraseña</p>
           </div>
           <div class="ml-auto">
@@ -343,6 +343,9 @@ body {
   background-color: aliceblue;
 }
 
+.bgcolor{
+  background-color: #E3E3E3;
+}
 .wrapper {
   padding: 30px 50px;
   border: 1px solid #ddd;

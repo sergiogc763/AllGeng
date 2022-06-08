@@ -36,7 +36,7 @@
           </button>
         </div>
       </div>
-      <div class="price-p">
+      <div class="price-p" v-if="producto.stock > 0">
         <div class="nombre">
           <h5>{{ producto.nombre }}</h5>
         </div>
