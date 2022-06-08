@@ -70,8 +70,7 @@
                     />Configuración</router-link
                   >
                 </li>
-                <li>
-                  
+                <li class="puntero">                
                   <a class="dropdown-item" @click="logout"><font-awesome-icon icon="right-from-bracket" class="icon"/>Desconectar</a>
                 </li>
               </ul>
@@ -209,5 +208,9 @@ function logout() {
     opacity: 1;
     right: 0;
   }
+}
+
+.puntero{
+  cursor: pointer; 
 }
 </style>
