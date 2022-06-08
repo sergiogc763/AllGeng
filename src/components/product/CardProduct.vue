@@ -31,7 +31,7 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Modifcar
+            Modificar
           </button>
           <ul class="dropdown-menu" aria-labelledby="btnOpciones">
             <li>
@@ -42,6 +42,11 @@
             <li>
               <span class="dropdown-item" @click="actualizarPrecio()"
                 >Precio</span
+              >
+            </li>
+            <li>
+              <span class="dropdown-item" @click="actualizarStock()"
+                >Stock</span
               >
             </li>
             <li>
@@ -78,6 +83,7 @@ const props = defineProps({
 const emit = defineEmits([
   "actualizarNombre",
   "actualizarPrecio",
+  "actualizarStock",
   "actualizarDescripcion",
   "deleteProduct",
 ]);
@@ -196,6 +202,75 @@ async function actualizarPrecio() {
               Swal.fire({
                 icon: "success",
                 title: "Precio actualizado",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "ERROR",
+                text: "Error interno. Perdone las molestias",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            }
+            break;
+
+          case 404:
+            Swal.fire({
+              icon: "error",
+              title: "ERROR",
+              text: "Error interno. No se ha encontrado la ruta",
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
+
+          case 500:
+            Swal.fire({
+              icon: "error",
+              title: "ERROR",
+              text: "Error interno. Fallo de API",
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
+        }
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
+  } else {
+    Swal.fire(`No puede dejar el campo vacio`);
+  }
+}
+
+async function actualizarStock() {
+  const { value: stock } = await Swal.fire({
+    title: "Modificar stock",
+    input: "text",
+    inputLabel: "Nuevo stock:",
+    inputValue: props.producto.stock,
+    showCancelButton: true,
+  });
+
+  if (stock) {
+    Swal.fire(`Se ha modificado el stock del producto`);
+
+    let formData = new FormData();
+    formData.append("id", props.producto.id);
+    formData.append("stock", stock);
+
+    await axios
+      .post(`${RoutePaths.API}updateStoreProduct.php`, formData)
+      .then((response) => {
+        switch (response.status) {
+          case 200:
+            if (response.data) {
+              emit("actualizarStock");
+              Swal.fire({
+                icon: "success",
+                title: "Stock actualizado",
                 showConfirmButton: false,
                 timer: 2000,
               });

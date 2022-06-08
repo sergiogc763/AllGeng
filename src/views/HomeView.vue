@@ -46,6 +46,7 @@
         @actualizarPrecio="refreshDatos()"
         @actualizarDescripcion="refreshDatos()"
         @deleteProduct="refreshDatos()"
+        @actualizarStock="refreshDatos()"
       />
     </div>
   </div>
