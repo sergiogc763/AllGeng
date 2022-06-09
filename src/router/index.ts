@@ -29,17 +29,17 @@ const routes: Array<RouteRecordRaw> = [
   component: UserOptionsView
 },
 {
-  path: '/producto/:nombre/:id',
+  path: RoutePaths.ProductView,
   name: 'ProductView',
   component: ProductView,
 },
 {
-  path: '/producto/nuevo',
+  path: RoutePaths.NewProduct,
   name: 'UploadProductView',
   component: UploadProductView,
 },
 {
-  path: '/user/historial',
+  path: RoutePaths.Historial,
   name: 'UserHistorialView',
   component: UserHistorialView,
 },
