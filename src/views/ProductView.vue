@@ -56,13 +56,14 @@
             min="1"
             :max="this.producto.stock"
           />
+          <div class="total">Precio total: {{ total.toFixed(2) }} €</div>
         </div>
-        <div class="total">Precio total: {{ total }} €</div>
+        
         <div ref="paypal" class="btn-paypal" v-if="producto.stock > 0"></div>
         <div v-else><h6>Fuera de stock</h6></div>
       </div>
     </div>
-    <div class="banner"></div>
+    <div class="banner mt-5"></div>
     <div class="bot-p">
       <ul class="nav nav-tabs">
         <li class="nav-item">
@@ -97,7 +98,7 @@ export default {
     return {
       loaded: false,
       paidFor: false,
-      cantidad: 0,
+      cantidad: 1,
       total: 0,
       producto: {
         nombre: "",
@@ -110,7 +111,7 @@ export default {
       opcion: 0,
     };
   },
-  mounted: async function () {
+  created: async function () {
     await this.getProductById();
 
     if (this.producto.stock > 0) {
@@ -380,10 +381,9 @@ export default {
   }
 
   .banner {
-    margin: 0;
-    width: 100%;
+    padding: 25px;
     background-color: black;
-    height: 50px;
+    height:10vh;
   }
   .top-p {
     display: flex;
@@ -394,6 +394,7 @@ export default {
       width: 35vw;
     }
     .price-p {
+      width: 28vw;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -402,7 +403,7 @@ export default {
       box-shadow: 5px 6px #6e6e6e;
       padding: 20px;
       border-radius: 5px;
-      height: fit-content;
+
       .nombre {
         display: flex;
         justify-content: center;
@@ -422,7 +423,11 @@ export default {
         margin: 2px;
         .cantidad-p {
           margin-left: 10px;
-          width: 8vw;
+          width: 55px;
+        }
+        .total{
+          color: white;
+          font-weight: bold;
         }
       }
     }
