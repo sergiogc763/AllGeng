@@ -10,6 +10,6 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  // base: "/alumnado/curso2122/DAW/daw2122a5/" Cuando se ralice el build a producción
+  base: "/alumnado/curso2122/DAW/daw2122a5/" //Cuando se ralice el build a producción
   
 })
