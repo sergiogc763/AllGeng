@@ -2,7 +2,7 @@
   <div class="container tm-mt-big tm-mb-big" v-if="store.getters.logged && store.getters.rolId === RolUser.Gestor">
     <div class="row">
       <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
-        <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+        <div class="tm-bg-primary tm-block tm-block-h-auto">
           <div class="row">
             <div class="col-12">
               <h2 class="tm-block-title d-flex justify-content-center">
@@ -407,6 +407,7 @@ async function getMarcas() {
   -webkit-box-shadow: 1px 1px 5px 0 #455c71;
   -moz-box-shadow: 1px 1px 5px 0 #455c71;
   box-shadow: 1px 1px 5px 0 #455c71;
+  border-radius: 5px;
   min-height: 350px;
   height: 100%;
   max-height: 450px;
@@ -417,11 +418,13 @@ async function getMarcas() {
   height: auto;
 }
 .tm-block-title {
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  color: #fff;
+  color: rgb(255, 255, 255);
   margin-bottom: 30px;
 }
+
+
 .form-control {
   background-color: #54657d;
   color: #fff;
@@ -434,7 +437,8 @@ async function getMarcas() {
   box-shadow: 0 0 0 0.1rem rgb(180, 206, 233, 0.5);
 }
 .form-group label {
-  color: #fff;
+  color: rgba(245, 245, 245, 0.876);
+  font-weight: bold;
   margin-bottom: 10px;
 }
 
@@ -467,13 +471,17 @@ async function getMarcas() {
   border: 2px solid #f5a623;
 }
 
-.tm-bg-primary-dark {
-  background-color: #435c70;
+.tm-bg-primary {
+  background-color: #212529;
 }
 .tm-bg-gray {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
+.text-color-titles{
+  color: rgb(243, 243, 243);
+  font-weight: bold;
+}
 .custom-select {
   width: 100%;
   border: none;

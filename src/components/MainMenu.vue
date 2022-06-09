@@ -44,7 +44,6 @@
               v-if="!store.state.User.logged"
             >
               <OptionMainMenu :icono="'user-secret'" :texto="'Cuenta'" />
-              <!-- <button class="button btnAccount"><font-awesome-icon icon="user-secret" class="img-icons"/><span>Cuenta</span></button> -->
             </li>
             <li class="nav-item dropdown" v-else>
               <div class="useraccount nav-link" data-bs-toggle="dropdown">
@@ -52,10 +51,7 @@
                   <OptionMainMenu :icono="'circle-user'" :texto="''" />
                   <span>{{ store.getters.userName }}</span>
                 </div>
-
-                <!-- <button class="button btnAccount"><font-awesome-icon icon="circle-user" class="img-icons"/><span>Cuenta</span></button> -->
               </div>
-
               <ul
                 class="dropdown-menu cuenta-opciones"
                 aria-labelledby="navbarDropdown"
@@ -70,8 +66,13 @@
                     />Configuración</router-link
                   >
                 </li>
-                <li class="puntero">                
-                  <a class="dropdown-item" @click="logout"><font-awesome-icon icon="right-from-bracket" class="icon"/>Desconectar</a>
+                <li class="puntero">
+                  <a class="dropdown-item" @click="logout"
+                    ><font-awesome-icon
+                      icon="right-from-bracket"
+                      class="icon"
+                    />Desconectar</a
+                  >
                 </li>
               </ul>
             </li>
@@ -143,7 +144,6 @@ function logout() {
   .optionsnav {
     display: flex;
     align-items: center;
-    
 
     .cuenta-opciones {
       li {
@@ -207,7 +207,7 @@ function logout() {
   }
 }
 
-.puntero{
-  cursor: pointer; 
+.puntero {
+  cursor: pointer;
 }
 </style>
