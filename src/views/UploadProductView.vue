@@ -487,6 +487,12 @@ async function getMarcas() {
 </script>
 
 <style lang="scss" scoped>
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
 .tm-mt-big {
   margin-top: 57px;
 }

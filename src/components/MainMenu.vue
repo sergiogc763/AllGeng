@@ -25,7 +25,7 @@
               v-if="store.state.User.rolid === RolUser.Gestor"
             >
               <OptionMainMenu :icono="'upload'" :texto="'Upload'" />
-              <!-- <button class="button btnAccount"><font-awesome-icon icon="upload" class="img-icons"/><span>Upload</span></button> -->
+
             </li>
             <li
               class="nav-item"
@@ -36,7 +36,7 @@
               "
             >
               <OptionMainMenu :icono="'scroll'" :texto="'Historial'" />
-              <!-- <button class="button btnAccount"><font-awesome-icon icon="scroll" class="img-icons"/><span>Historial</span></button> -->
+
             </li>
             <li
               class="nav-item"
