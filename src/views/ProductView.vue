@@ -8,7 +8,7 @@
           class="carousel slide"
           data-bs-ride="carousel"
         >
-          <div class="carousel-inner">
+          <div class="carousel-inner mt-4">
             <div class="carousel-item active w-50" data-bs-interval="5000">
               <img :src="producto.img" class="d-block" />
             </div>
@@ -43,7 +43,7 @@
       </div>
       <div class="price-p">
         <div class="nombre">
-          <h3>{{ producto.nombre }}</h3>
+          <h3 class="nomP">{{ producto.nombre }}</h3>
         </div>
         <div class="precio">{{ producto.precio }} €</div>
         <div class="cantidad">
@@ -376,8 +376,8 @@ export default {
   background-color: rgba(255, 255, 255, 0.964);
 
   img {
-    width: 35vw;
-    height: 35vw;
+    width: 40vw;
+    height: 40vw;
   }
 
   .banner {
@@ -391,14 +391,13 @@ export default {
     align-items: center;
 
     .img-p {
-      width: 35vw;
+      width: 40vw;
     }
     .price-p {
       width: 28vw;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      // margin-top: 15vh;
       background-color: #212529;
       box-shadow: 5px 6px #6e6e6e;
       padding: 20px;
@@ -408,6 +407,7 @@ export default {
         display: flex;
         justify-content: center;
         color: rgb(222, 222, 222);
+
       }
 
       .precio {
@@ -439,13 +439,14 @@ export default {
     align-items: center;
 
     .option-show {
-      background-color: rgb(255, 71, 20);
+      background-color: #dfdfdf;
+      box-shadow: 5px 6px #6e6e6e;
       margin-top: 10px;
-      margin-bottom: 5px;
+      margin-bottom: 10px;
       margin-right: 10vw;
       margin-left: 10vw;
       border-radius: 5px;
-      color: white;
+      color: black;
     }
   }
 }
