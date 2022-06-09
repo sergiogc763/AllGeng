@@ -24,13 +24,13 @@
                     name="name"
                     v-model="nombre"
                     type="text"
-                    class="form-control validate"
-                    required=""
+                    class="form-control"
+  
                   />
                 </div>
                 <div class="form-group mb-3">
                   <label for="description">Descripción</label>
-                  <textarea class="form-control validate" rows="50"></textarea>
+                  <textarea class="form-control" rows="50"></textarea>
                 </div>
                 <div class="form-group mb-3">
                   <label for="categoria">Categoria</label>
@@ -203,7 +203,6 @@ async function axiosUpload() {
             for (let i = 0; i < imagen.value.files.length; i++) {
               formData.append("files[]", imagen.value.files[i]);
             }
-            // formData.append("imagenes", imagen.value.files[0]);
             axios
               .post(`${RoutePaths.API}addFotosProducto.php`, formData, {
                 headers: {
@@ -659,46 +658,4 @@ async function getMarcas() {
     max-height: 350px;
   }
 }
-
-// .main {
-//   background-color: rgba(255, 255, 255, 0.964);
-//   display: flex;
-//   justify-content: center;
-
-//   .containt {
-//     border-radius: 5px;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     flex-direction: column;
-//     background-color: rgb(201, 201, 201);
-//     width: fit-content;
-//     margin-top: 10px;
-//     margin-bottom: 10px;
-
-//     input,
-//     textarea {
-//       width: 25vw;
-//     }
-
-//     #precio {
-//       width: 10vw;
-//     }
-//   }
-
-//   .form-label{
-//     font-weight: bold;
-//   }
-
-//   .form-show{
-//     display:flex;
-//     align-items: center;
-//     flex-direction: column;
-//   }
-
-//   .price{
-//     display:flex;
-//     margin: 5px;
-//   }
-// }
 </style>
