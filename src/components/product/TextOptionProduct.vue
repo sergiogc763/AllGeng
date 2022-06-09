@@ -15,12 +15,13 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 .text {
-
-    p{
-        margin-top: 25px;
-        margin-right: 16vw;
-        margin-left: 16vw;
-    }
-  
+  p {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 25px;
+    margin-right: 16vw;
+    margin-left: 16vw;
+     color: black;
+  }
 }
 </style>

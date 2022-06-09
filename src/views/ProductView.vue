@@ -446,7 +446,7 @@ export default {
       margin-right: 10vw;
       margin-left: 10vw;
       border-radius: 5px;
-      color: black;
+     
     }
   }
 }
