@@ -13,7 +13,6 @@
               <img :src="producto.img" class="d-block" />
             </div>
             <div
-            v-if="producto.imagenes.lenght > 0"
               class="carousel-item w-50"
               data-bs-interval="5000"
               v-for="imgagen in producto.imagenes"
@@ -44,11 +43,11 @@
       </div>
       <div class="price-p">
         <div class="nombre">
-          <h5>{{ producto.nombre }}</h5>
+          <h3>{{ producto.nombre }}</h3>
         </div>
         <div class="precio">{{ producto.precio }} €</div>
         <div class="cantidad">
-          <span>Cantidad:</span
+          <span>Unidades:</span
           ><input
             class="cantidad-p"
             v-model="cantidad"
@@ -111,8 +110,8 @@ export default {
       opcion: 0,
     };
   },
-  mounted:async function() {
-   await this.getProductById();
+  mounted: async function () {
+    await this.getProductById();
 
     if (this.producto.stock > 0) {
       const script = document.createElement("script");
@@ -129,20 +128,19 @@ export default {
     onChange(event) {
       this.cantidad = event.target.value;
 
-      if(this.cantidad <= this.producto.stock){
+      if (this.cantidad <= this.producto.stock) {
         this.total = this.cantidad * this.producto.precio;
-      }else{
+      } else {
         Swal.fire({
-                      icon: "warning",
-                      title: "Cantidad erronea",
-                      text: "La cantidad no puede superar el número de stock",
-                      showConfirmButton: false,
-                      timer: 1250,
+          icon: "warning",
+          title: "Cantidad erronea",
+          text: "La cantidad no puede superar el número de stock",
+          showConfirmButton: false,
+          timer: 1250,
         });
         this.total = this.producto.stock * this.producto.precio;
         this.cantidad = this.producto.stock;
       }
-      
     },
     async getProductById() {
       const formData = new FormData();
@@ -151,15 +149,14 @@ export default {
       await axios
         .post(`${RoutePaths.API}getProductById.php`, formData)
         .then((response) => {
-          
-          switch (response.status) {        
+          switch (response.status) {
             case 200:
               this.producto.nombre = response.data.response.prodnom;
               this.producto.precio = response.data.response.prodprec;
               this.producto.descripcion = response.data.response.proddesc;
               this.producto.img =
                 RoutePaths.BASE + response.data.response.imagen;
-                this.producto.stock = response.data.response.stock;
+              this.producto.stock = response.data.response.stock;
               this.total = this.producto.precio;
 
               axios
@@ -244,7 +241,6 @@ export default {
             });
           },
           onApprove: async (data, actions) => {
-            
             const order = await actions.order.capture();
             let date = new Date();
 
@@ -326,8 +322,8 @@ export default {
                 console.error("There was an error!", error);
               });
 
-              //Realizamos el update del stock del producto comprado
-              await axios
+            //Realizamos el update del stock del producto comprado
+            await axios
               .post(`${RoutePaths.API}updateStoreProduct.php`, null, {
                 params: {
                   id: this.$route.params.id,
@@ -337,7 +333,7 @@ export default {
               .then((response) => {
                 switch (response.status) {
                   case 200:
-                    this.$router.go()	
+                    this.$router.go();
                     break;
                   case 404:
                     Swal.fire({
@@ -402,24 +398,32 @@ export default {
       flex-direction: column;
       justify-content: center;
       // margin-top: 15vh;
-      background-color: rgb(183, 183, 183);
+      background-color: #212529;
+      box-shadow: 5px 6px #6e6e6e;
       padding: 20px;
       border-radius: 5px;
-
       height: fit-content;
       .nombre {
         display: flex;
         justify-content: center;
+        color: rgb(222, 222, 222);
       }
 
       .precio {
-        color: rgb(255, 128, 0);
+        color: rgb(255, 41, 41);
+        display: flex;
+        justify-content: center;
         font-weight: bold;
-        font-size: 25px;
+        font-size: 35px;
       }
 
-      .cantidad-p {
-        width: 50px;
+      .cantidad {
+        color: white;
+        margin: 2px;
+        .cantidad-p {
+          margin-left: 10px;
+          width: 8vw;
+        }
       }
     }
   }
