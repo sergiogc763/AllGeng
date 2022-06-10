@@ -32,6 +32,8 @@ const router = useRouter();
 //#endregion
 
 //#region FUNCTIONS
+
+//Muestra una ventana de opciones para redirigir al login o al menú principal
 function options() {
   Swal.fire({
     title: "¿Desea ir al login?",
