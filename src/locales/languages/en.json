@@ -9,9 +9,16 @@
     "pageNotFound":"PAGE NOT FOUND",
     "resetFilter":"Reset filter",
     "update":"Update",
-    "name":"Nombre",
-    "price":"price",
-    "description":"Description"
+    "name":"Name",
+    "price":"Price",
+    "description":"Description",
+    "selectCategory":"Select a category",
+    "selectType":"Select a type",
+    "selectBrand":"Select a brand",
+    "orderBy":"Order by:",
+    "priceLowToHigh":"Price from low to high",
+    "priceHighToLow":"Price from high to low"
+    
 
 
 }

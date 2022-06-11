@@ -3,7 +3,7 @@
     <div class="filters mb-2">
       <div class="categorias">
         <select class="form-select" v-model="categoria" @change="filtro">
-          <option selected disabled>Seleccione una categoría</option>
+          <option selected disabled>{{$t('selectCategory')}}</option>
           <option v-for="options in categorias" v-bind:value="options.value">
             {{ options.text }}
           </option>
@@ -11,7 +11,7 @@
       </div>
       <div class="tipos">
         <select class="form-select" v-model="tipo" @change="filtro">
-          <option selected disabled>Seleccione un tipo</option>
+          <option selected disabled>{{$t('selectType')}}</option>
           <option v-for="options in tipos" v-bind:value="options.value">
             {{ options.text }}
           </option>
@@ -19,7 +19,7 @@
       </div>
       <div class="marcas">
         <select class="form-select" v-model="marca" @change="filtro">
-          <option selected disabled>Seleccione una marca</option>
+          <option selected disabled>{{$t('selectBrand')}}</option>
           <option v-for="option in marcas" v-bind:value="option.value">
             {{ option.text }}
           </option>
@@ -28,10 +28,10 @@
     </div>
     <div class="order mb-1">
       <select class="form-select" v-model="orden" @change="ordenar">
-        <option selected disabled>Ordenar por:</option>
-        <option value="1">Precio de menor a mayor</option>
-        <option value="2">Precio de mayor a menor</option>
-        <option value="3">Nombre</option>
+        <option selected disabled>{{$t('orderBy')}}</option>
+        <option value="1">{{$t('priceLowToHigh')}}</option>
+        <option value="2">{{$t('priceHighToLow')}}</option>
+        <option value="3">{{$t('price')}}</option>
       </select>
     </div>
     <div class="option mb-2">

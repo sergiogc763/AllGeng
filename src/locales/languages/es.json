@@ -11,5 +11,9 @@
     "update":"Modificar",
     "name":"Nombre",
     "prince":"Precio",
-    "description":"Descripción"
+    "description":"Descripción",
+    "selectCategory":"Selecciona una categoría",
+    "selectType":"Selecciona un tipo",
+    "selectBrand":"Selecciona una marca",
+    "orderBy":"Ordenar por:"
 }
