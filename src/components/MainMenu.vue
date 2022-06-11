@@ -43,7 +43,7 @@
               @click="goLogin"
               v-if="!store.state.User.logged"
             >
-              <OptionMainMenu :icono="'user-secret'" :texto="'Cuenta'" />
+              <OptionMainMenu :icono="'user-secret'" :texto="$t('Account')" />
             </li>
             <li class="nav-item dropdown" v-else>
               <div class="useraccount nav-link" data-bs-toggle="dropdown">
@@ -90,6 +90,9 @@ import { RoutePaths } from "@/core/general/RoutePaths";
 import { RolUser } from "@/core/general/RolUser";
 import Swal from "sweetalert2";
 import OptionMainMenu from "./general/OptionMainMenu.vue";
+import i18n from "@/locales/i18n";
+
+i18n.global.locale = "en"
 
 /*Menú principal de navegación*/
 

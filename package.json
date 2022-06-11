@@ -22,6 +22,7 @@
     "crypto-js": "^4.1.1",
     "jw-vue-pagination": "^1.0.3",
     "vue": "^3.2.25",
+    "vue-i18n": "^9.1.10",
     "vue-paginate": "^3.6.0",
     "vue-router": "^4.0.14",
     "vue-sweetalert2": "^5.0.2",

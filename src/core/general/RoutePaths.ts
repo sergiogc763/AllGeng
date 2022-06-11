@@ -8,8 +8,8 @@ export enum RoutePaths {
     Historial = "/user/historial",
 
 
-    // API = '/alumnado/curso2122/DAW/daw2122a5/API/',
-   // BASE = '/alumnado/curso2122/DAW/daw2122a5'
+//     API = '/alumnado/curso2122/DAW/daw2122a5/API/',
+//    BASE = '/alumnado/curso2122/DAW/daw2122a5'
     API = 'http://www.iestrassierra.net/alumnado/curso2122/DAW/daw2122a5/API/',
     BASE = 'http://www.iestrassierra.net/alumnado/curso2122/DAW/daw2122a5',
     // API = 'http://localhost/API/',

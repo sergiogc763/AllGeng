@@ -14,11 +14,13 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from "./router";
 import store from "./store";
+import i18n from './locales/i18n';
 
 library.add(fas,far,fab)
 
 
-createApp(App).use(router).use(VueSweetalert2).use(store).use(md5).component('font-awesome-icon', FontAwesomeIcon).mount("#app");
+createApp(App).use(router).use(VueSweetalert2).use(store).use(md5).use(i18n).component('font-awesome-icon', FontAwesomeIcon).mount("#app");
 import "bootstrap/dist/js/bootstrap.js"
 import "bootstrap/dist/css/bootstrap.css";
+
 
