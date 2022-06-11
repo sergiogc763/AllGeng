@@ -24,7 +24,14 @@
     "forgetPassword":"Forget Password?",
     "clickForgetPassword":"Click here for recovery",
     "signIn":"Sign in",
-    "register":"Register"
+    "register":"Register",
+    "errorRequiredEmail":"You must indicate an email",
+    "errorFormatEmail":"The email format is incorrect",
+    "errorRequiredPassword":"You must indicate an password",
+    "titleWarning":"Something is wrong...",
+    "titleRecoverAccount":"Recover account",
+    "writeYour":"Write your",
+    "checkEmail":"Check your email to get the new assigned password. We recommend changing it."
 
 
 

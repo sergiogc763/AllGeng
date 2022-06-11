@@ -20,9 +20,16 @@
     "priceHighToLow":"Precio de mayor a menor",
     "emailAddress": "Correo electrónico",
     "password":"Contraseña",    
-    "rememberMe":"Recuerdame",
+    "rememberMe":"Recordarme",
     "forgetPassword":"¿Has olvidado la contraseña?",
     "clickForgetPassword":"Haz click para recuperarla",
     "signIn":"Acceder",
-    "register":"Registrarse"
+    "register":"Registrarse",
+    "errorRequiredEmail":"Debe indicar un email",
+    "errorFormatEmail":"El formato del email es incorrecto",
+    "errorRequiredPassword":"Debes indicar una contraseña",
+    "titleWarning":"Algo va mal...",
+    "titleRecoverAccount":"Recuperar cuenta",
+    "writeYour":"Escribe tu",
+    "checkEmail":"Revise su email para obtener la nueva contraseña asignada. Le recomendamos cambiarla."
 }

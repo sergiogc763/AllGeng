@@ -112,11 +112,11 @@ const rememberLogin = ref<boolean>(false);
 const rules = computed(() => {
   return {
     email: {
-      required: helpers.withMessage("*Campo email no puede estar vacío", required),
-      email,
+      required: helpers.withMessage($t.t('errorRequiredEmail'), required),
+      email: helpers.withMessage($t.t('errorFormatEmail'), required),
     },
     password: {
-      required: helpers.withMessage("*Indique una contraseña", required) },
+      required: helpers.withMessage($t.t('errorRequiredPassword'), required) },
   };
 });
 
@@ -143,15 +143,7 @@ async function login() {
     store.dispatch("saveUserLogin", u);
     
 
-  } else {
-    Swal.fire({
-      icon: "warning",
-      title: "Datos erroneos",
-      text: "Los datos introducidos no cumplen el formato correcto",
-      showConfirmButton: false,
-      timer: 2000,
-    });
-  }
+  } 
 }
 
 function register() {
@@ -160,14 +152,14 @@ function register() {
 
 async function resetPassword() {
   const { value: emailU } = await Swal.fire({
-    title: "Recuperar cuenta",
+    title: $t.t('titleRecoverAccount'),
     input: "text",
-    inputLabel: "Indique su email",
+    inputLabel: `${$t.t('writeYour')} email`,
     showCancelButton: true,
   });
 
   if (emailU) {
-    Swal.fire(`Revise su email para obtener la nueva contraseña asignada. Le recomendamos cambiarla.`);
+    Swal.fire($t.t('checkEmail'));
 
     let formData = new FormData();
     formData.append("emailU", emailU);
