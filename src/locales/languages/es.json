@@ -1,4 +1,9 @@
 {
-    "Account":"Cuenta",
-    "Disconnect":"Desconectar"
+    "account":"Cuenta",
+    "upload":"Añadir",
+    "history":"Historial",
+    "configuration":"Configuración",
+    "disconnect":"Desconectar",
+    "yes":"Sí",
+    "pageNotFound":"Página no encontrada"
 }

@@ -24,7 +24,7 @@
               @click="uploadProduct"
               v-if="store.state.User.rolid === RolUser.Gestor"
             >
-              <OptionMainMenu :icono="'upload'" :texto="'Upload'" />
+              <OptionMainMenu :icono="'upload'" :texto="$t('upload')" />
 
             </li>
             <li
@@ -35,7 +35,7 @@
                 store.state.User.logged === true
               "
             >
-              <OptionMainMenu :icono="'scroll'" :texto="'Historial'" />
+              <OptionMainMenu :icono="'scroll'" :texto="$t('history')" />
 
             </li>
             <li
@@ -43,7 +43,7 @@
               @click="goLogin"
               v-if="!store.state.User.logged"
             >
-              <OptionMainMenu :icono="'user-secret'" :texto="$t('Account')" />
+              <OptionMainMenu :icono="'user-secret'" :texto="$t('account')" />
             </li>
             <li class="nav-item dropdown" v-else>
               <div class="useraccount nav-link" data-bs-toggle="dropdown">
@@ -63,7 +63,7 @@
                     ><font-awesome-icon
                       icon="gears"
                       class="icon"
-                    />Configuración</router-link
+                    />{{$t('configuration')}}</router-link
                   >
                 </li>
                 <li class="puntero">
@@ -71,7 +71,7 @@
                     ><font-awesome-icon
                       icon="right-from-bracket"
                       class="icon"
-                    />Desconectar</a
+                    />{{$t('disconnect')}}</a
                   >
                 </li>
               </ul>

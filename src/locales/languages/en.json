@@ -1,4 +1,11 @@
 {
-    "Account":"Account",
-    "Disconnect":"Disconnect"
+    "account":"Account",
+    "upload":"Upload",
+    "history":"History",
+    "configuration":"Configuration",
+    "disconnect":"Disconnect",
+    "yes":"Yes",
+    "pageNotFound":"PAGE NOT FOUND"
+
+
 }
