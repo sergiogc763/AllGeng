@@ -5,7 +5,13 @@
     "configuration":"Configuration",
     "disconnect":"Disconnect",
     "yes":"Yes",
-    "pageNotFound":"PAGE NOT FOUND"
+    "backToHome":"BACK TO HOME?",
+    "pageNotFound":"PAGE NOT FOUND",
+    "resetFilter":"Reset filter",
+    "update":"Update",
+    "name":"Nombre",
+    "price":"price",
+    "description":"Description"
 
 
 }

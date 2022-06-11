@@ -11,7 +11,7 @@
     <div class="text">
       <h1>404</h1>
       <h2>{{$t('pageNotFound')}}</h2>
-      <h3>BACK TO HOME?</h3>
+      <h3>{{$t('backToHome')}}</h3>
       <router-link class="yes router" :to="RoutePaths.Home">{{$t('yes')}}</router-link>
       <span class="yes router" @click="options">NO</span>
     </div>

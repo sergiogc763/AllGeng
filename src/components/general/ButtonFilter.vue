@@ -1,7 +1,7 @@
 <template>
   <div class="buttons">
     <button class="blob-btn">
-      Reiniciar filtro
+     {{$t('resetFilter')}}
       <span class="blob-btn__inner">
         <span class="blob-btn__blobs">
           <span class="blob-btn__blob"></span>

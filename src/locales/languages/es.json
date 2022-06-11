@@ -5,5 +5,11 @@
     "configuration":"Configuración",
     "disconnect":"Desconectar",
     "yes":"Sí",
-    "pageNotFound":"Página no encontrada"
+    "backToHome":"¿VOLVER AL INICIO?",
+    "pageNotFound":"Página no encontrada",
+    "resetFilter":"Reiniciar filtro",
+    "update":"Modificar",
+    "name":"Nombre",
+    "prince":"Precio",
+    "description":"Descripción"
 }

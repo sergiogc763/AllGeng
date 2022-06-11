@@ -23,17 +23,17 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Modificar
+            {{$t('update')}}
           </button>
           <ul class="dropdown-menu" aria-labelledby="btnOpciones">
             <li>
               <span class="dropdown-item" @click="actualizarNombre()"
-                >Nombre</span
+                >{{$t('name')}}</span
               >
             </li>
             <li>
               <span class="dropdown-item" @click="actualizarPrecio()"
-                >Precio</span
+                >{{$t('price')}}</span
               >
             </li>
             <li>
@@ -43,7 +43,7 @@
             </li>
             <li>
               <span class="dropdown-item" @click="actualizarDescripcion()"
-                >Descripcion</span
+                >{{$t('description')}}</span
               >
             </li>
           </ul>
