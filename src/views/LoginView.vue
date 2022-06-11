@@ -178,15 +178,15 @@ async function resetPassword() {
             if (response.data) {
               Swal.fire({
                 icon: "success",
-                title: "Se ha enviado la nueva contraseña al correo indicado",
+                title: $t.t('checkEmail'),
                 showConfirmButton: false,
                 timer: 2000,
               });
             } else {
               Swal.fire({
                 icon: "error",
-                title: "ERROR",
-                text: "Error interno. Perdone las molestias",
+                title: $t.t('titleWarning'),
+                text: $t.t('error200'),
                 showConfirmButton: false,
                 timer: 2000,
               });
@@ -196,8 +196,8 @@ async function resetPassword() {
           case 404:
             Swal.fire({
               icon: "error",
-              title: "ERROR",
-              text: "Error interno. No se ha encontrado la ruta",
+              title: $t.t('titleWarning'),
+              text: $t.t('error404'),
               showConfirmButton: false,
               timer: 2000,
             });
@@ -206,8 +206,8 @@ async function resetPassword() {
           case 500:
             Swal.fire({
               icon: "error",
-              title: "ERROR",
-              text: "Error interno. Fallo de API",
+              title: $t.t('titleWarning'),
+              text: $t.t('error500'),
               showConfirmButton: false,
               timer: 2000,
             });

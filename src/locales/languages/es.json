@@ -31,5 +31,9 @@
     "titleWarning":"Algo va mal...",
     "titleRecoverAccount":"Recuperar cuenta",
     "writeYour":"Escribe tu",
-    "checkEmail":"Revise su email para obtener la nueva contraseña asignada. Le recomendamos cambiarla."
+    "checkEmail":"Revise su email para obtener la nueva contraseña asignada. Le recomendamos cambiarla.",
+    "error200": "Error interno. Perdone las molestias",
+    "error404": "Error interno. No se ha encontrado la ruta",
+    "error500": "Error interno. Fallo del servidor"
+
 }

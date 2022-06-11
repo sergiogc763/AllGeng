@@ -31,7 +31,11 @@
     "titleWarning":"Something is wrong...",
     "titleRecoverAccount":"Recover account",
     "writeYour":"Write your",
-    "checkEmail":"Check your email to get the new assigned password. We recommend changing it."
+    "checkEmail":"Check your email to get the new assigned password. We recommend changing it.",
+    "error200": "Internal error. Forgive the inconvenience",
+    "error404": "Internal error. Path not found",
+    "error500": "Internal error. Server failure"
+
 
 
 
