@@ -17,8 +17,15 @@
     "selectBrand":"Select a brand",
     "orderBy":"Order by:",
     "priceLowToHigh":"Price from low to high",
-    "priceHighToLow":"Price from high to low"
-    
+    "priceHighToLow":"Price from high to low",
+    "emailAddress": "Email address",
+    "password":"Password",
+    "rememberMe":"Remember me",
+    "forgetPassword":"Forget Password?",
+    "clickForgetPassword":"Click here for recovery",
+    "signIn":"Sign in",
+    "register":"Register"
+
 
 
 }

@@ -14,7 +14,7 @@
                     <input
                       id="inputEmail"
                       type="email"
-                      placeholder="Email address"
+                      :placeholder="$t('emailAddress')"
                       autofocus="true"
                       class="form-control rounded-pill border-0 shadow-sm px-4"
                       v-model="state.email"
@@ -27,7 +27,7 @@
                     <input
                       id="inputPassword"
                       type="password"
-                      placeholder="Password"
+                      :placeholder="$t('password')"
                       class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
                       v-model="state.password"
                       @keypress.enter="login()"
@@ -44,13 +44,13 @@
                       v-model="rememberLogin"
                     />
                     <label for="checkRemember" class="form-check-label"
-                      >Remember me</label
+                      >{{$t('rememberMe')}}</label
                     >
                   </div>
                   <div class="mb-3">
                     <p>
-                      Forget password?
-                      <span class="resetPassword" @click="resetPassword()">Click here for recovery</span>
+                      {{$t('forgetPassword')}}
+                      <span class="resetPassword" @click="resetPassword()">{{$t('clickForgetPassword')}}</span>
                     </p>
                   </div>
                   <div class="d-grid gap-2 mt-2">
@@ -59,7 +59,7 @@
                       type="button"
                       class="botonSingin btn btn-block text-uppercase mb-2 rounded-pill shadow-sm"
                     >
-                      Sign in
+                      {{$t('signIn')}}
                     </button>
 
                     <button
@@ -67,7 +67,7 @@
                       type="button"
                       class="botonRegister btn btn-block text-uppercase mb-2 rounded-pill shadow-sm"
                     >
-                      Register
+                      {{$t('register')}}
                     </button>
                   </div>
                 </form>
@@ -90,10 +90,13 @@ import Swal from "sweetalert2";
 import { useStore } from "vuex";
 import md5 from "crypto-js/md5";
 import axios from "axios";
+import { useI18n } from "vue-i18n"
 import { RoutePaths } from "@/core/general/RoutePaths";
 
 /*Vista que muestra y controla el login de los usuarios */
+const $t = useI18n()
 
+console.log($t.t('register'))
 //#region CONST
 const store = useStore();
 
@@ -118,7 +121,6 @@ const rules = computed(() => {
 });
 
 const v$ = useVuelidate(rules, state);
-
 //#endregion
 
 //#region FUNCTIONS

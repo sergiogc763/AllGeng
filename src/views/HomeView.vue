@@ -3,7 +3,7 @@
     <div class="filters mb-2">
       <div class="categorias">
         <select class="form-select" v-model="categoria" @change="filtro">
-          <option selected disabled>{{$t('selectCategory')}}</option>
+          <option selected disabled :value="''">{{$t('selectCategory')}}</option>
           <option v-for="options in categorias" v-bind:value="options.value">
             {{ options.text }}
           </option>
@@ -11,7 +11,7 @@
       </div>
       <div class="tipos">
         <select class="form-select" v-model="tipo" @change="filtro">
-          <option selected disabled>{{$t('selectType')}}</option>
+          <option selected disabled :value="''">{{$t('selectType')}}</option>
           <option v-for="options in tipos" v-bind:value="options.value">
             {{ options.text }}
           </option>
@@ -19,7 +19,7 @@
       </div>
       <div class="marcas">
         <select class="form-select" v-model="marca" @change="filtro">
-          <option selected disabled>{{$t('selectBrand')}}</option>
+          <option selected disabled :value="''">{{$t('selectBrand')}}</option>
           <option v-for="option in marcas" v-bind:value="option.value">
             {{ option.text }}
           </option>
@@ -28,10 +28,10 @@
     </div>
     <div class="order mb-1">
       <select class="form-select" v-model="orden" @change="ordenar">
-        <option selected disabled>{{$t('orderBy')}}</option>
+        <option :value="''" disabled>{{$t('orderBy')}}</option>
         <option value="1">{{$t('priceLowToHigh')}}</option>
         <option value="2">{{$t('priceHighToLow')}}</option>
-        <option value="3">{{$t('price')}}</option>
+        <option value="3">{{$t('name')}}</option>
       </select>
     </div>
     <div class="option mb-2">
@@ -64,16 +64,16 @@ import ButtonFilter from "@/components/general/ButtonFilter.vue";
 //#region CONST REF-REACTIVE
 const productos = ref<Array<Producto>>([]);
 
-const categoria = ref<any>("Seleccione una categoría");
+const categoria = ref<any>("");
 const categorias = reactive<Array<any>>([]);
 
-const tipo = ref<any>("Seleccione un tipo");
+const tipo = ref<any>("");
 const tipos = reactive<Array<any>>([]);
 
-const marca = ref<any>("Seleccione una marca");
+const marca = ref<any>("");
 const marcas = reactive<Array<any>>([]);
 
-const orden = ref<any>("Ordenar por:");
+const orden = ref<any>("");
 
 const productosMostrar = ref<Array<Producto>>([]);
 //#endregion

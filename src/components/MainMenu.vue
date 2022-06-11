@@ -92,7 +92,7 @@ import Swal from "sweetalert2";
 import OptionMainMenu from "./general/OptionMainMenu.vue";
 import i18n from "@/locales/i18n";
 
-i18n.global.locale = "en"
+i18n.global.locale = "es"
 
 /*Menú principal de navegación*/
 

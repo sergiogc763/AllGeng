@@ -15,5 +15,14 @@
     "selectCategory":"Selecciona una categoría",
     "selectType":"Selecciona un tipo",
     "selectBrand":"Selecciona una marca",
-    "orderBy":"Ordenar por:"
+    "orderBy":"Ordenar por:",
+    "priceLowToHigh":"Precio de menor a mayor",
+    "priceHighToLow":"Precio de mayor a menor",
+    "emailAddress": "Correo electrónico",
+    "password":"Contraseña",    
+    "rememberMe":"Recuerdame",
+    "forgetPassword":"¿Has olvidado la contraseña?",
+    "clickForgetPassword":"Haz click para recuperarla",
+    "signIn":"Acceder",
+    "register":"Registrarse"
 }
