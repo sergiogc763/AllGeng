@@ -75,9 +75,15 @@
     "saveChanges":"Guardar cambios",
     "cleanForm":"Reiniciar formulario",
     "oldPassword":"Antigüa contraseña",
+    "errorRequiredOldPassword":"Debe escribir su antigüa contraseña",
     "newPassword":"Nueva contraseña",
+    "errorRequiredNewPassword":"Debe introducir una nueva contraseña",
     "repeatNewPassword":"Repite la nueva contraseña",
+    "errorRequiredRepeatNewPassword":"Debe repetir la nueca contraseña",
+    "errorSameAsNewPassword":"Ambas contraseñas no son igules",
     "changePassword":"Cambiar contraseña",
     "delete":"Eliminar",
-    "datailsAccount":"Detalles sobre datos de tu cuenta y contraseña"
+    "successDelete": "Se ha eliminado correctamente la cuenta",
+    "datailsAccount":"Detalles sobre datos de tu cuenta y contraseña",
+    "noEmptyFields":"No puede dejar el campo vacio"
 }

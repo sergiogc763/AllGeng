@@ -302,24 +302,24 @@ async function axiosUpload() {
                         break;
 
                       case 404:
-                        Swal.fire({
-                          icon: "error",
-                          title: "ERROR",
-                          text: "Error interno. No se ha encontrado la ruta",
-                          showConfirmButton: false,
-                          timer: 2000,
-                        });
-                        break;
+            Swal.fire({
+              icon: "error",
+              title: $t.t('titleWarning'),
+              text: $t.t('error404'),
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
 
-                      case 500:
-                        Swal.fire({
-                          icon: "error",
-                          title: "ERROR",
-                          text: "Error interno. Fallo de API",
-                          showConfirmButton: false,
-                          timer: 2000,
-                        });
-                        break;
+          case 500:
+            Swal.fire({
+              icon: "error",
+              title: $t.t('titleWarning'),
+              text: $t.t('error500'),
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
                     }
                   })
                   .catch((error) => {
@@ -329,24 +329,24 @@ async function axiosUpload() {
               break;
 
             case 404:
-              Swal.fire({
-                icon: "error",
-                title: "ERROR",
-                text: "Error interno. No se ha encontrado la ruta",
-                showConfirmButton: false,
-                timer: 2000,
-              });
-              break;
+            Swal.fire({
+              icon: "error",
+              title: $t.t('titleWarning'),
+              text: $t.t('error404'),
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
 
-            case 500:
-              Swal.fire({
-                icon: "error",
-                title: "ERROR",
-                text: "Error interno. Fallo de API",
-                showConfirmButton: false,
-                timer: 2000,
-              });
-              break;
+          case 500:
+            Swal.fire({
+              icon: "error",
+              title: $t.t('titleWarning'),
+              text: $t.t('error500'),
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
           }
         })
         .catch((error) => {
@@ -384,24 +384,24 @@ async function getCategorias() {
           });
           break;
         case 404:
-          Swal.fire({
-            icon: "error",
-            title: "ERROR",
-            text: "Error interno. No se ha encontrado la ruta",
-            showConfirmButton: false,
-            timer: 2000,
-          });
-          break;
+            Swal.fire({
+              icon: "error",
+              title: $t.t('titleWarning'),
+              text: $t.t('error404'),
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
 
-        case 500:
-          Swal.fire({
-            icon: "error",
-            title: "ERROR",
-            text: "Error interno. Fallo de API",
-            showConfirmButton: false,
-            timer: 2000,
-          });
-          break;
+          case 500:
+            Swal.fire({
+              icon: "error",
+              title: $t.t('titleWarning'),
+              text: $t.t('error500'),
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
       }
     })
     .catch((error) => {
@@ -420,25 +420,25 @@ async function getTipos() {
             tipos.push({ text: element.tipnom, value: element.tipid });
           });
           break;
-        case 404:
-          Swal.fire({
-            icon: "error",
-            title: "ERROR",
-            text: "Error interno. No se ha encontrado la ruta",
-            showConfirmButton: false,
-            timer: 2000,
-          });
-          break;
+       case 404:
+            Swal.fire({
+              icon: "error",
+              title: $t.t('titleWarning'),
+              text: $t.t('error404'),
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
 
-        case 500:
-          Swal.fire({
-            icon: "error",
-            title: "ERROR",
-            text: "Error interno. Fallo de API",
-            showConfirmButton: false,
-            timer: 2000,
-          });
-          break;
+          case 500:
+            Swal.fire({
+              icon: "error",
+              title: $t.t('titleWarning'),
+              text: $t.t('error500'),
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
       }
     })
     .catch((error) => {
@@ -458,24 +458,24 @@ async function getMarcas() {
           });
           break;
         case 404:
-          Swal.fire({
-            icon: "error",
-            title: "ERROR",
-            text: "Error interno. No se ha encontrado la ruta",
-            showConfirmButton: false,
-            timer: 2000,
-          });
-          break;
+            Swal.fire({
+              icon: "error",
+              title: $t.t('titleWarning'),
+              text: $t.t('error404'),
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
 
-        case 500:
-          Swal.fire({
-            icon: "error",
-            title: "ERROR",
-            text: "Error interno. Fallo de API",
-            showConfirmButton: false,
-            timer: 2000,
-          });
-          break;
+          case 500:
+            Swal.fire({
+              icon: "error",
+              title: $t.t('titleWarning'),
+              text: $t.t('error500'),
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
       }
     })
     .catch((error) => {

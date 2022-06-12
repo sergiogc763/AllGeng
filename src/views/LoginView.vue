@@ -218,7 +218,7 @@ async function resetPassword() {
         console.error("There was an error!", error);
       });
   } else {
-    Swal.fire(`No puede dejar el campo vacio`);
+    Swal.fire($t.t('noEmptyFields'));
   }
 }
 //#endregion

@@ -270,20 +270,11 @@ function deleteAccount() {
                 router.push({ name: "HomeView" });
                 Swal.fire({
                   icon: "success",
-                  title: "Se ha eliminado la cuenta.",
-                  showConfirmButton: false,
-                  timer: 2000,
-                });
-              } else {
-                Swal.fire({
-                  icon: "error",
-                  title: "ERROR",
-                  text: "Error interno. Perdone las molestias",
+                  title: $t.t('successDelete'),
                   showConfirmButton: false,
                   timer: 2000,
                 });
               }
-              break;
 
             case 404:
               Swal.fire({
