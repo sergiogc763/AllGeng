@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid" v-if="store.getters.logged === false">
     <div class="row no-gutter d-flex justify-content-center">
       <div class="col-md-7 d-none d-md-flex bg-image"></div>
 
@@ -82,7 +82,7 @@
 
 <script lang="ts" setup>
 
-import { computed, reactive, ref } from "vue";
+import { computed, onBeforeMount, onBeforeUpdate, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import useVuelidate from "@vuelidate/core";
 import { required, email, helpers } from "@vuelidate/validators";
@@ -94,9 +94,11 @@ import { useI18n } from "vue-i18n"
 import { RoutePaths } from "@/core/general/RoutePaths";
 
 /*Vista que muestra y controla el login de los usuarios */
+
+
+
 const $t = useI18n()
 
-console.log($t.t('register'))
 //#region CONST
 const store = useStore();
 
@@ -107,13 +109,19 @@ const state = reactive({
   password: "",
 });
 
+onBeforeUpdate(()=>{
+  if(store.getters.logged){
+    redirectHome()
+  }
+})
+
 const rememberLogin = ref<boolean>(false);
 
 const rules = computed(() => {
   return {
     email: {
       required: helpers.withMessage($t.t('errorRequiredEmail'), required),
-      email: helpers.withMessage($t.t('errorFormatEmail'), required),
+      email: helpers.withMessage($t.t('errorFormatEmail'), email),
     },
     password: {
       required: helpers.withMessage($t.t('errorRequiredPassword'), required) },
@@ -124,6 +132,17 @@ const v$ = useVuelidate(rules, state);
 //#endregion
 
 //#region FUNCTIONS
+function redirectHome() {
+  Swal.fire({
+    icon: "info",
+    title: "Ups...",
+    text: $t.t('sessionActive'),
+    showConfirmButton: false,
+    timer: 2550,
+  });
+  router.push({ name: "HomeView" });
+}
+
 async function login() {
   v$.value.$validate();
   if (!v$.value.$error) {

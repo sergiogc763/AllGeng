@@ -233,7 +233,7 @@ function register() {
 function redirectHome() {
   Swal.fire({
     icon: "info",
-    title: $t.t('titleWarning'),
+    title: "Ups...",
     text: $t.t('sessionActive'),
     showConfirmButton: false,
     timer: 2550,

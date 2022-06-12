@@ -86,5 +86,6 @@
     "successDelete": "Account successfully deleted",
     "datailsAccount":"Details about your account details and password",
     "noEmptyFields":"Cannot leave the field empty",
-    "sessionActive":"To register you must log out"
+    "sessionActive":"You must log out to access",
+    "ups":"Ups.."
 }
