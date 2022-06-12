@@ -321,14 +321,6 @@ function updatePass() {
       newPassword: md5(state.password.newPass).toString(),
     };
     store.dispatch("changeDataUser", o);
-  } else {
-    Swal.fire({
-      icon: "warning",
-      title: "Formato datos erroneo",
-      text: "Debe rellenar todos los campos. Además ambas constraseñas deben coincidir",
-      showConfirmButton: false,
-      timer: 2000,
-    });
   }
 }
 //#endregion

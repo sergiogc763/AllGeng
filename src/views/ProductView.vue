@@ -47,30 +47,39 @@
         </div>
         <div class="precio">{{ producto.precio }} €</div>
         <div class="cantidad">
-          <span>Unidades:</span
+          <span>{{ $t("units") }}:</span
           ><input
             class="cantidad-p"
             v-model="cantidad"
             @change="onChange($event)"
             type="number"
             min="1"
+            disabled
             :max="this.producto.stock"
           />
-          <div class="total">Precio total: {{ total.toFixed(2) }} €</div>
+          <div class="total">
+            {{ $t("totalPrice") }}: {{ total.toFixed(2) }} €
+          </div>
         </div>
-        
+
         <div ref="paypal" class="btn-paypal" v-if="producto.stock > 0"></div>
-        <div v-else><h6>Fuera de stock</h6></div>
+        <div v-else>
+          <h6>{{ $t("outOf") }} stock</h6>
+        </div>
       </div>
     </div>
     <div class="banner mt-5"></div>
     <div class="bot-p">
       <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link" @click="optionSelected(1)">Descripción</a>
+          <a class="nav-link" @click="optionSelected(1)">{{
+            $t("description")
+          }}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" @click="optionSelected(3)">Comentarios</a>
+          <a class="nav-link" @click="optionSelected(3)">{{
+            $t("comments")
+          }}</a>
         </li>
       </ul>
       <div class="option-show">
@@ -134,8 +143,8 @@ export default {
       } else {
         Swal.fire({
           icon: "warning",
-          title: "Cantidad erronea",
-          text: "La cantidad no puede superar el número de stock",
+          title: this.$t("titleWarning"),
+          text: this.$t("errorUnits"),
           showConfirmButton: false,
           timer: 1250,
         });
@@ -176,8 +185,8 @@ export default {
                     case 404:
                       Swal.fire({
                         icon: "error",
-                        title: "ERROR",
-                        text: "Error interno. No se ha encontrado la ruta",
+                        title: this.$t("titleWarning"),
+                        text: this.$t("error404"),
                         showConfirmButton: false,
                         timer: 2000,
                       });
@@ -186,8 +195,8 @@ export default {
                     case 500:
                       Swal.fire({
                         icon: "error",
-                        title: "ERROR",
-                        text: "Error interno. Fallo de API",
+                        title: this.$t("titleWarning"),
+                        text: this.$t("error500"),
                         showConfirmButton: false,
                         timer: 2000,
                       });
@@ -203,8 +212,8 @@ export default {
             case 404:
               Swal.fire({
                 icon: "error",
-                title: "ERROR",
-                text: "Error interno. No se ha encontrado la ruta",
+                title: this.$t("titleWarning"),
+                text: this.$t("error404"),
                 showConfirmButton: false,
                 timer: 2000,
               });
@@ -213,8 +222,8 @@ export default {
             case 500:
               Swal.fire({
                 icon: "error",
-                title: "ERROR",
-                text: "Error interno. Fallo de API",
+                title: this.$t("titleWarning"),
+                text: this.$t("error500"),
                 showConfirmButton: false,
                 timer: 2000,
               });
@@ -266,10 +275,6 @@ export default {
             } else {
               fecha = `${year}-${month}-${day}`;
             }
-            Swal.fire({
-              icon: "success",
-              title: "Se ha realizado la compra",
-            });
 
             //Insertamos la compra realizada en el historial del usuario conectado actualmente
             await axios
@@ -290,10 +295,9 @@ export default {
                     if (response.data) {
                       Swal.fire({
                         icon: "success",
-                        title: "Guardado los datos de compra",
-                        text: "Se ha registrado la compra en su historial",
+                        text: this.$t("purchaseCompleted"),
                         showConfirmButton: false,
-                        timer: 1000,
+                        timer: 1750,
                       });
                     }
                     break;
@@ -301,8 +305,8 @@ export default {
                   case 404:
                     Swal.fire({
                       icon: "error",
-                      title: "ERROR",
-                      text: "Error interno. No se ha encontrado la ruta",
+                      title: this.$t("titleWarning"),
+                      text: this.$t("error404"),
                       showConfirmButton: false,
                       timer: 2000,
                     });
@@ -311,8 +315,8 @@ export default {
                   case 500:
                     Swal.fire({
                       icon: "error",
-                      title: "ERROR",
-                      text: "Error interno. Fallo de API",
+                      title: this.$t("titleWarning"),
+                      text: this.$t("error500"),
                       showConfirmButton: false,
                       timer: 2000,
                     });
@@ -334,13 +338,14 @@ export default {
               .then((response) => {
                 switch (response.status) {
                   case 200:
-                    this.$router.go();
+                    this.$router.push({ name: "HomeView" });
+                    
                     break;
                   case 404:
                     Swal.fire({
                       icon: "error",
-                      title: "ERROR",
-                      text: "Error interno. No se ha encontrado la ruta",
+                      title: this.$t("titleWarning"),
+                      text: this.$t("error404"),
                       showConfirmButton: false,
                       timer: 2000,
                     });
@@ -349,8 +354,8 @@ export default {
                   case 500:
                     Swal.fire({
                       icon: "error",
-                      title: "ERROR",
-                      text: "Error interno. Fallo de API",
+                      title: this.$t("titleWarning"),
+                      text: this.$t("error500"),
                       showConfirmButton: false,
                       timer: 2000,
                     });
@@ -383,7 +388,7 @@ export default {
   .banner {
     padding: 25px;
     background-color: black;
-    height:10vh;
+    height: 10vh;
   }
   .top-p {
     display: flex;
@@ -407,7 +412,6 @@ export default {
         display: flex;
         justify-content: center;
         color: rgb(222, 222, 222);
-
       }
 
       .precio {
@@ -425,7 +429,7 @@ export default {
           margin-left: 10px;
           width: 55px;
         }
-        .total{
+        .total {
           color: white;
           font-weight: bold;
         }
@@ -446,7 +450,6 @@ export default {
       margin-right: 10vw;
       margin-left: 10vw;
       border-radius: 5px;
-     
     }
   }
 }

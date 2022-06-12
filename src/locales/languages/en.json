@@ -10,8 +10,10 @@
     "resetFilter":"Reset filter",
     "update":"Update",
     "name":"Name",
+    "errorRequiredName":"You must indicate a name and surname",
     "price":"Price",
     "description":"Description",
+    "comments":"Comments",
     "selectCategory":"Select a category",
     "selectType":"Select a type",
     "selectBrand":"Select a brand",
@@ -20,11 +22,12 @@
     "priceHighToLow":"Price from high to low",
     "emailAddress": "Email address",
     "password":"Password",
+    "repeatPassword":"Repeat password",
     "rememberMe":"Remember me",
     "forgetPassword":"Forget Password?",
     "clickForgetPassword":"Click here for recovery",
     "signIn":"Sign in",
-    "register":"Register",
+    "register":"Create account",
     "errorRequiredEmail":"You must indicate an email",
     "errorFormatEmail":"The email format is incorrect",
     "errorRequiredPassword":"You must indicate an password",
@@ -34,9 +37,17 @@
     "checkEmail":"Check your email to get the new assigned password. We recommend changing it.",
     "error200": "Internal error. Forgive the inconvenience",
     "error404": "Internal error. Path not found",
-    "error500": "Internal error. Server failure"
-
-
+    "error500": "Internal error. Server failure",
+    "units":"Units",
+    "errorUnits": "The quantity cannot exceed the stock number",
+    "totalPrice":"Total price",
+    "outOf":"Out of",
+    "purchaseCompleted":"Purchase completed!",
+    "numberPhone":"Number phone",
+    "agreeTerms":"I agree all statements in",
+    "termsSerivce":"Terms of service",
+    "alreadyAccount":"Have already an account?",
+    "loginHere":"Login here"
 
 
 }

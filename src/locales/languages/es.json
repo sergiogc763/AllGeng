@@ -10,8 +10,10 @@
     "resetFilter":"Reiniciar filtro",
     "update":"Modificar",
     "name":"Nombre",
+    "errorRequiredName":"Debe escribir su nombre y apellidos",
     "prince":"Precio",
     "description":"Descripción",
+    "comments":"Comentarios",
     "selectCategory":"Selecciona una categoría",
     "selectType":"Selecciona un tipo",
     "selectBrand":"Selecciona una marca",
@@ -19,12 +21,13 @@
     "priceLowToHigh":"Precio de menor a mayor",
     "priceHighToLow":"Precio de mayor a menor",
     "emailAddress": "Correo electrónico",
-    "password":"Contraseña",    
+    "password":"Contraseña",
+    "repeatPassword":"Repite la contraseña",    
     "rememberMe":"Recordarme",
     "forgetPassword":"¿Has olvidado la contraseña?",
     "clickForgetPassword":"Haz click para recuperarla",
     "signIn":"Acceder",
-    "register":"Registrarse",
+    "register":"Crear cuenta",
     "errorRequiredEmail":"Debe indicar un email",
     "errorFormatEmail":"El formato del email es incorrecto",
     "errorRequiredPassword":"Debes indicar una contraseña",
@@ -34,6 +37,18 @@
     "checkEmail":"Revise su email para obtener la nueva contraseña asignada. Le recomendamos cambiarla.",
     "error200": "Error interno. Perdone las molestias",
     "error404": "Error interno. No se ha encontrado la ruta",
-    "error500": "Error interno. Fallo del servidor"
+    "error500": "Error interno. Fallo del servidor",
+    "units":"Unidades",
+    "errorUnits": "La cantidad no puede superar el número de stock",
+    "totalPrice":"Precio total",
+    "outOf":"Fuera de",
+    "purchaseCompleted":"¡Compra completada!",
+    "numberPhone":"Número de teléfono",
+    "agreeTerms":"Estoy de acuerdo con todas las declaraciones en los",
+    "termsSerivce":"Terminos de servicio",
+    "alreadyAccount":"¿Ya tienes una cuenta?",
+    "loginHere":"Accede aquí"
+
+
 
 }
