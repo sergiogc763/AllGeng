@@ -2,7 +2,9 @@ import { createStore } from "vuex";
 import servicesUser from "./servicesUser";
 import Swal from "sweetalert2";
 import router from "@/router";
+import { useI18n } from "vue-i18n";
 
+const $t = useI18n();
 // Create a new store instance.
 const store = createStore({
   state: {
@@ -11,7 +13,7 @@ const store = createStore({
       usunom: "",
       usutelf: "",
       usuemail: "",
-      rolid:"",
+      rolid: "",
       logged: false,
     },
   },
@@ -24,7 +26,6 @@ const store = createStore({
           switch (res.status) {
             case 200:
               if (res.data.found) {
-
                 //Guardamos los datos del usuario en el store
                 state.User.usuid = res.data.response.usuid;
                 state.User.usunom = res.data.response.usunom;
@@ -35,16 +36,14 @@ const store = createStore({
                 router.push({ name: "HomeView" });
                 Swal.fire({
                   icon: "success",
-                  title: "Login completado",
-                  text: "Te has logueado con éxito!!!",
+                  text: $t.t('loginSuccess'),
                   showConfirmButton: false,
                   timer: 2000,
                 });
               } else {
                 Swal.fire({
                   icon: "warning",
-                  title: "Usuario no existe",
-                  text: "Error no existe usuario",
+                  text: $t.t('errorLogin'),
                   showConfirmButton: true,
                 });
               }
@@ -53,8 +52,8 @@ const store = createStore({
             case 404:
               Swal.fire({
                 icon: "error",
-                title: "ERROR",
-                text: "Error interno. No se ha encontrado la ruta",
+                title: $t.t("titleWarning"),
+                text: $t.t("error404"),
                 showConfirmButton: false,
                 timer: 2000,
               });
@@ -63,8 +62,8 @@ const store = createStore({
             case 500:
               Swal.fire({
                 icon: "error",
-                title: "ERROR",
-                text: "Error interno. Fallo de API",
+                title: $t.t("titleWarning"),
+                text: $t.t("error500"),
                 showConfirmButton: false,
                 timer: 2000,
               });
@@ -97,8 +96,8 @@ const store = createStore({
             case 404:
               Swal.fire({
                 icon: "error",
-                title: "ERROR",
-                text: "Error interno. No se ha encontrado la ruta",
+                title: $t.t("titleWarning"),
+                text: $t.t("error404"),
                 showConfirmButton: false,
                 timer: 2000,
               });
@@ -107,8 +106,8 @@ const store = createStore({
             case 500:
               Swal.fire({
                 icon: "error",
-                title: "ERROR",
-                text: "Error interno. Fallo de API",
+                title: $t.t("titleWarning"),
+                text: $t.t("error500"),
                 showConfirmButton: false,
                 timer: 2000,
               });
@@ -130,16 +129,15 @@ const store = createStore({
                 router.push({ name: "LoginView" });
                 Swal.fire({
                   icon: "success",
-                  title: "Registro completado",
-                  text: "Te has registrado con éxito!!!",
+                  text: $t.t("registerSuccess"),
                   showConfirmButton: false,
                   timer: 2000,
                 });
               } else {
                 Swal.fire({
                   icon: "error",
-                  title: "ERROR",
-                  text: "Error ya existe un usuario con ese email o teléfono",
+                  title: $t.t("titleWarning"),
+                  text: $t.t("errorRegister"),
                   showConfirmButton: false,
                   timer: 2000,
                 });
@@ -149,8 +147,8 @@ const store = createStore({
             case 404:
               Swal.fire({
                 icon: "error",
-                title: "ERROR",
-                text: "Error interno. No se ha encontrado la ruta",
+                title: $t.t("titleWarning"),
+                text: $t.t("error404"),
                 showConfirmButton: false,
                 timer: 2000,
               });
@@ -159,8 +157,8 @@ const store = createStore({
             case 500:
               Swal.fire({
                 icon: "error",
-                title: "ERROR",
-                text: "Error interno. Fallo de API",
+                title: $t.t("titleWarning"),
+                text: $t.t("error500"),
                 showConfirmButton: false,
                 timer: 2000,
               });
@@ -180,13 +178,11 @@ const store = createStore({
       state.User.logged = false;
 
       if (localStorage) {
-
         if (
           localStorage.getItem("userSession") !== undefined &&
           localStorage.getItem("userSession")
         ) {
-          localStorage.removeItem("userSession")
-          
+          localStorage.removeItem("userSession");
         }
       }
     },
@@ -206,26 +202,18 @@ const store = createStore({
                     console.log(response);
                     Swal.fire({
                       icon: "success",
-                      title: "Datos actualizados",
+                      title: $t.t('updateInfo'),
                       showConfirmButton: false,
                       timer: 2000,
                     });
-                  } else {
-                    Swal.fire({
-                      icon: "error",
-                      title: "ERROR",
-                      text: "Error interno. Perdone las molestias",
-                      showConfirmButton: false,
-                      timer: 2000,
-                    });
-                  }
+                  } 
                   break;
 
                 case 404:
                   Swal.fire({
                     icon: "error",
-                    title: "ERROR",
-                    text: "Error interno. No se ha encontrado la ruta",
+                    title: $t.t("titleWarning"),
+                    text: $t.t("error404"),
                     showConfirmButton: false,
                     timer: 2000,
                   });
@@ -234,8 +222,8 @@ const store = createStore({
                 case 500:
                   Swal.fire({
                     icon: "error",
-                    title: "ERROR",
-                    text: "Error interno. Fallo de API",
+                    title: $t.t("titleWarning"),
+                    text: $t.t("error500"),
                     showConfirmButton: false,
                     timer: 2000,
                   });
@@ -248,8 +236,7 @@ const store = createStore({
 
           break;
 
-
-          case "Password":
+        case "Password":
           servicesUser
             .updatePassword(state.User.usuid, o.oldPassword, o.newPassword)
             .then((response) => {
@@ -258,15 +245,14 @@ const store = createStore({
                   if (response.data) {
                     Swal.fire({
                       icon: "success",
-                      title: "Contraseña actualizada!",
+                      title: $t.t('updatePassword'),
                       showConfirmButton: false,
                       timer: 2000,
                     });
                   } else {
                     Swal.fire({
                       icon: "error",
-                      title: "ERROR",
-                      text: "Error. La antigua contraseña no coincide",
+                      text: $t.t('errorUpdatePassword'),
                       showConfirmButton: false,
                       timer: 2000,
                     });
@@ -276,8 +262,8 @@ const store = createStore({
                 case 404:
                   Swal.fire({
                     icon: "error",
-                    title: "ERROR",
-                    text: "Error interno. No se ha encontrado la ruta",
+                    title: $t.t("titleWarning"),
+                    text: $t.t("error404"),
                     showConfirmButton: false,
                     timer: 2000,
                   });
@@ -286,13 +272,12 @@ const store = createStore({
                 case 500:
                   Swal.fire({
                     icon: "error",
-                    title: "ERROR",
-                    text: "Error interno. Fallo de API",
+                    title: $t.t("titleWarning"),
+                    text: $t.t("error500"),
                     showConfirmButton: false,
                     timer: 2000,
                   });
                   break;
-     
               }
             })
             .catch((error) => {
@@ -300,20 +285,18 @@ const store = createStore({
             });
 
           break;
-        
       }
     },
-
   },
   actions: {
-    getProducts({ commit }){
+    getProducts({ commit }) {
       commit("GET_PRODUCTS_DB");
     },
     saveUserLogin({ commit }, u) {
       commit("SAVE_USER_LOGIN", u);
     },
-    getUserRemember({ commit }, token){
-      commit("USER_SESSION",token);
+    getUserRemember({ commit }, token) {
+      commit("USER_SESSION", token);
     },
     register({ commit }, u) {
       commit("REGISTER", u);
@@ -324,7 +307,6 @@ const store = createStore({
     changeDataUser({ commit }, o) {
       commit("CHANGE_DATA_USER", o);
     },
-
   },
   getters: {
     userId(state) {
@@ -342,9 +324,9 @@ const store = createStore({
     rolId(state) {
       return state.User.rolid;
     },
-    logged(state){
-      return state.User.logged
-    }
+    logged(state) {
+      return state.User.logged;
+    },
   },
 });
 

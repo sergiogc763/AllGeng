@@ -87,5 +87,11 @@
     "datailsAccount":"Details about your account details and password",
     "noEmptyFields":"Cannot leave the field empty",
     "sessionActive":"You must log out to access",
-    "ups":"Ups.."
+    "registerSuccess":"You have successfully registered",
+    "errorRegister": "Error there is already a user with that email or phone number",
+    "loginSuccess":"You have successfully logged in",
+    "errorLogin":"No user with these credentials exists",
+    "updateInfo":"Updated information!",
+    "updatePassword":"Updated password!",
+    "errorUpdatePassword":"ERROR. Impossible update password!"
 }

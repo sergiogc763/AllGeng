@@ -86,5 +86,12 @@
     "successDelete": "Se ha eliminado correctamente la cuenta",
     "datailsAccount":"Detalles sobre datos de tu cuenta y contraseña",
     "noEmptyFields":"No puede dejar el campo vacio",
-    "sessionActive":"Para poder acceder debe cerrar sesión"
+    "sessionActive":"Para poder acceder debe cerrar sesión",
+    "registerSuccess":"¡ Te has registrado con éxito",
+    "errorRegister":"Error ya existe un usuario con ese email o teléfono",
+    "loginSuccess":"¡ Te has logueado con éxito !",
+    "errorLogin":"No existe ningún usuario con dichas credenciales",
+    "updateInfo":"Información actualizada",
+    "updatePassword":" ¡ Contraseña actualizada !",
+    "errorUpdatePassword":"ERROR al actualizar "
 }
