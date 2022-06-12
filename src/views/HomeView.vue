@@ -60,6 +60,9 @@ import { Producto } from "../core/types/Product";
 import CardProduct from "@/components/product/CardProduct.vue";
 import Swal from "sweetalert2";
 import ButtonFilter from "@/components/general/ButtonFilter.vue";
+import { useI18n } from 'vue-i18n';
+
+const $t = useI18n();
 
 //#region CONST REF-REACTIVE
 const productos = ref<Array<Producto>>([]);
@@ -115,25 +118,25 @@ async function refreshDatos() {
           
 
           break;
-        case 404:
-          Swal.fire({
-            icon: "error",
-            title: "ERROR",
-            text: "Error interno. No se ha encontrado la ruta",
-            showConfirmButton: false,
-            timer: 2000,
-          });
-          break;
+         case 404:
+            Swal.fire({
+              icon: "error",
+              title: $t.t('titleWarning'),
+              text: $t.t('error404'),
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
 
-        case 500:
-          Swal.fire({
-            icon: "error",
-            title: "ERROR",
-            text: "Error interno. Fallo de API",
-            showConfirmButton: false,
-            timer: 2000,
-          });
-          break;
+          case 500:
+            Swal.fire({
+              icon: "error",
+              title: $t.t('titleWarning'),
+              text: $t.t('error500'),
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
       }
     })
     .catch((error) => {
@@ -153,25 +156,25 @@ async function getCategorias() {
             categorias.push({ text: element.categnom, value: element.categid });
           });
           break;
-        case 404:
-          Swal.fire({
-            icon: "error",
-            title: "ERROR",
-            text: "Error interno. No se ha encontrado la ruta",
-            showConfirmButton: false,
-            timer: 2000,
-          });
-          break;
+         case 404:
+            Swal.fire({
+              icon: "error",
+              title: $t.t('titleWarning'),
+              text: $t.t('error404'),
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
 
-        case 500:
-          Swal.fire({
-            icon: "error",
-            title: "ERROR",
-            text: "Error interno. Fallo de API",
-            showConfirmButton: false,
-            timer: 2000,
-          });
-          break;
+          case 500:
+            Swal.fire({
+              icon: "error",
+              title: $t.t('titleWarning'),
+              text: $t.t('error500'),
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
       }
     })
     .catch((error) => {
@@ -191,25 +194,25 @@ async function getTipos() {
             tipos.push({ text: element.tipnom, value: element.tipid });
           });
           break;
-        case 404:
-          Swal.fire({
-            icon: "error",
-            title: "ERROR",
-            text: "Error interno. No se ha encontrado la ruta",
-            showConfirmButton: false,
-            timer: 2000,
-          });
-          break;
+         case 404:
+            Swal.fire({
+              icon: "error",
+              title: $t.t('titleWarning'),
+              text: $t.t('error404'),
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
 
-        case 500:
-          Swal.fire({
-            icon: "error",
-            title: "ERROR",
-            text: "Error interno. Fallo de API",
-            showConfirmButton: false,
-            timer: 2000,
-          });
-          break;
+          case 500:
+            Swal.fire({
+              icon: "error",
+              title: $t.t('titleWarning'),
+              text: $t.t('error500'),
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
       }
     })
     .catch((error) => {
@@ -228,25 +231,25 @@ async function getMarcas() {
             marcas.push({ text: element.marcnom, value: element.marcid });
           });
           break;
-        case 404:
-          Swal.fire({
-            icon: "error",
-            title: "ERROR",
-            text: "Error interno. No se ha encontrado la ruta",
-            showConfirmButton: false,
-            timer: 2000,
-          });
-          break;
+         case 404:
+            Swal.fire({
+              icon: "error",
+              title: $t.t('titleWarning'),
+              text: $t.t('error404'),
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
 
-        case 500:
-          Swal.fire({
-            icon: "error",
-            title: "ERROR",
-            text: "Error interno. Fallo de API",
-            showConfirmButton: false,
-            timer: 2000,
-          });
-          break;
+          case 500:
+            Swal.fire({
+              icon: "error",
+              title: $t.t('titleWarning'),
+              text: $t.t('error500'),
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
       }
     })
     .catch((error) => {
@@ -297,10 +300,10 @@ function ordenar() {
 
 function resetFilters() {
   productosMostrar.value = productos.value;
-  categoria.value = "Seleccione una categoría";
-  tipo.value = "Seleccione un tipo";
-  marca.value = "Seleccione una marca";
-  orden.value = "Ordenar por:";
+  categoria.value = $t.t('selectCategory');
+  tipo.value = $t.t('selectType');
+  marca.value = $t.t('selectBrand');
+  orden.value = $t.t('orderBy');
 }
 
 //#endregion
