@@ -75,8 +75,12 @@
     "saveChanges":"Save changes",
     "cleanForm":"Reset form",
     "oldPassword":"Old password",
+    "errorRequiredOldPassword":"You must enter your old password",
     "newPassword":"New password",
+    "errorRequiredNewPassword":"You must enter the new password",
     "repeatNewPassword":"Repeat new password",
+    "errorRequiredRepeatNewPassword":"You must repeat new password",
+    "errorSameAsNewPassword":"Both passwords don't match",
     "changePassword":"Change password",
     "delete":"Delete",
     "datailsAccount":"Details about your account details and password"

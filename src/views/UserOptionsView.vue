@@ -14,7 +14,7 @@
       <div class="py-2 border-bottom">
         <div class="row py-2">
           <div class="col-md-6">
-            <label for="firstname">{{$t('name')}}:</label>
+            <label for="firstname">{{ $t("name") }}:</label>
             <input
               type="text"
               class="bg-light form-control"
@@ -23,7 +23,7 @@
             />
           </div>
           <div class="col-md-6 pt-md-0 pt-3">
-            <label for="lastname">{{$t('lastname')}}:</label>
+            <label for="lastname">{{ $t("lastname") }}:</label>
             <input
               type="text"
               class="bg-light form-control"
@@ -34,7 +34,7 @@
         </div>
         <div class="row py-2">
           <div class="col-md-6">
-            <label for="email">{{$t('emailAddress')}}:</label>
+            <label for="email">{{ $t("emailAddress") }}:</label>
             <input
               type="text"
               class="bg-light form-control"
@@ -43,7 +43,7 @@
             />
           </div>
           <div class="col-md-6 pt-md-0 pt-3">
-            <label for="phone">{{$t('numberPhone')}}</label>
+            <label for="phone">{{ $t("numberPhone") }}</label>
             <input
               type="tel"
               class="bg-light form-control"
@@ -54,15 +54,15 @@
         </div>
         <div class="py-3 pb-4 border-bottom">
           <button class="btn btn-primary m-2" @click="updateInfo()">
-            {{$t('saveChanges')}}
+            {{ $t("saveChanges") }}
           </button>
           <button class="btn btn-secondary m-2" @click="cleanForm()">
-            {{$t('cleanForm')}}
+            {{ $t("cleanForm") }}
           </button>
         </div>
         <div class="row py-2">
           <div class="col-md-12">
-            <label for="oldPass">{{$t('oldPassword')}}:</label>
+            <label for="oldPass">{{ $t("oldPassword") }}:</label>
             <input
               type="password"
               class="bg-light form-control"
@@ -74,7 +74,7 @@
             </span>
           </div>
           <div class="col-md-6">
-            <label for="newPass">{{$t('newPassword')}}:</label>
+            <label for="newPass">{{ $t("newPassword") }}:</label>
             <input
               type="password"
               class="bg-light form-control"
@@ -86,7 +86,7 @@
             </span>
           </div>
           <div class="col-md-6 pt-md-0 pt-3">
-            <label for="repeatPass">{{$t('repeatNewPassword')}}:</label>
+            <label for="repeatPass">{{ $t("repeatNewPassword") }}:</label>
             <input
               type="password"
               class="bg-light form-control"
@@ -100,17 +100,17 @@
         </div>
         <div class="py-3 pb-4 border-bottom">
           <button class="btn btn-warning mr-3" @click="updatePass()">
-            {{$t('changePassword')}}
+            {{ $t("changePassword") }}
           </button>
         </div>
         <div class="d-sm-flex align-items-center pt-3" id="deactivate">
           <div class="m-2">
-            <b class="text-dark">{{$t('delete')}} {{$t('account')}}</b>
-            <p>{{$t('datailsAccount')}}</p>
+            <b class="text-dark">{{ $t("delete") }} {{ $t("account") }}</b>
+            <p>{{ $t("datailsAccount") }}</p>
           </div>
           <div class="ml-auto">
             <button class="btn danger" @click="deleteAccount()">
-              {{$t('delete')}}
+              {{ $t("delete") }}
             </button>
           </div>
         </div>
@@ -131,10 +131,15 @@ import axios from "axios";
 import useVuelidate from "@vuelidate/core";
 import { required, minLength, sameAs, helpers } from "@vuelidate/validators";
 import md5 from "crypto-js/md5";
+import { useI18n } from 'vue-i18n';
 
 /*Vista que muestra los datos del usuario actualmente conectado y 
 que permite realizar el cambio de cualquiera de estos, incluso de eliminar
 la cuenta de forma permanente */
+
+//#region I18n
+const $t = useI18n();
+//#endregion
 
 //#region STORE
 const store = useStore();
@@ -167,36 +172,32 @@ const rules = computed(() => {
   return {
     oldPass: {
       required: helpers.withMessage(
-        "*Debe introducir la antigüa contraseña",
+       $t.t('errorRequiredOldPassword'),
         required
-      ),
-      minLength: helpers.withMessage(
-        "*La contraseña debe estar tener una longitud mínima de 8 caracteres",
-        minLength(8)
       ),
     },
     password: {
       newPass: {
         required: helpers.withMessage(
-          "*Debe introducir la nueva contraseña",
+          $t.t('errorRequiredNewPassword'),
           required
         ),
         minLength: helpers.withMessage(
-          "*La contraseña debe estar tener una longitud mínima de 8 caracteres",
+          $t.t('errorLenghtPassword'),
           minLength(8)
         ),
       },
       newConfirmPass: {
         required: helpers.withMessage(
-          "*Debe repetir la nueva contraseña",
+          $t.t('errorRequiredRepeatNewPassword'),
           required
         ),
         minLength: helpers.withMessage(
-          "*La contraseña debe estar tener una longitud mínima de 8 caracteres",
+          $t.t('errorLenghtPassword'),
           minLength(8)
         ),
         sameAs: helpers.withMessage(
-          "*No coincide con la contraseña indicada anteriormente",
+         $t.t('errorSameAsNewPassword'),
           sameAs(state.password.newPass)
         ),
       },
@@ -287,8 +288,8 @@ function deleteAccount() {
             case 404:
               Swal.fire({
                 icon: "error",
-                title: "ERROR",
-                text: "Error interno. No se ha encontrado la ruta",
+                title: $t.t("titleWarning"),
+                text: $t.t("error404"),
                 showConfirmButton: false,
                 timer: 2000,
               });
@@ -297,8 +298,8 @@ function deleteAccount() {
             case 500:
               Swal.fire({
                 icon: "error",
-                title: "ERROR",
-                text: "Error interno. Fallo de API",
+                title: $t.t("titleWarning"),
+                text: $t.t("error500"),
                 showConfirmButton: false,
                 timer: 2000,
               });
