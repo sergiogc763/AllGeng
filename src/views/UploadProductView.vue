@@ -9,14 +9,14 @@
           <div class="row">
             <div class="col-12">
               <h2 class="tm-block-title d-flex justify-content-center">
-                Add Product
+                {{$t('addProducto')}}
               </h2>
             </div>
           </div>
           <form class="row tm-edit-product-row" enctype="multipart/form-data">
             <div class="col-xl-6 col-lg-6 col-md-12">
               <div class="form-group mb-3">
-                <label for="name">Product Name </label>
+                <label for="name">{{$t('productName')}}</label>
                 <input
                   id="name"
                   name="name"
@@ -29,20 +29,20 @@
                 </span>
               </div>
               <div class="form-group mb-3">
-                <label for="description">Description</label>
+                <label for="description">{{$t('description')}}</label>
                 <textarea class="form-control" v-model="state.descripcion" rows="50"></textarea>
                 <span class="error" v-if="v$.descripcion.$error">
                   {{ v$.descripcion.$errors[0].$message }}
                 </span>
               </div>
               <div class="form-group mb-3">
-                <label for="categoria">Category</label>
+                <label for="categoria">{{$t('category')}}</label>
                 <select
                   id="categoria"
                   class="custom-select tm-select-accounts"
                   v-model="state.categoria"
                 >
-                  <option selected value disabled>Select a category</option>
+                  <option selected value="" disabled>{{$t('selectCategory')}}</option>
                   <option
                     v-for="option in categorias"
                     v-bind:value="option.value"
@@ -56,13 +56,13 @@
                 </span>
               </div>
               <div class="form-group mb-3">
-                <label for="tipo">Type</label>
+                <label for="tipo">{{$t('type')}}</label>
                 <select
                   id="tipo"
                   class="custom-select tm-select-accounts"
                   v-model="state.tipo"
                 >
-                  <option selected value disabled>Select a type</option>
+                  <option selected value disabled>{{$t('selectType')}}</option>
                   <option
                     v-for="option in tipos"
                     v-bind:value="option.value"
@@ -76,12 +76,12 @@
                 </span>
               </div>
               <div class="form-group mb-3">
-                <label for="marca">Brand</label>
+                <label for="marca">{{$t('type')}}</label>
                 <select
                   class="custom-select tm-select-accounts"
                   v-model="state.marca"
                 >
-                  <option selected value disabled>Select a brand</option>
+                  <option selected value disabled>{{$t('selectBrand')}}</option>
                   <option
                     v-for="option in marcas"
                     v-bind:value="option.value"
@@ -96,7 +96,7 @@
               </div>
               <div class="row">
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="price">Price €</label>
+                  <label for="price">{{$t('price')}} €</label>
                   <input
                     id="price"
                     name="price"
@@ -147,7 +147,7 @@
                 class="btn btn-primary btn-block text-uppercase"
                 @click="add()"
               >
-                CREATE NEW PRODUCT
+                {{$t('createProduct')}}
               </button>
             </div>
           </form>

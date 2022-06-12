@@ -53,7 +53,14 @@
     "termsService":"Política de privacidad",
     "textTermsService":"La visita a este sitio Web no implica que el usuario esté obligado a facilitar ninguna información. En el caso de que el usuario facilite alguna información de carácter personal, los datos recogidos en este sitio web serán tratados de forma leal y lícita con sujeción en todo momento a los principios y derechos recogidos en el Reglamento (UE) 2016/679, de 27 de abril, General de Protección de Datos (RGPD) y demás normativa aplicable.",
     "alreadyAccount":"¿Ya tienes una cuenta?",
-    "loginHere":"Accede aquí"
+    "loginHere":"Accede aquí",
+    "addProduct":"Añadir producto",
+    "productName":"Nombre producto",
+    "category":"Categoria",
+    "type":"Tipo",
+    "brand":"Marca",
+    "createProduct":"CREAR PRODUCTO"
+
 
 
 
