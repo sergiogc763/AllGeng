@@ -4,6 +4,29 @@
       <router-link class="navbar-brand" :to="RoutePaths.Home"
         ><img src="@/assets/logo.png" class="logo-principal"
       /></router-link>
+      <div class="btn-group dropend">
+        <button
+          type="button"
+          class="btn btn-secondary dropdown-toggle"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          {{ $t("languages") }}
+        </button>
+        <ul class="dropdown-menu">
+          <li @click="changeLanguage('es')">
+            <button class="dropdown-item d-flex justify-content-center">
+              <img class="bandera" src="@/assets/es.jpg"/>
+            </button>
+          </li>
+          <li @click="changeLanguage('en')">
+            <button class="dropdown-item d-flex justify-content-center">
+              <img class="bandera" src="@/assets/en.png"/>
+            </button>
+          </li>
+         
+        </ul>
+      </div>
       <button
         class="navbar-toggler"
         type="button"
@@ -25,7 +48,6 @@
               v-if="store.state.User.rolid === RolUser.Gestor"
             >
               <OptionMainMenu :icono="'upload'" :texto="$t('upload')" />
-
             </li>
             <li
               class="nav-item"
@@ -36,7 +58,6 @@
               "
             >
               <OptionMainMenu :icono="'scroll'" :texto="$t('history')" />
-
             </li>
             <li
               class="nav-item"
@@ -60,10 +81,9 @@
                   <router-link
                     class="dropdown-item"
                     :to="RoutePaths.UserOptions"
-                    ><font-awesome-icon
-                      icon="gears"
-                      class="icon"
-                    />{{$t('configuration')}}</router-link
+                    ><font-awesome-icon icon="gears" class="icon" />{{
+                      $t("configuration")
+                    }}</router-link
                   >
                 </li>
                 <li class="puntero">
@@ -71,7 +91,7 @@
                     ><font-awesome-icon
                       icon="right-from-bracket"
                       class="icon"
-                    />{{$t('disconnect')}}</a
+                    />{{ $t("disconnect") }}</a
                   >
                 </li>
               </ul>
@@ -92,7 +112,7 @@ import Swal from "sweetalert2";
 import OptionMainMenu from "./general/OptionMainMenu.vue";
 import i18n from "@/locales/i18n";
 
-i18n.global.locale = "es"
+i18n.global.locale = "es";
 
 /*Menú principal de navegación*/
 
@@ -122,6 +142,10 @@ function logout() {
     showConfirmButton: false,
     timer: 2000,
   });
+}
+
+function changeLanguage(language:string){
+  i18n.global.locale = language;
 }
 //#endregion
 </script>
@@ -210,6 +234,10 @@ function logout() {
   }
 }
 
+.bandera{
+  width: 25px;
+  height: 25px;
+}
 .puntero {
   cursor: pointer;
 }

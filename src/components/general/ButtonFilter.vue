@@ -47,7 +47,7 @@ en el HomeView */
   border-radius: 30px;
 }
 
-$cyan: #777779;
+$cyan: #e82910;
 $dark: #ffffff;
 $borderW: 2px;
 

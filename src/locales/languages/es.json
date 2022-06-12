@@ -93,5 +93,6 @@
     "errorLogin":"No existe ningún usuario con dichas credenciales",
     "updateInfo":"Información actualizada",
     "updatePassword":" ¡ Contraseña actualizada !",
-    "errorUpdatePassword":"ERROR al actualizar"
+    "errorUpdatePassword":"ERROR al actualizar",
+    "languages":"Idiomas"
 }

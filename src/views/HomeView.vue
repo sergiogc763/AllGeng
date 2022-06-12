@@ -1,9 +1,11 @@
 <template>
-  <div class="body">
-    <div class="filters mb-2">
+  <div class="body mt-0 mb-0">
+    <div class="filters mb-2 mt-4">
       <div class="categorias">
         <select class="form-select" v-model="categoria" @change="filtro">
-          <option selected disabled :value="''">{{$t('selectCategory')}}</option>
+          <option selected disabled :value="''">
+            {{ $t("selectCategory") }}
+          </option>
           <option v-for="options in categorias" v-bind:value="options.value">
             {{ options.text }}
           </option>
@@ -11,7 +13,7 @@
       </div>
       <div class="tipos">
         <select class="form-select" v-model="tipo" @change="filtro">
-          <option selected disabled :value="''">{{$t('selectType')}}</option>
+          <option selected disabled :value="''">{{ $t("selectType") }}</option>
           <option v-for="options in tipos" v-bind:value="options.value">
             {{ options.text }}
           </option>
@@ -19,23 +21,35 @@
       </div>
       <div class="marcas">
         <select class="form-select" v-model="marca" @change="filtro">
-          <option selected disabled :value="''">{{$t('selectBrand')}}</option>
+          <option selected disabled :value="''">{{ $t("selectBrand") }}</option>
           <option v-for="option in marcas" v-bind:value="option.value">
             {{ option.text }}
           </option>
         </select>
       </div>
     </div>
-    <div class="order mb-1">
+    <div class="order mb-3">
       <select class="form-select" v-model="orden" @change="ordenar">
-        <option :value="''" disabled>{{$t('orderBy')}}</option>
-        <option value="1">{{$t('priceLowToHigh')}}</option>
-        <option value="2">{{$t('priceHighToLow')}}</option>
-        <option value="3">{{$t('name')}}</option>
+        <option :value="''" disabled>{{ $t("orderBy") }}</option>
+        <option value="1">{{ $t("priceLowToHigh") }}</option>
+        <option value="2">{{ $t("priceHighToLow") }}</option>
+        <option value="3">{{ $t("name") }}</option>
       </select>
     </div>
+
+    <div class="form-inline my-2 my-lg-0 d-flex mb-2">
+      <input
+        class="form-control mr-4"
+        type="search"
+        placeholder="Search"
+        aria-label="Search"
+      />
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+        Search
+      </button>
+    </div>
     <div class="option mb-2">
-      <ButtonFilter @click="resetFilters"/>
+      <ButtonFilter @click="resetFilters" />
     </div>
     <div class="cards mb-2">
       <CardProduct
@@ -60,7 +74,7 @@ import { Producto } from "../core/types/Product";
 import CardProduct from "@/components/product/CardProduct.vue";
 import Swal from "sweetalert2";
 import ButtonFilter from "@/components/general/ButtonFilter.vue";
-import { useI18n } from 'vue-i18n';
+import { useI18n } from "vue-i18n";
 
 const $t = useI18n();
 
@@ -96,47 +110,47 @@ async function refreshDatos() {
     .then((res) => {
       switch (res.status) {
         case 200:
-          if(res.data.products.data !== undefined){//Comprobamos que solo se actualice si en la base de datos (almacen) contiene productos
+          if (res.data.products.data !== undefined) {
+            //Comprobamos que solo se actualice si en la base de datos (almacen) contiene productos
             if (res.data.products.data.length > 0) {
-            res.data.products.data.forEach((element: any) => {
-              const p: Producto = {
-                id: element.prodid,
-                nombre: element.prodnom,
-                descripcion: element.proddesc,
-                img: element.imagen,
-                precio: element.prodprec,
-                categoria: element.prodcategoria,
-                tipo: element.prodtipo,
-                marca: element.prodmarca,
-                stock: element.stock
-              };
-              productos.value.push(p);
-            });
-            productosMostrar.value = productos.value;
+              res.data.products.data.forEach((element: any) => {
+                const p: Producto = {
+                  id: element.prodid,
+                  nombre: element.prodnom,
+                  descripcion: element.proddesc,
+                  img: element.imagen,
+                  precio: element.prodprec,
+                  categoria: element.prodcategoria,
+                  tipo: element.prodtipo,
+                  marca: element.prodmarca,
+                  stock: element.stock,
+                };
+                productos.value.push(p);
+              });
+              productosMostrar.value = productos.value;
+            }
           }
-          }
-          
 
           break;
-         case 404:
-            Swal.fire({
-              icon: "error",
-              title: $t.t('titleWarning'),
-              text: $t.t('error404'),
-              showConfirmButton: false,
-              timer: 2000,
-            });
-            break;
+        case 404:
+          Swal.fire({
+            icon: "error",
+            title: $t.t("titleWarning"),
+            text: $t.t("error404"),
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          break;
 
-          case 500:
-            Swal.fire({
-              icon: "error",
-              title: $t.t('titleWarning'),
-              text: $t.t('error500'),
-              showConfirmButton: false,
-              timer: 2000,
-            });
-            break;
+        case 500:
+          Swal.fire({
+            icon: "error",
+            title: $t.t("titleWarning"),
+            text: $t.t("error500"),
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          break;
       }
     })
     .catch((error) => {
@@ -156,25 +170,25 @@ async function getCategorias() {
             categorias.push({ text: element.categnom, value: element.categid });
           });
           break;
-         case 404:
-            Swal.fire({
-              icon: "error",
-              title: $t.t('titleWarning'),
-              text: $t.t('error404'),
-              showConfirmButton: false,
-              timer: 2000,
-            });
-            break;
+        case 404:
+          Swal.fire({
+            icon: "error",
+            title: $t.t("titleWarning"),
+            text: $t.t("error404"),
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          break;
 
-          case 500:
-            Swal.fire({
-              icon: "error",
-              title: $t.t('titleWarning'),
-              text: $t.t('error500'),
-              showConfirmButton: false,
-              timer: 2000,
-            });
-            break;
+        case 500:
+          Swal.fire({
+            icon: "error",
+            title: $t.t("titleWarning"),
+            text: $t.t("error500"),
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          break;
       }
     })
     .catch((error) => {
@@ -194,25 +208,25 @@ async function getTipos() {
             tipos.push({ text: element.tipnom, value: element.tipid });
           });
           break;
-         case 404:
-            Swal.fire({
-              icon: "error",
-              title: $t.t('titleWarning'),
-              text: $t.t('error404'),
-              showConfirmButton: false,
-              timer: 2000,
-            });
-            break;
+        case 404:
+          Swal.fire({
+            icon: "error",
+            title: $t.t("titleWarning"),
+            text: $t.t("error404"),
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          break;
 
-          case 500:
-            Swal.fire({
-              icon: "error",
-              title: $t.t('titleWarning'),
-              text: $t.t('error500'),
-              showConfirmButton: false,
-              timer: 2000,
-            });
-            break;
+        case 500:
+          Swal.fire({
+            icon: "error",
+            title: $t.t("titleWarning"),
+            text: $t.t("error500"),
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          break;
       }
     })
     .catch((error) => {
@@ -231,25 +245,25 @@ async function getMarcas() {
             marcas.push({ text: element.marcnom, value: element.marcid });
           });
           break;
-         case 404:
-            Swal.fire({
-              icon: "error",
-              title: $t.t('titleWarning'),
-              text: $t.t('error404'),
-              showConfirmButton: false,
-              timer: 2000,
-            });
-            break;
+        case 404:
+          Swal.fire({
+            icon: "error",
+            title: $t.t("titleWarning"),
+            text: $t.t("error404"),
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          break;
 
-          case 500:
-            Swal.fire({
-              icon: "error",
-              title: $t.t('titleWarning'),
-              text: $t.t('error500'),
-              showConfirmButton: false,
-              timer: 2000,
-            });
-            break;
+        case 500:
+          Swal.fire({
+            icon: "error",
+            title: $t.t("titleWarning"),
+            text: $t.t("error500"),
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          break;
       }
     })
     .catch((error) => {
@@ -300,10 +314,10 @@ function ordenar() {
 
 function resetFilters() {
   productosMostrar.value = productos.value;
-  categoria.value = $t.t('selectCategory');
-  tipo.value = $t.t('selectType');
-  marca.value = $t.t('selectBrand');
-  orden.value = $t.t('orderBy');
+  categoria.value = $t.t("selectCategory");
+  tipo.value = $t.t("selectType");
+  marca.value = $t.t("selectBrand");
+  orden.value = $t.t("orderBy");
 }
 
 //#endregion
@@ -312,10 +326,16 @@ function resetFilters() {
 <style lang="scss" scoped>
 .body {
   background-color: rgba(255, 255, 255, 0.964);
+  background-image: url('@/assets/cube-1472804.png');
+  background-size: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 5vh;
+  
 
   .filters {
     display: flex;
@@ -334,7 +354,6 @@ function resetFilters() {
     border-radius: 5px;
 
     .card {
-
       &::before {
         content: "";
         position: absolute;
@@ -353,15 +372,14 @@ function resetFilters() {
         transform-origin: left;
         transform: scaleX(1);
       }
-      
     }
     .zoom {
-    transition: transform .2s; 
-}
- 
-.zoom:hover {
-    transform: scale(1.10); 
-}
+      transition: transform 0.2s;
+    }
+
+    .zoom:hover {
+      transform: scale(1.1);
+    }
   }
 }
 </style>

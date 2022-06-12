@@ -93,5 +93,6 @@
     "errorLogin":"No user with these credentials exists",
     "updateInfo":"Updated information!",
     "updatePassword":"Updated password!",
-    "errorUpdatePassword":"ERROR. Impossible update password!"
+    "errorUpdatePassword":"ERROR. Impossible update password!",
+    "languages":"Languages"
 }

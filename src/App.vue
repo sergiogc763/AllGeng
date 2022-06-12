@@ -1,7 +1,7 @@
 <template>
   <MainMenu />
 
-  <router-view />
+  <router-view class="backg mt-0"/>
   <!-- <Footer /> -->
 </template>
 
@@ -29,4 +29,5 @@ onBeforeMount(() => {
  });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>
