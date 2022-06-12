@@ -39,7 +39,7 @@
 
     <div class="form-inline my-2 my-lg-0 d-flex mb-2">
       <input
-        class="form-control mr-4"
+        class="form-control inputSearch"
         type="search"
         placeholder="Search"
         aria-label="Search"
@@ -381,5 +381,10 @@ function resetFilters() {
       transform: scale(1.1);
     }
   }
+}
+
+.inputSearch{
+  width: 35vw;
+  margin-right: 10px;
 }
 </style>

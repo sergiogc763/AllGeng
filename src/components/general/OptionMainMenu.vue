@@ -78,7 +78,7 @@ const props = defineProps({
 .button-82-front {
   display: block;
   position: relative;
-  padding: 8px 18;
+  padding: 8px 18px;
   border-radius: 12px;
   font-size: 1.1rem;
   color: white;

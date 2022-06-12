@@ -99,8 +99,6 @@ import Swal from "sweetalert2";
 import OptionMainMenu from "./general/OptionMainMenu.vue";
 import i18n from "@/locales/i18n";
 
-i18n.global.locale = "es";
-
 /*Menú principal de navegación*/
 
 //#region CONST USE
@@ -165,6 +163,7 @@ function changeLanguage(language: string) {
 
     li{
       margin-right: 25px;
+      margin-bottom: 10px;
     }
   
     .cuenta-opciones {
