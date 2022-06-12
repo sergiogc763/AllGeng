@@ -126,7 +126,7 @@ const store = createStore({
         .then((response) => {
           switch (response.status) {
             case 200:
-              if (response.data) {
+              if (response.data.response === true) {
                 router.push({ name: "LoginView" });
                 Swal.fire({
                   icon: "success",
@@ -139,7 +139,7 @@ const store = createStore({
                 Swal.fire({
                   icon: "error",
                   title: "ERROR",
-                  text: "Error interno. Perdone las molestias",
+                  text: "Error ya existe un usuario con ese email o teléfono",
                   showConfirmButton: false,
                   timer: 2000,
                 });
