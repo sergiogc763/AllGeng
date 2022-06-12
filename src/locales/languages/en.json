@@ -10,6 +10,7 @@
     "resetFilter":"Reset filter",
     "update":"Update",
     "name":"Name",
+    "lastname":"Last Name",
     "errorRequiredName":"You must indicate a name and surname",
     "price":"Price",
     "errorRequiredPrice":"You must indicate a price ",
@@ -70,5 +71,13 @@
     "orderPlaced":"ORDER PLACED",
     "at":"at",
     "numberOrder":"Nº ORDER",
-    "buyAgain":"Buy again"
+    "buyAgain":"Buy again",
+    "saveChanges":"Save changes",
+    "cleanForm":"Reset form",
+    "oldPassword":"Old password",
+    "newPassword":"New password",
+    "repeatNewPassword":"Repeat new password",
+    "changePassword":"Change password",
+    "delete":"Delete",
+    "datailsAccount":"Details about your account details and password"
 }

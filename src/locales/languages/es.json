@@ -10,6 +10,7 @@
     "resetFilter":"Reiniciar filtro",
     "update":"Modificar",
     "name":"Nombre",
+    "lastname":"Apellidos",
     "errorRequiredName":"Debe escribir su nombre y apellidos",
     "price":"Precio",
     "errorRequiredPrice":"Debe indicar un precio",
@@ -70,7 +71,15 @@
     "orderPlaced":"PEDIDO REALIZADO",
     "at":"a las",
     "numberOrder":"Nº DE PEDIDO",
-    "buyAgain":"Volver a comprar"
+    "buyAgain":"Volver a comprar",
+    "saveChanges":"Guardar cambios",
+    "cleanForm":"Reiniciar formulario",
+    "oldPassword":"Antigüa contraseña",
+    "newPassword":"Nueva contraseña",
+    "repeatNewPassword":"Repite la nueva contraseña",
+    "changePassword":"Cambiar contraseña",
+    "delete":"Eliminar",
+    "datailsAccount":"Detalles sobre datos de tu cuenta y contraseña"
 
 
 

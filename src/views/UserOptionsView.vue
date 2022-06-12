@@ -14,7 +14,7 @@
       <div class="py-2 border-bottom">
         <div class="row py-2">
           <div class="col-md-6">
-            <label for="firstname">Nombre:</label>
+            <label for="firstname">{{$t('name')}}:</label>
             <input
               type="text"
               class="bg-light form-control"
@@ -23,7 +23,7 @@
             />
           </div>
           <div class="col-md-6 pt-md-0 pt-3">
-            <label for="lastname">Apellidos:</label>
+            <label for="lastname">{{$t('lastname')}}:</label>
             <input
               type="text"
               class="bg-light form-control"
@@ -34,7 +34,7 @@
         </div>
         <div class="row py-2">
           <div class="col-md-6">
-            <label for="email">Correo Electrónico:</label>
+            <label for="email">{{$t('emailAddress')}}:</label>
             <input
               type="text"
               class="bg-light form-control"
@@ -43,7 +43,7 @@
             />
           </div>
           <div class="col-md-6 pt-md-0 pt-3">
-            <label for="phone">Teléfono</label>
+            <label for="phone">{{$t('numberPhone')}}</label>
             <input
               type="tel"
               class="bg-light form-control"
@@ -54,15 +54,15 @@
         </div>
         <div class="py-3 pb-4 border-bottom">
           <button class="btn btn-primary m-2" @click="updateInfo()">
-            Guardar cambios
+            {{$t('saveChanges')}}
           </button>
           <button class="btn btn-secondary m-2" @click="cleanForm()">
-            Limpiar
+            {{$t('cleanForm')}}
           </button>
         </div>
         <div class="row py-2">
           <div class="col-md-12">
-            <label for="oldPass">Contraseña antigua:</label>
+            <label for="oldPass">{{$t('oldPassword')}}:</label>
             <input
               type="password"
               class="bg-light form-control"
@@ -74,7 +74,7 @@
             </span>
           </div>
           <div class="col-md-6">
-            <label for="newPass">Nueva contraseña:</label>
+            <label for="newPass">{{$t('newPassword')}}:</label>
             <input
               type="password"
               class="bg-light form-control"
@@ -86,7 +86,7 @@
             </span>
           </div>
           <div class="col-md-6 pt-md-0 pt-3">
-            <label for="repeatPass">Repita la contraseña nueva:</label>
+            <label for="repeatPass">{{$t('repeatNewPassword')}}:</label>
             <input
               type="password"
               class="bg-light form-control"
@@ -100,17 +100,17 @@
         </div>
         <div class="py-3 pb-4 border-bottom">
           <button class="btn btn-warning mr-3" @click="updatePass()">
-            Cambiar contraseña
+            {{$t('changePassword')}}
           </button>
         </div>
         <div class="d-sm-flex align-items-center pt-3" id="deactivate">
           <div class="m-2">
-            <b class="text-dark">Eliminar cuenta</b>
-            <p>Detalles sobre datos de tu cuenta y contraseña</p>
+            <b class="text-dark">{{$t('delete')}} {{$t('account')}}</b>
+            <p>{{$t('datailsAccount')}}</p>
           </div>
           <div class="ml-auto">
             <button class="btn danger" @click="deleteAccount()">
-              Eliminar
+              {{$t('delete')}}
             </button>
           </div>
         </div>
