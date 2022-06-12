@@ -44,7 +44,7 @@
         type="search"
         :placeholder="$t('searchProduct')"
         aria-label="Search"
-        @keypress="filterSearch()"
+        @keyup="filterSearch()"
       />
       <button class="btn btn-outline-success my-2 my-sm-0" type="button">
         {{$t('search')}}
@@ -300,7 +300,7 @@ function filtro() {
 function filterSearch(){
    if (!isNaN(search.value) || search.value !== "") {
     productosMostrar.value = productosMostrar.value.filter((p) => {
-      return p.nombre === search.value;
+      return p.nombre.includes(search.value);
     });
   }
 }
