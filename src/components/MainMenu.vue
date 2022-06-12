@@ -141,7 +141,7 @@ function changeLanguage(language: string) {
 
 <style lang="scss" scoped>
 .container-elements {
-  width: 100%;
+
   justify-content: space-between;
   align-items: center;
   display: flex;
@@ -150,8 +150,8 @@ function changeLanguage(language: string) {
 .logo-principal {
   width: 85px;
   height: 85px;
-  margin: 0;
-  padding: 0;
+  margin: 0px;
+  padding: 0px;
 }
 
 .content-right {
@@ -160,7 +160,7 @@ function changeLanguage(language: string) {
   .optionsnav {
     display: flex;
     align-items: center;
-
+  
     li{
       margin-right: 25px;
       margin-bottom: 10px;

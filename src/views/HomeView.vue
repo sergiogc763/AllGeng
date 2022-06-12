@@ -39,13 +39,15 @@
 
     <div class="form-inline my-2 my-lg-0 d-flex mb-2">
       <input
+        v-model="search"
         class="form-control inputSearch"
         type="search"
-        placeholder="Search"
+        :placeholder="$t('searchProduct')"
         aria-label="Search"
+        @keypress="filterSearch()"
       />
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-        Search
+      <button class="btn btn-outline-success my-2 my-sm-0" type="button">
+        {{$t('search')}}
       </button>
     </div>
     <div class="option mb-2">
@@ -69,7 +71,7 @@
 <script lang="ts" setup>
 import { RoutePaths } from "@/core/general/RoutePaths";
 import axios from "axios";
-import { onBeforeMount, reactive, ref } from "vue";
+import { onBeforeMount, reactive, ref, computed } from 'vue';
 import { Producto } from "../core/types/Product";
 import CardProduct from "@/components/product/CardProduct.vue";
 import Swal from "sweetalert2";
@@ -91,6 +93,9 @@ const marca = ref<any>("");
 const marcas = reactive<Array<any>>([]);
 
 const orden = ref<any>("");
+
+const search = ref<any>("");
+
 
 const productosMostrar = ref<Array<Producto>>([]);
 //#endregion
@@ -292,6 +297,14 @@ function filtro() {
   }
 }
 
+function filterSearch(){
+   if (!isNaN(search.value) || search.value !== "") {
+    productosMostrar.value = productosMostrar.value.filter((p) => {
+      return p.nombre === search.value;
+    });
+  }
+}
+
 function ordenar() {
   switch (orden.value) {
     case "1":
@@ -318,6 +331,7 @@ function resetFilters() {
   tipo.value = $t.t("selectType");
   marca.value = $t.t("selectBrand");
   orden.value = $t.t("orderBy");
+  search.value = ""
 }
 
 //#endregion

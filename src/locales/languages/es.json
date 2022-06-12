@@ -94,5 +94,7 @@
     "updateInfo":"Información actualizada",
     "updatePassword":" ¡ Contraseña actualizada !",
     "errorUpdatePassword":"ERROR al actualizar",
-    "languages":"Idiomas"
+    "languages":"Idiomas",
+    "search":"Buscar",
+    "searchProduct":"Buscar producto"
 }

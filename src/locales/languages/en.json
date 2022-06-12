@@ -94,5 +94,7 @@
     "updateInfo":"Updated information!",
     "updatePassword":"Updated password!",
     "errorUpdatePassword":"ERROR. Impossible update password!",
-    "languages":"Languages"
+    "languages":"Languages",
+    "search":"Search",
+    "searchProduct":"Search product"
 }
