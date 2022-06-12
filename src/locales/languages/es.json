@@ -85,5 +85,6 @@
     "delete":"Eliminar",
     "successDelete": "Se ha eliminado correctamente la cuenta",
     "datailsAccount":"Detalles sobre datos de tu cuenta y contraseña",
-    "noEmptyFields":"No puede dejar el campo vacio"
+    "noEmptyFields":"No puede dejar el campo vacio",
+    "sessionActive":"Para poder registrarse debe cerrar sesión"
 }

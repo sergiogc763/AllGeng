@@ -233,10 +233,10 @@ function register() {
 function redirectHome() {
   Swal.fire({
     icon: "info",
-    title: "Se encuentra con una sesión activa",
-    text: "Para poder registrarse debe cerrar sesión",
+    title: $t.t('titleWarning'),
+    text: $t.t('sessionActive'),
     showConfirmButton: false,
-    timer: 1660,
+    timer: 2550,
   });
   router.push({ name: "HomeView" });
 }
