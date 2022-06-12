@@ -9,7 +9,7 @@
         v-model="fecha"
         @change="mostrarProductosFecha"
       >
-        <option selected value="3">Últimos 3 meses</option>
+        <option selected value="3">{{$t('last3Months')}}</option>
         <option v-for="options in fechas" v-bind:value="options">
           {{ options }}
         </option>
@@ -21,21 +21,21 @@
         <div class="top-banner">
           <div class="datos-left">
             <div class="fecha apartado">
-              <span class="titulo">PEDIDO REALIZADO</span>
-              <span>{{ p.histfecha }} a las {{ p.histhora }}</span>
+              <span class="titulo">{{$t('orderPlaced')}}</span>
+              <span>{{ p.histfecha }} {{$t('at')}} {{ p.histhora }}</span>
             </div>
             <div class="total apartado">
               <span class="titulo">TOTAL</span>
               <span>{{ p.histprecio }}€</span>
             </div>
             <div class="cantidad apartado">
-              <span class="titulo">CANTIDAD</span>
+              <span class="titulo">{{$t('units').toLocaleUpperCase()}}</span>
               <span>{{ p.histcantidad }} uds</span>
             </div>
           </div>
           <div class="datos-right">
             <div class="numero apartado">
-              <span class="titulo">Nº DE PEDIDO</span>
+              <span class="titulo">{{$t('numberOrder')}}</span>
               <span>{{ p.histnumpedido }}</span>
             </div>
           </div>
@@ -53,7 +53,7 @@
               class="btn btn-outline-primary"
               @click="verProducto(p)"
             >
-              Volver a comprar
+              {{$t('buyAgain')}}
             </button>
           </div>
         </div>
@@ -69,11 +69,13 @@ import Page404 from "@/components/Page404.vue";
 import { RolUser } from "@/core/general/RolUser";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { onBeforeMount, reactive, ref } from "vue";
+import { onBeforeMount, ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import { useI18n } from 'vue-i18n';
 
 //#region CONST USE
+const $t = useI18n();
 const router = useRouter();
 const store = useStore();
 //#endregion
@@ -111,8 +113,8 @@ onBeforeMount(() => {
           case 404:
             Swal.fire({
               icon: "error",
-              title: "ERROR",
-              text: "Error interno. No se ha encontrado la ruta",
+              title: $t.t('titleWarning'),
+              text: $t.t('error404'),
               showConfirmButton: false,
               timer: 2000,
             });
@@ -121,8 +123,8 @@ onBeforeMount(() => {
           case 500:
             Swal.fire({
               icon: "error",
-              title: "ERROR",
-              text: "Error interno. Fallo de API",
+              title: $t.t('titleWarning'),
+              text: $t.t('error500'),
               showConfirmButton: false,
               timer: 2000,
             });
@@ -157,25 +159,25 @@ function obtenerHistorialFitro() {
           });
           break;
 
-        case 404:
-          Swal.fire({
-            icon: "error",
-            title: "ERROR",
-            text: "Error interno. No se ha encontrado la ruta",
-            showConfirmButton: false,
-            timer: 2000,
-          });
-          break;
+         case 404:
+            Swal.fire({
+              icon: "error",
+              title: $t.t('titleWarning'),
+              text: $t.t('error404'),
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
 
-        case 500:
-          Swal.fire({
-            icon: "error",
-            title: "ERROR",
-            text: "Error interno. Fallo de API",
-            showConfirmButton: false,
-            timer: 2000,
-          });
-          break;
+          case 500:
+            Swal.fire({
+              icon: "error",
+              title: $t.t('titleWarning'),
+              text: $t.t('error500'),
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            break;
       }
     })
     .catch((error) => {

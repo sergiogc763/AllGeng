@@ -168,12 +168,17 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { ref, onBeforeMount, reactive, computed } from "vue";
 import { useStore } from "vuex";
+import { useI18n } from 'vue-i18n';
 
 /*Vista utilizada para mostrar la función principal de un Gestor de productos, que es poder subir
 un producto con sus características correspondientes*/
 
 //#region STORE
 const store = useStore();
+//#endregion
+
+//#region I18n
+const $t = useI18n();
 //#endregion
 
 const state = reactive({
@@ -201,37 +206,37 @@ const marcas = reactive<Array<any>>([]);
 const rules = computed(() => {
   return {
     nombre: {
-      required: helpers.withMessage("*Indique un nombre", required),
+      required: helpers.withMessage($t.t('errorRequiredName'), required),
     },
     descripcion: {
       required: helpers.withMessage(
-        "*Indique una breve descripción sobre el producto",
+        $t.t('errorRequiredDescription'),
         required
       ),
     },
     categoria: {
       required: helpers.withMessage(
-        "*Indique a que categoría pertenece",
+        $t.t('errorRequiredCategory'),
         required
       ),
     },
     tipo: {
-      required: helpers.withMessage("*Indique a que tipo pertenece", required),
+      required: helpers.withMessage($t.t('errorRequiredType'), required),
     },
     marca: {
-      required: helpers.withMessage("*Indique a que marca pertenece", required),
+      required: helpers.withMessage($t.t('errorRequiredBrand'), required),
     },
     precio: {
-      required,
+      required: helpers.withMessage($t.t('errorRequiredPrice'), required),
       minValue: helpers.withMessage(
-        "*El valor debe ser 0.01 o mayor a este",
+        `${$t.t('minValue')} 0.01`,
         minValue(0.01)
       ),
     },
     stock: {
       required,
       minValue: helpers.withMessage(
-        "*El valor debe ser 1 o mayor a este",
+         `${$t.t('minValue')} 1`,
         minValue(1)
       ),
     },

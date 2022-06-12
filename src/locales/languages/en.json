@@ -12,7 +12,9 @@
     "name":"Name",
     "errorRequiredName":"You must indicate a name and surname",
     "price":"Price",
+    "errorRequiredPrice":"You must indicate a price ",
     "description":"Description",
+    "errorRequiredDescription":"Please give a brief description of the product",
     "comments":"Comments",
     "selectCategory":"Select a category",
     "selectType":"Select a type",
@@ -57,7 +59,16 @@
     "addProduct":"Add Product",
     "productName":"Product Name",
     "category":"Category",
+    "errorRequiredCategory":"Select a category",
     "type":"Type",
+    "errorRequiredType":"Select a type",
     "brand":"Brand",
-    "createProduct":"CREATE PRODUCTO"
+    "errorRequiredBrand":"Select a brand",
+    "createProduct":"CREATE PRODUCT",
+    "minValue":"Minimum value is",
+    "last3Months":"Last 3 months",
+    "orderPlaced":"ORDER PLACED",
+    "at":"at",
+    "numberOrder":"Nº ORDER",
+    "buyAgain":"Buy again"
 }

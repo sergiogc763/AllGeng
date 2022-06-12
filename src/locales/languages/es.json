@@ -12,7 +12,9 @@
     "name":"Nombre",
     "errorRequiredName":"Debe escribir su nombre y apellidos",
     "price":"Precio",
+    "errorRequiredPrice":"Debe indicar un precio",
     "description":"Descripción",
+    "errorRequiredDescription":"Indique una breve descripción sobre el producto",
     "comments":"Comentarios",
     "selectCategory":"Selecciona una categoría",
     "selectType":"Selecciona un tipo",
@@ -57,9 +59,18 @@
     "addProduct":"Añadir producto",
     "productName":"Nombre producto",
     "category":"Categoria",
+    "errorRequiredCategory":"Seleccione una categoría",
     "type":"Tipo",
+    "errorRequiredType":"Seleccione un tipo",
     "brand":"Marca",
-    "createProduct":"CREAR PRODUCTO"
+    "errorRequiredBrand":"Seleccione una marca",
+    "createProduct":"CREAR PRODUCTO",
+    "minValue":"El valor mínimo es",
+    "last3Months":"Últimos 3 meses",
+    "orderPlaced":"PEDIDO REALIZADO",
+    "at":"a las",
+    "numberOrder":"Nº DE PEDIDO",
+    "buyAgain":"Volver a comprar"
 
 
 
