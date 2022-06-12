@@ -85,7 +85,7 @@
                     <label class="form-check-label" for="formTerms">
                       {{$t('agreeTerms')}}
                       <a class="text-body" id="formTerms"
-                        ><u @click="showTerms" class="link">{{$t('termsSerivce')}}</u></a
+                        ><u @click="showTerms" class="link">{{$t('termsService')}}</u></a
                       >
                     </label>
                   </div>
@@ -226,14 +226,6 @@ function register() {
       phone: state.phone,
     };
     store.dispatch("register", u);
-  } else {
-    Swal.fire({
-      icon: "warning",
-      title: "Formato datos erroneo",
-      text: "Los datos introducidos no cumplen el formato correcto o no ha aceptado los términos.",
-      showConfirmButton: false,
-      timer: 2000,
-    });
   }
 }
 
@@ -251,8 +243,8 @@ function redirectHome() {
 function showTerms() {
   Swal.fire({
     icon: "info",
-    title: "Pólitica de privacidad",
-    text: "La visita a este sitio Web no implica que el usuario esté obligado a facilitar ninguna información. En el caso de que el usuario facilite alguna información de carácter personal, los datos recogidos en este sitio web serán tratados de forma leal y lícita con sujeción en todo momento a los principios y derechos recogidos en el Reglamento (UE) 2016/679, de 27 de abril, General de Protección de Datos (RGPD) y demás normativa aplicable.",
+    title: $t.t('termsService'),
+    text: $t.t('textTermsService'),
     showConfirmButton: true,
   });
 }
@@ -266,7 +258,7 @@ function showTerms() {
 }
 .bg-image {
   background-image: url("@/assets/img_register.jpg");
-  background-size: cover;
+  background-size: 100%;
   background-repeat: no-repeat;
   background-position: center center;
 }
