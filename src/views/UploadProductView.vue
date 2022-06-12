@@ -76,7 +76,7 @@
                 </span>
               </div>
               <div class="form-group mb-3">
-                <label for="marca">{{$t('type')}}</label>
+                <label for="marca">{{$t('brand')}}</label>
                 <select
                   class="custom-select tm-select-accounts"
                   v-model="state.marca"

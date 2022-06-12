@@ -18,6 +18,17 @@ import i18n from './locales/i18n';
 
 library.add(fas,far,fab)
 
+if (localStorage) {
+
+    if (
+      localStorage.getItem("userSession") !== undefined &&
+      localStorage.getItem("userSession")
+    ) {
+      store.dispatch("getUserRemember", localStorage.getItem("userSession"));
+
+    }
+  }
+
 
 createApp(App).use(router).use(VueSweetalert2).use(store).use(md5).use(i18n).component('font-awesome-icon', FontAwesomeIcon).mount("#app");
 import "bootstrap/dist/js/bootstrap.js"

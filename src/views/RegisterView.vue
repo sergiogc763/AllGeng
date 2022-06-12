@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid" v-if="store.getters.logged === false">
     <div class="row no-gutter d-flex justify-content-center">
       <div class="col-md-7 d-none d-md-flex bg-image"></div>
 
@@ -117,7 +117,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, computed, onBeforeMount } from "vue";
+import { reactive, computed, onBeforeMount, onUpdated, onBeforeUpdate } from "vue";
 import useVuelidate from "@vuelidate/core";
 import {
   required,
@@ -136,15 +136,16 @@ import { useI18n } from "vue-i18n";
 
 /*Vista que tiene la función de realizar el registro de un usuario Normal */
 
-onBeforeMount(() => {
-  if (store.state.User.logged) {
-    redirectHome();
+onBeforeUpdate(()=>{
+  if(store.getters.logged){
+    redirectHome()
   }
-});
+})
 
 //#region CONST
 const $t = useI18n();
 const store = useStore();
+
 const router = useRouter();
 const state = reactive({
   name: "",
