@@ -2,9 +2,10 @@ import { createStore } from "vuex";
 import servicesUser from "./servicesUser";
 import Swal from "sweetalert2";
 import router from "@/router";
-import { useI18n } from "vue-i18n";
+import i18n from "@/locales/i18n";
 
-const $t = useI18n();
+
+
 // Create a new store instance.
 const store = createStore({
   state: {
@@ -36,14 +37,14 @@ const store = createStore({
                 router.push({ name: "HomeView" });
                 Swal.fire({
                   icon: "success",
-                  text: $t.t('loginSuccess'),
+                  text: i18n.global.t('loginSuccess'),
                   showConfirmButton: false,
                   timer: 2000,
                 });
               } else {
                 Swal.fire({
                   icon: "warning",
-                  text: $t.t('errorLogin'),
+                  text: i18n.global.t('errorLogin'),
                   showConfirmButton: true,
                 });
               }
@@ -52,8 +53,8 @@ const store = createStore({
             case 404:
               Swal.fire({
                 icon: "error",
-                title: $t.t("titleWarning"),
-                text: $t.t("error404"),
+                title: i18n.global.t("titleWarning"),
+                text: i18n.global.t("error404"),
                 showConfirmButton: false,
                 timer: 2000,
               });
@@ -62,8 +63,8 @@ const store = createStore({
             case 500:
               Swal.fire({
                 icon: "error",
-                title: $t.t("titleWarning"),
-                text: $t.t("error500"),
+                title: i18n.global.t("titleWarning"),
+                text: i18n.global.t("error500"),
                 showConfirmButton: false,
                 timer: 2000,
               });
@@ -96,8 +97,8 @@ const store = createStore({
             case 404:
               Swal.fire({
                 icon: "error",
-                title: $t.t("titleWarning"),
-                text: $t.t("error404"),
+                title: i18n.global.t("titleWarning"),
+                text: i18n.global.t("error404"),
                 showConfirmButton: false,
                 timer: 2000,
               });
@@ -106,8 +107,8 @@ const store = createStore({
             case 500:
               Swal.fire({
                 icon: "error",
-                title: $t.t("titleWarning"),
-                text: $t.t("error500"),
+                title: i18n.global.t("titleWarning"),
+                text: i18n.global.t("error500"),
                 showConfirmButton: false,
                 timer: 2000,
               });
@@ -129,15 +130,15 @@ const store = createStore({
                 router.push({ name: "LoginView" });
                 Swal.fire({
                   icon: "success",
-                  text: $t.t("registerSuccess"),
+                  text: i18n.global.t("registerSuccess"),
                   showConfirmButton: false,
                   timer: 2000,
                 });
               } else {
                 Swal.fire({
                   icon: "error",
-                  title: $t.t("titleWarning"),
-                  text: $t.t("errorRegister"),
+                  title: i18n.global.t("titleWarning"),
+                  text: i18n.global.t("errorRegister"),
                   showConfirmButton: false,
                   timer: 2000,
                 });
@@ -147,8 +148,8 @@ const store = createStore({
             case 404:
               Swal.fire({
                 icon: "error",
-                title: $t.t("titleWarning"),
-                text: $t.t("error404"),
+                title: i18n.global.t("titleWarning"),
+                text: i18n.global.t("error404"),
                 showConfirmButton: false,
                 timer: 2000,
               });
@@ -157,8 +158,8 @@ const store = createStore({
             case 500:
               Swal.fire({
                 icon: "error",
-                title: $t.t("titleWarning"),
-                text: $t.t("error500"),
+                title: i18n.global.t("titleWarning"),
+                text: i18n.global.t("error500"),
                 showConfirmButton: false,
                 timer: 2000,
               });
@@ -202,7 +203,7 @@ const store = createStore({
                     console.log(response);
                     Swal.fire({
                       icon: "success",
-                      title: $t.t('updateInfo'),
+                      title: i18n.global.t('updateInfo'),
                       showConfirmButton: false,
                       timer: 2000,
                     });
@@ -212,8 +213,8 @@ const store = createStore({
                 case 404:
                   Swal.fire({
                     icon: "error",
-                    title: $t.t("titleWarning"),
-                    text: $t.t("error404"),
+                    title: i18n.global.t("titleWarning"),
+                    text: i18n.global.t("error404"),
                     showConfirmButton: false,
                     timer: 2000,
                   });
@@ -222,8 +223,8 @@ const store = createStore({
                 case 500:
                   Swal.fire({
                     icon: "error",
-                    title: $t.t("titleWarning"),
-                    text: $t.t("error500"),
+                    title: i18n.global.t("titleWarning"),
+                    text: i18n.global.t("error500"),
                     showConfirmButton: false,
                     timer: 2000,
                   });
@@ -245,14 +246,14 @@ const store = createStore({
                   if (response.data) {
                     Swal.fire({
                       icon: "success",
-                      title: $t.t('updatePassword'),
+                      title: i18n.global.t('updatePassword'),
                       showConfirmButton: false,
                       timer: 2000,
                     });
                   } else {
                     Swal.fire({
                       icon: "error",
-                      text: $t.t('errorUpdatePassword'),
+                      text: i18n.global.t('errorUpdatePassword'),
                       showConfirmButton: false,
                       timer: 2000,
                     });
@@ -262,8 +263,8 @@ const store = createStore({
                 case 404:
                   Swal.fire({
                     icon: "error",
-                    title: $t.t("titleWarning"),
-                    text: $t.t("error404"),
+                    title: i18n.global.t("titleWarning"),
+                    text: i18n.global.t("error404"),
                     showConfirmButton: false,
                     timer: 2000,
                   });
@@ -272,8 +273,8 @@ const store = createStore({
                 case 500:
                   Swal.fire({
                     icon: "error",
-                    title: $t.t("titleWarning"),
-                    text: $t.t("error500"),
+                    title: i18n.global.t("titleWarning"),
+                    text: i18n.global.t("error500"),
                     showConfirmButton: false,
                     timer: 2000,
                   });

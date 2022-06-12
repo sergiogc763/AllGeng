@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid d-flex justify-content-between">
+    <div class="container-fluid d-flex">
       <router-link class="navbar-brand" :to="RoutePaths.Home"
         ><img src="@/assets/logo.png" class="logo-principal"
       /></router-link>
