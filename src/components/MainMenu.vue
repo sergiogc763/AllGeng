@@ -171,7 +171,7 @@ function changeLanguage(language: string) {
       li {
         .dropdown-item {
           .icon {
-            margin-right: 10px;
+            margin-right:10px;
           }
         }
       }
