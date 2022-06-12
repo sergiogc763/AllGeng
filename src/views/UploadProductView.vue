@@ -9,7 +9,7 @@
           <div class="row">
             <div class="col-12">
               <h2 class="tm-block-title d-flex justify-content-center">
-                {{$t('addProducto')}}
+                {{$t('addProduct')}}
               </h2>
             </div>
           </div>
@@ -187,19 +187,13 @@ const state = reactive({
 });
 
 //#region REF
-// const nombre = ref<String>("");
-// const precio = ref<Number>(1);
-// const stock = ref<Number>(1);
-const imagen = ref<any>(null);
-// const descripcion = ref<any>("");
 
-// const categoria = ref<any>("Seleccione una categoría");
+const imagen = ref<any>(null);
+
 const categorias = reactive<Array<any>>([]);
 
-// const tipo = ref<any>("Seleccione un tipo");
 const tipos = reactive<Array<any>>([]);
 
-// const marca = ref<any>("Seleccione una marca");
 const marcas = reactive<Array<any>>([]);
 //#endregion
 

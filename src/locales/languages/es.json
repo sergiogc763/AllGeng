@@ -11,7 +11,7 @@
     "update":"Modificar",
     "name":"Nombre",
     "errorRequiredName":"Debe escribir su nombre y apellidos",
-    "prince":"Precio",
+    "price":"Precio",
     "description":"Descripción",
     "comments":"Comentarios",
     "selectCategory":"Selecciona una categoría",
