@@ -1,5 +1,5 @@
 <template>
-  <div class="content" v-if="store.getters.logged">
+  <div class="bodycontent" v-if="store.getters.logged">
     <div class="wrapper bgcolor mt-sm-5">
       <h4
         class="pb-4 d-flex align-items-center justify-content-center text-dark"
@@ -322,16 +322,9 @@ function updatePass() {
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
 }
-
-body {
-  font-family: "Poppins", sans-serif;
-  background-color: aliceblue;
-}
-
 .bgcolor {
   background-color: #e3e3e3;
 }
@@ -339,7 +332,7 @@ body {
   padding: 30px 50px;
   border: 1px solid #ddd;
   border-radius: 15px;
-  margin: 10px auto;
+  margin: 20px auto;
   max-width: 600px;
 }
 

@@ -1,8 +1,17 @@
 <template>
-  <button class="btnAccount">
-    <font-awesome-icon :icon="props.icono" class="img-icons" /><span
-      >{{ props.texto }}</span
-    >
+  <button
+    class="button-82-pushable"
+    dropdown-toggle
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    <span class="button-82-shadow"></span>
+    <span class="button-82-edge"></span>
+    <span class="button-82-front text" >
+      <font-awesome-icon :icon="props.icono" class="img-icons" v-if="props.icono !== ''"/><span v-if="props.texto !== ''">{{
+        props.texto
+      }}</span></span >
+    
   </button>
 </template>
 
@@ -24,29 +33,95 @@ const props = defineProps({
 </script>
 
 <style lang="scss" scoped>
-.btnAccount {
+.button-82-pushable {
+  position: relative;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  outline-offset: 4px;
+  transition: filter 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
 
+.button-82-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: hsl(0deg 0% 0% / 0.25);
+  will-change: transform;
+  transform: translateY(2px);
+  transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+}
 
-    .img-icons{
-   
-    width: 30px;
+.button-82-edge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: linear-gradient(
+    to left,
+    hsl(340deg 100% 16%) 0%,
+    hsl(340deg 100% 32%) 8%,
+    hsl(340deg 100% 32%) 92%,
+    hsl(340deg 100% 16%) 100%
+  );
+}
+
+.button-82-front {
+  display: block;
+  position: relative;
+  padding: 8px 18;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  color: white;
+  background: hsl(345deg 100% 47%);
+  will-change: transform;
+  transform: translateY(-4px);
+  transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+}
+
+@media (min-width: 768px) {
+  .button-82-front {
+    font-size: 1.1rem;
+    padding: 8px 18px;
   }
-    color: whitesmoke;
-  --_g1: conic-gradient(from 90deg at 50% 75%,rgba(223, 223, 223, 0.898),rgba(223, 223, 223, 0.898) 0) no-repeat;
-  --_g2: conic-gradient(from 90deg at 50% 75%,#0000 90deg,rgba(223, 223, 223, 0.898) 0) no-repeat;
-  background: 
-    var(--_g1) 0    calc(134% - var(--_p,0%)),
-    var(--_g2) 0    calc(134% - var(--_p,0%)),
-    var(--_g1) 100% calc(200% - var(--_p,0%)),
-    var(--_g2) 100% calc(200% - var(--_p,0%)),
-    #000;
-  background-size: 50.3% 400%;
-  -webkit-background-clip: text, padding-box;
-          background-clip: text, padding-box;
-  transition: 0.8s
 }
-.btnAccount:hover {
-  --_p: 134%;
-  color:#000
+
+.button-82-pushable:hover {
+  filter: brightness(110%);
+  -webkit-filter: brightness(110%);
 }
+
+.button-82-pushable:hover .button-82-front {
+  transform: translateY(-6px);
+  transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+}
+
+.button-82-pushable:active .button-82-front {
+  transform: translateY(-2px);
+  transition: transform 34ms;
+}
+
+.button-82-pushable:hover .button-82-shadow {
+  transform: translateY(4px);
+  transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+}
+
+.button-82-pushable:active .button-82-shadow {
+  transform: translateY(1px);
+  transition: transform 34ms;
+}
+
+.button-82-pushable:focus:not(:focus-visible) {
+  outline: none;
+}
+
 </style>

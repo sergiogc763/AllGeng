@@ -1,7 +1,7 @@
 <template>
   <MainMenu />
 
-  <router-view class="backg mt-0"/>
+  <router-view/>
   <!-- <Footer /> -->
 </template>
 

@@ -5,26 +5,18 @@
         ><img src="@/assets/logo.png" class="logo-principal"
       /></router-link>
       <div class="btn-group dropend">
-        <button
-          type="button"
-          class="btn btn-secondary dropdown-toggle"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          {{ $t("languages") }}
-        </button>
+        <OptionMainMenu :icono="''" :texto="$t('languages')" />
         <ul class="dropdown-menu">
           <li @click="changeLanguage('es')">
             <button class="dropdown-item d-flex justify-content-center">
-              <img class="bandera" src="@/assets/es.jpg"/>
+              <img class="bandera" src="@/assets/es.jpg" />
             </button>
           </li>
           <li @click="changeLanguage('en')">
             <button class="dropdown-item d-flex justify-content-center">
-              <img class="bandera" src="@/assets/en.png"/>
+              <img class="bandera" src="@/assets/en.png" />
             </button>
           </li>
-         
         </ul>
       </div>
       <button
@@ -66,18 +58,12 @@
             >
               <OptionMainMenu :icono="'user-secret'" :texto="$t('account')" />
             </li>
-            <li class="nav-item dropdown" v-else>
-              <div class="useraccount nav-link" data-bs-toggle="dropdown">
-                <div class="datos-cuenta">
-                  <OptionMainMenu :icono="'circle-user'" :texto="''" />
-                  <span>{{ store.getters.userName }}</span>
-                </div>
-              </div>
-              <ul
-                class="dropdown-menu cuenta-opciones"
-                aria-labelledby="navbarDropdown"
-              >
-                <li>
+            <li class="nav-item" v-else>
+              <div class="btn-group datos-cuenta">
+                <OptionMainMenu :icono="'circle-user'" :texto="''" />
+                <span class="nameUser">{{store.getters.userName}}</span>
+                <ul class="dropdown-menu cuenta-opciones">
+                  <li>
                   <router-link
                     class="dropdown-item"
                     :to="RoutePaths.UserOptions"
@@ -94,7 +80,8 @@
                     />{{ $t("disconnect") }}</a
                   >
                 </li>
-              </ul>
+                </ul>
+              </div>
             </li>
           </ul>
         </div>
@@ -133,6 +120,10 @@ function showHistorial() {
   router.push({ name: "UserHistorialView" });
 }
 
+function showAccountConfiguration() {
+  router.push({ name: "UserOptionsView" });
+}
+
 function logout() {
   store.dispatch("logout");
   router.push({ name: "HomeView" });
@@ -144,7 +135,7 @@ function logout() {
   });
 }
 
-function changeLanguage(language:string){
+function changeLanguage(language: string) {
   i18n.global.locale = language;
 }
 //#endregion
@@ -167,11 +158,15 @@ function changeLanguage(language:string){
 
 .content-right {
   display: flex;
-  margin-right: 85px;
+  margin-right: 50px;
   .optionsnav {
     display: flex;
     align-items: center;
 
+    li{
+      margin-right: 25px;
+    }
+  
     .cuenta-opciones {
       li {
         .dropdown-item {
@@ -189,52 +184,11 @@ function changeLanguage(language:string){
   align-items: center;
 }
 
-.btnAccount {
-  display: flex;
-  align-items: center;
-  border-radius: 5px;
-  background-color: #a1a0a0;
-  border: rgb(189, 189, 189);
-  text-align: center;
+.nameUser{
+  color: white;
   font-weight: bold;
-  font-size: 20px;
-  padding: 5px;
-  transition: all 0.5s;
-  cursor: pointer;
-  margin: 5px;
-  .img-icons {
-    margin-right: 10px;
-    width: 25px;
-  }
-  span {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.5s;
-  }
-
-  span:after {
-    content: "\00bb";
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
-    transition: 0.5s;
-  }
-
-  &:hover span {
-    padding-right: 25px;
-    color: white;
-  }
-
-  &:hover span:after {
-    color: white;
-    opacity: 1;
-    right: 0;
-  }
 }
-
-.bandera{
+.bandera {
   width: 25px;
   height: 25px;
 }
