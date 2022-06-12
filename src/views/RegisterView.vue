@@ -168,40 +168,40 @@ const rules = computed(() => {
       ),
     },
     email: {
-      required: helpers.withMessage("*Indique su correo electrónico", required),
-      email,
+      required: helpers.withMessage($t.t('errorRequiredEmail'), required),
+      email: helpers.withMessage($t.t('errorFormatEmail'), required),
     },
     phone: {
-      required: helpers.withMessage("*Indique su teléfono", required),
+      required: helpers.withMessage($t.t('errorRequiredPhone'), required),
       numeric: helpers.withMessage(
-        "*Introduzca un número de teleféno correcto",
+        $t.t('errorNumericPhone'),
         numeric
       ),
       minLength: helpers.withMessage(
-        "*El formato del telefono indicado es incorrecto (9 números)",
+        $t.t('errorLenghtPhone'),
         minLength(9)
       ),
       maxLength: helpers.withMessage(
-        "*El formato del telefono indicado es incorrecto (9 números)",
+        $t.t('errorLenghtPhone'),
         maxLength(9)
       ),
     },
     password: {
       password: {
-        required: helpers.withMessage("*Indique una contraseña", required),
+        required: helpers.withMessage($t.t('errorRequiredPassword'), required),
         minLength: helpers.withMessage(
-          "*La contraseña debe estar tener una longitud mínima de 8 caracteres",
+          $t.t('errorLenghtPassword'),
           minLength(8)
         ),
       },
       confirm: {
-        required: helpers.withMessage("*Indique una contraseña", required),
+        required: helpers.withMessage($t.t('errorRequiredPassword'), required),
         minLength: helpers.withMessage(
-          "*La contraseña debe estar tener una longitud mínima de 8 caracteres",
+          $t.t('errorLenghtPassword'),
           minLength(8)
         ),
         sameAs: helpers.withMessage(
-          "*No coincide con la contraseña indicada anteriormente",
+          $t.t('errorSamePassword'),
           sameAs(state.password.password)
         ),
       },
