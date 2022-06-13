@@ -138,7 +138,7 @@ que permite realizar el cambio de cualquiera de estos, incluso de eliminar
 la cuenta de forma permanente */
 
 //#region I18n
-const $t = useI18n();
+const t = useI18n();
 //#endregion
 
 //#region STORE
@@ -172,32 +172,32 @@ const rules = computed(() => {
   return {
     oldPass: {
       required: helpers.withMessage(
-       $t.t('errorRequiredOldPassword'),
+       t.t('errorRequiredOldPassword'),
         required
       ),
     },
     password: {
       newPass: {
         required: helpers.withMessage(
-          $t.t('errorRequiredNewPassword'),
+          t.t('errorRequiredNewPassword'),
           required
         ),
         minLength: helpers.withMessage(
-          $t.t('errorLenghtPassword'),
+          t.t('errorLenghtPassword'),
           minLength(8)
         ),
       },
       newConfirmPass: {
         required: helpers.withMessage(
-          $t.t('errorRequiredRepeatNewPassword'),
+          t.t('errorRequiredRepeatNewPassword'),
           required
         ),
         minLength: helpers.withMessage(
-          $t.t('errorLenghtPassword'),
+          t.t('errorLenghtPassword'),
           minLength(8)
         ),
         sameAs: helpers.withMessage(
-         $t.t('errorSameAsNewPassword'),
+         t.t('errorSameAsNewPassword'),
           sameAs(state.password.newPass)
         ),
       },
@@ -270,7 +270,7 @@ function deleteAccount() {
                 router.push({ name: "HomeView" });
                 Swal.fire({
                   icon: "success",
-                  title: $t.t('successDelete'),
+                  title: t.t('successDelete'),
                   showConfirmButton: false,
                   timer: 2000,
                 });
@@ -279,8 +279,8 @@ function deleteAccount() {
             case 404:
               Swal.fire({
                 icon: "error",
-                title: $t.t("titleWarning"),
-                text: $t.t("error404"),
+                title: t.t("titleWarning"),
+                text: t.t("error404"),
                 showConfirmButton: false,
                 timer: 2000,
               });
@@ -289,8 +289,8 @@ function deleteAccount() {
             case 500:
               Swal.fire({
                 icon: "error",
-                title: $t.t("titleWarning"),
-                text: $t.t("error500"),
+                title: t.t("titleWarning"),
+                text: t.t("error500"),
                 showConfirmButton: false,
                 timer: 2000,
               });

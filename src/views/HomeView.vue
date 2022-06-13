@@ -77,7 +77,7 @@ import CardProduct from "@/components/product/CardProduct.vue";
 import Swal from "sweetalert2";
 import ButtonFilter from "@/components/general/ButtonFilter.vue";
 import { useI18n } from 'vue-i18n';
-import i18n from "@/locales/i18n";
+
 
 const t = useI18n();
 

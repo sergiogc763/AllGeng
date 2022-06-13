@@ -178,7 +178,7 @@ const store = useStore();
 //#endregion
 
 //#region I18n
-const $t = useI18n();
+const t = useI18n();
 //#endregion
 
 const state = reactive({
@@ -206,37 +206,37 @@ const marcas = reactive<Array<any>>([]);
 const rules = computed(() => {
   return {
     nombre: {
-      required: helpers.withMessage($t.t('errorRequiredName'), required),
+      required: helpers.withMessage(t.t('errorRequiredName'), required),
     },
     descripcion: {
       required: helpers.withMessage(
-        $t.t('errorRequiredDescription'),
+        t.t('errorRequiredDescription'),
         required
       ),
     },
     categoria: {
       required: helpers.withMessage(
-        $t.t('errorRequiredCategory'),
+        t.t('errorRequiredCategory'),
         required
       ),
     },
     tipo: {
-      required: helpers.withMessage($t.t('errorRequiredType'), required),
+      required: helpers.withMessage(t.t('errorRequiredType'), required),
     },
     marca: {
-      required: helpers.withMessage($t.t('errorRequiredBrand'), required),
+      required: helpers.withMessage(t.t('errorRequiredBrand'), required),
     },
     precio: {
-      required: helpers.withMessage($t.t('errorRequiredPrice'), required),
+      required: helpers.withMessage(t.t('errorRequiredPrice'), required),
       minValue: helpers.withMessage(
-        `${$t.t('minValue')} 0.01`,
+        `${t.t('minValue')} 0.01`,
         minValue(0.01)
       ),
     },
     stock: {
       required,
       minValue: helpers.withMessage(
-         `${$t.t('minValue')} 1`,
+         `${t.t('minValue')} 1`,
         minValue(1)
       ),
     },
@@ -304,8 +304,8 @@ async function axiosUpload() {
                       case 404:
             Swal.fire({
               icon: "error",
-              title: $t.t('titleWarning'),
-              text: $t.t('error404'),
+              title: t.t('titleWarning'),
+              text: t.t('error404'),
               showConfirmButton: false,
               timer: 2000,
             });
@@ -314,8 +314,8 @@ async function axiosUpload() {
           case 500:
             Swal.fire({
               icon: "error",
-              title: $t.t('titleWarning'),
-              text: $t.t('error500'),
+              title: t.t('titleWarning'),
+              text: t.t('error500'),
               showConfirmButton: false,
               timer: 2000,
             });
@@ -331,8 +331,8 @@ async function axiosUpload() {
             case 404:
             Swal.fire({
               icon: "error",
-              title: $t.t('titleWarning'),
-              text: $t.t('error404'),
+              title: t.t('titleWarning'),
+              text: t.t('error404'),
               showConfirmButton: false,
               timer: 2000,
             });
@@ -341,8 +341,8 @@ async function axiosUpload() {
           case 500:
             Swal.fire({
               icon: "error",
-              title: $t.t('titleWarning'),
-              text: $t.t('error500'),
+              title: t.t('titleWarning'),
+              text: t.t('error500'),
               showConfirmButton: false,
               timer: 2000,
             });
@@ -386,8 +386,8 @@ async function getCategorias() {
         case 404:
             Swal.fire({
               icon: "error",
-              title: $t.t('titleWarning'),
-              text: $t.t('error404'),
+              title: t.t('titleWarning'),
+              text: t.t('error404'),
               showConfirmButton: false,
               timer: 2000,
             });
@@ -396,8 +396,8 @@ async function getCategorias() {
           case 500:
             Swal.fire({
               icon: "error",
-              title: $t.t('titleWarning'),
-              text: $t.t('error500'),
+              title: t.t('titleWarning'),
+              text: t.t('error500'),
               showConfirmButton: false,
               timer: 2000,
             });
@@ -423,8 +423,8 @@ async function getTipos() {
        case 404:
             Swal.fire({
               icon: "error",
-              title: $t.t('titleWarning'),
-              text: $t.t('error404'),
+              title: t.t('titleWarning'),
+              text: t.t('error404'),
               showConfirmButton: false,
               timer: 2000,
             });
@@ -433,8 +433,8 @@ async function getTipos() {
           case 500:
             Swal.fire({
               icon: "error",
-              title: $t.t('titleWarning'),
-              text: $t.t('error500'),
+              title: t.t('titleWarning'),
+              text: t.t('error500'),
               showConfirmButton: false,
               timer: 2000,
             });
@@ -460,8 +460,8 @@ async function getMarcas() {
         case 404:
             Swal.fire({
               icon: "error",
-              title: $t.t('titleWarning'),
-              text: $t.t('error404'),
+              title: t.t('titleWarning'),
+              text: t.t('error404'),
               showConfirmButton: false,
               timer: 2000,
             });
@@ -470,8 +470,8 @@ async function getMarcas() {
           case 500:
             Swal.fire({
               icon: "error",
-              title: $t.t('titleWarning'),
-              text: $t.t('error500'),
+              title: t.t('titleWarning'),
+              text: t.t('error500'),
               showConfirmButton: false,
               timer: 2000,
             });

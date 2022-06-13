@@ -143,7 +143,7 @@ onBeforeUpdate(()=>{
 })
 
 //#region CONST
-const $t = useI18n();
+const t = useI18n();
 const store = useStore();
 
 const router = useRouter();
@@ -164,45 +164,45 @@ const rules = computed(() => {
   return {
     name: {
       required: helpers.withMessage(
-        $t.t('errorRequiredName'),
+        t.t('errorRequiredName'),
         required
       ),
     },
     email: {
-      required: helpers.withMessage($t.t('errorRequiredEmail'), required),
-      email: helpers.withMessage($t.t('errorFormatEmail'), required),
+      required: helpers.withMessage(t.t('errorRequiredEmail'), required),
+      email: helpers.withMessage(t.t('errorFormatEmail'), required),
     },
     phone: {
-      required: helpers.withMessage($t.t('errorRequiredPhone'), required),
+      required: helpers.withMessage(t.t('errorRequiredPhone'), required),
       numeric: helpers.withMessage(
-        $t.t('errorNumericPhone'),
+        t.t('errorNumericPhone'),
         numeric
       ),
       minLength: helpers.withMessage(
-        $t.t('errorLenghtPhone'),
+        t.t('errorLenghtPhone'),
         minLength(9)
       ),
       maxLength: helpers.withMessage(
-        $t.t('errorLenghtPhone'),
+        t.t('errorLenghtPhone'),
         maxLength(9)
       ),
     },
     password: {
       password: {
-        required: helpers.withMessage($t.t('errorRequiredPassword'), required),
+        required: helpers.withMessage(t.t('errorRequiredPassword'), required),
         minLength: helpers.withMessage(
-          $t.t('errorLenghtPassword'),
+          t.t('errorLenghtPassword'),
           minLength(8)
         ),
       },
       confirm: {
-        required: helpers.withMessage($t.t('errorRequiredPassword'), required),
+        required: helpers.withMessage(t.t('errorRequiredPassword'), required),
         minLength: helpers.withMessage(
-          $t.t('errorLenghtPassword'),
+          t.t('errorLenghtPassword'),
           minLength(8)
         ),
         sameAs: helpers.withMessage(
-          $t.t('errorSamePassword'),
+          t.t('errorSamePassword'),
           sameAs(state.password.password)
         ),
       },
@@ -234,7 +234,7 @@ function redirectHome() {
   Swal.fire({
     icon: "info",
     title: "Ups...",
-    text: $t.t('sessionActive'),
+    text: t.t('sessionActive'),
     showConfirmButton: false,
     timer: 2550,
   });
@@ -244,8 +244,8 @@ function redirectHome() {
 function showTerms() {
   Swal.fire({
     icon: "info",
-    title: $t.t('termsService'),
-    text: $t.t('textTermsService'),
+    title: t.t('termsService'),
+    text: t.t('textTermsService'),
     showConfirmButton: true,
   });
 }

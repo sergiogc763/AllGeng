@@ -75,7 +75,7 @@ import { useRouter } from "vue-router";
 import { useI18n } from 'vue-i18n';
 
 //#region CONST USE
-const $t = useI18n();
+const t = useI18n()
 const router = useRouter();
 const store = useStore();
 //#endregion
@@ -113,8 +113,8 @@ onBeforeMount(() => {
           case 404:
             Swal.fire({
               icon: "error",
-              title: $t.t('titleWarning'),
-              text: $t.t('error404'),
+              title: t.t('titleWarning'),
+              text: t.t('error404'),
               showConfirmButton: false,
               timer: 2000,
             });
@@ -123,8 +123,8 @@ onBeforeMount(() => {
           case 500:
             Swal.fire({
               icon: "error",
-              title: $t.t('titleWarning'),
-              text: $t.t('error500'),
+              title: t.t('titleWarning'),
+              text: t.t('error500'),
               showConfirmButton: false,
               timer: 2000,
             });
@@ -162,8 +162,8 @@ function obtenerHistorialFitro() {
          case 404:
             Swal.fire({
               icon: "error",
-              title: $t.t('titleWarning'),
-              text: $t.t('error404'),
+              title: t.t('titleWarning'),
+              text: t.t('error404'),
               showConfirmButton: false,
               timer: 2000,
             });
@@ -172,8 +172,8 @@ function obtenerHistorialFitro() {
           case 500:
             Swal.fire({
               icon: "error",
-              title: $t.t('titleWarning'),
-              text: $t.t('error500'),
+              title: t.t('titleWarning'),
+              text: t.t('error500'),
               showConfirmButton: false,
               timer: 2000,
             });

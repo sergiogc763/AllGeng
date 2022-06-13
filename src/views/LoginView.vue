@@ -97,7 +97,7 @@ import { RoutePaths } from "@/core/general/RoutePaths";
 
 
 
-const $t = useI18n()
+const t = useI18n()
 
 //#region CONST
 const store = useStore();
@@ -120,11 +120,11 @@ const rememberLogin = ref<boolean>(false);
 const rules = computed(() => {
   return {
     email: {
-      required: helpers.withMessage($t.t('errorRequiredEmail'), required),
-      email: helpers.withMessage($t.t('errorFormatEmail'), email),
+      required: helpers.withMessage(t.t('errorRequiredEmail'), required),
+      email: helpers.withMessage(t.t('errorFormatEmail'), email),
     },
     password: {
-      required: helpers.withMessage($t.t('errorRequiredPassword'), required) },
+      required: helpers.withMessage(t.t('errorRequiredPassword'), required) },
   };
 });
 
@@ -136,7 +136,7 @@ function redirectHome() {
   Swal.fire({
     icon: "info",
     title: "Ups...",
-    text: $t.t('sessionActive'),
+    text: t.t('sessionActive'),
     showConfirmButton: false,
     timer: 2550,
   });
@@ -171,14 +171,14 @@ function register() {
 
 async function resetPassword() {
   const { value: emailU } = await Swal.fire({
-    title: $t.t('titleRecoverAccount'),
+    title: t.t('titleRecoverAccount'),
     input: "text",
-    inputLabel: `${$t.t('writeYour')} email`,
+    inputLabel: `${t.t('writeYour')} email`,
     showCancelButton: true,
   });
 
   if (emailU) {
-    Swal.fire($t.t('checkEmail'));
+    Swal.fire(t.t('checkEmail'));
 
     let formData = new FormData();
     formData.append("emailU", emailU);
@@ -197,15 +197,15 @@ async function resetPassword() {
             if (response.data) {
               Swal.fire({
                 icon: "success",
-                title: $t.t('checkEmail'),
+                title: t.t('checkEmail'),
                 showConfirmButton: false,
                 timer: 2000,
               });
             } else {
               Swal.fire({
                 icon: "error",
-                title: $t.t('titleWarning'),
-                text: $t.t('error200'),
+                title: t.t('titleWarning'),
+                text: t.t('error200'),
                 showConfirmButton: false,
                 timer: 2000,
               });
@@ -215,8 +215,8 @@ async function resetPassword() {
           case 404:
             Swal.fire({
               icon: "error",
-              title: $t.t('titleWarning'),
-              text: $t.t('error404'),
+              title: t.t('titleWarning'),
+              text: t.t('error404'),
               showConfirmButton: false,
               timer: 2000,
             });
@@ -225,8 +225,8 @@ async function resetPassword() {
           case 500:
             Swal.fire({
               icon: "error",
-              title: $t.t('titleWarning'),
-              text: $t.t('error500'),
+              title: t.t('titleWarning'),
+              text: t.t('error500'),
               showConfirmButton: false,
               timer: 2000,
             });
@@ -237,7 +237,7 @@ async function resetPassword() {
         console.error("There was an error!", error);
       });
   } else {
-    Swal.fire($t.t('noEmptyFields'));
+    Swal.fire(t.t('noEmptyFields'));
   }
 }
 //#endregion

@@ -61,6 +61,11 @@ import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { RolUser } from "../../core/general/RolUser";
+import { useI18n } from 'vue-i18n';
+
+
+
+
 
 /*Muestra los productos que se encuentra en el almacen. A su vez,
 dependiendo del tipo de usuario que acceda a la aplicación, podrá
@@ -94,6 +99,7 @@ const src = computed(() => {
 //#region USE
 const router = useRouter();
 const store = useStore();
+const t = useI18n();
 //#endregion
 
 //#region FUNCTIONS
