@@ -327,7 +327,6 @@ function resetFilters() {
   categoria.value = "";
   tipo.value = "";
   marca.value = "";
-  orden.value = "";
   search.value = "";
 }
 

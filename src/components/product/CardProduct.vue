@@ -24,7 +24,7 @@
     </div>
     <div class="card-footer" v-if="store.getters.rolId === RolUser.Gestor">
       <div class="options-gestor">
-        <div class="btn-group" role="group">
+        <div class="btn-group dropup" role="group">
           <button
             id="btnOpciones"
             type="button"
