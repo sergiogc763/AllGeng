@@ -54,7 +54,6 @@
             @change="onChange($event)"
             type="number"
             min="1"
-            disabled
             :max="this.producto.stock"
           />
           <div class="total">

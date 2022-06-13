@@ -337,10 +337,9 @@ function resetFilters() {
 .body {
   background-color: rgba(255, 255, 255, 0.964);
   background-image: url("@/assets/cube-1472804.png");
-  background-size: auto;
-  background-position: center;
+
   background-repeat: no-repeat;
-  height: 100vh;
+  height: 100%;
   width: auto;
   display: flex;
   flex-direction: column;
@@ -350,17 +349,16 @@ function resetFilters() {
     display: flex;
 
     div {
-      margin: 10px;
+      margin: 8px;
     }
   }
-
   .cards {
-    background-color: white;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     width: 64.5vw;
     border-radius: 5px;
+    margin-bottom: 35px;
 
     .card {
       &::before {
