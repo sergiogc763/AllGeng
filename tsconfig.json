@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "noImplicitAny": false,
-"allowJs": true,
+    "allowJs": true,
     "useDefineForClassFields": true,
     "module": "esnext",
     "moduleResolution": "node",

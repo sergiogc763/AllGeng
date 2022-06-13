@@ -76,9 +76,12 @@ import { Producto } from "../core/types/Product";
 import CardProduct from "@/components/product/CardProduct.vue";
 import Swal from "sweetalert2";
 import ButtonFilter from "@/components/general/ButtonFilter.vue";
-import { useI18n } from "vue-i18n";
+import { useI18n } from 'vue-i18n';
+import i18n from "@/locales/i18n";
 
-const $t = useI18n();
+const t = useI18n();
+
+
 
 //#region CONST REF-REACTIVE
 const productos = ref<Array<Producto>>([]);
@@ -140,8 +143,8 @@ async function refreshDatos() {
         case 404:
           Swal.fire({
             icon: "error",
-            title: $t.t("titleWarning"),
-            text: $t.t("error404"),
+            title: t.t("titleWarning"),
+            text: t.t("error404"),
             showConfirmButton: false,
             timer: 2000,
           });
@@ -150,8 +153,8 @@ async function refreshDatos() {
         case 500:
           Swal.fire({
             icon: "error",
-            title: $t.t("titleWarning"),
-            text: $t.t("error500"),
+            title: t.t("titleWarning"),
+            text: t.t("error500"),
             showConfirmButton: false,
             timer: 2000,
           });
@@ -178,8 +181,8 @@ async function getCategorias() {
         case 404:
           Swal.fire({
             icon: "error",
-            title: $t.t("titleWarning"),
-            text: $t.t("error404"),
+            title: t.t("titleWarning"),
+            text: t.t("error404"),
             showConfirmButton: false,
             timer: 2000,
           });
@@ -188,8 +191,8 @@ async function getCategorias() {
         case 500:
           Swal.fire({
             icon: "error",
-            title: $t.t("titleWarning"),
-            text: $t.t("error500"),
+            title: t.t("titleWarning"),
+            text: t.t("error500"),
             showConfirmButton: false,
             timer: 2000,
           });
@@ -216,8 +219,8 @@ async function getTipos() {
         case 404:
           Swal.fire({
             icon: "error",
-            title: $t.t("titleWarning"),
-            text: $t.t("error404"),
+            title: t.t("titleWarning"),
+            text: t.t("error404"),
             showConfirmButton: false,
             timer: 2000,
           });
@@ -226,8 +229,8 @@ async function getTipos() {
         case 500:
           Swal.fire({
             icon: "error",
-            title: $t.t("titleWarning"),
-            text: $t.t("error500"),
+            title: t.t("titleWarning"),
+            text: t.t("error500"),
             showConfirmButton: false,
             timer: 2000,
           });
@@ -253,8 +256,8 @@ async function getMarcas() {
         case 404:
           Swal.fire({
             icon: "error",
-            title: $t.t("titleWarning"),
-            text: $t.t("error404"),
+            title: t.t("titleWarning"),
+            text: t.t("error404"),
             showConfirmButton: false,
             timer: 2000,
           });
@@ -263,8 +266,8 @@ async function getMarcas() {
         case 500:
           Swal.fire({
             icon: "error",
-            title: $t.t("titleWarning"),
-            text: $t.t("error500"),
+            title: t.t("titleWarning"),
+            text: t.t("error500"),
             showConfirmButton: false,
             timer: 2000,
           });
@@ -327,10 +330,10 @@ function ordenar() {
 
 function resetFilters() {
   productosMostrar.value = productos.value;
-  categoria.value = $t.t("selectCategory");
-  tipo.value = $t.t("selectType");
-  marca.value = $t.t("selectBrand");
-  orden.value = $t.t("orderBy");
+  categoria.value = t.t("selectCategory");
+  tipo.value = t.t("selectType");
+  marca.value = t.t("selectBrand");
+  orden.value = t.t("orderBy");
   search.value = ""
 }
 
