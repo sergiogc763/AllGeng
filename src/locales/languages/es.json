@@ -116,7 +116,10 @@
     "titleUpdateStock":"Actualizar stock",
     "labelUpdateStock":"Nueva cantidad stock:",
     "resultUpdateStock":"Stock actualizado",
-    "titleDeleteProduct":"Eliminar producto",
+    "titleUpdateDescription":"Actualizar descripción",
+    "labelUpdateDescription":"Nueva descripción:",
+    "resultUpdateDescription":"Descripción actualizada",
+    "titleDeleteProduct":"¿Seguro que desea eliminar el producto?",
     "cancelDelete":"Ha cancelado el proceso de eliminación del producto",
     "titleDeleteUser":"¿Realmente desea eliminar permanentemente su cuenta?",
     "cancel":"Cancelar"

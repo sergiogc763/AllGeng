@@ -187,16 +187,14 @@ async function actualizarNombre() {
 
 async function actualizarPrecio() {
   const { value: precio } = await Swal.fire({
-    title: "Modificar precio",
+    title: t.t('titleUpdatePrice'),
     input: "text",
-    inputLabel: "Nuevo precio:",
+    inputLabel: t.t('labelUpdatePrice'),
     inputValue: props.producto.precio,
     showCancelButton: true,
   });
 
   if (precio) {
-    Swal.fire(`El nuevo nombre del producto es-> ${precio}`);
-
     let formData = new FormData();
     formData.append("id", props.producto.id);
     formData.append("precio", precio);
@@ -210,7 +208,7 @@ async function actualizarPrecio() {
               emit("actualizarPrecio");
               Swal.fire({
                 icon: "success",
-                title: "Precio actualizado",
+                title: t.t('resultUpdatePrice'),
                 showConfirmButton: false,
                 timer: 2000,
               });
@@ -250,21 +248,20 @@ async function actualizarPrecio() {
         console.error("There was an error!", error);
       });
   } else {
-    Swal.fire(`No puede dejar el campo vacio`);
+    Swal.fire(t.t('warningAllCorrect'));
   }
 }
 
 async function actualizarStock() {
   const { value: stock } = await Swal.fire({
-    title: "Modificar stock",
+    title: t.t('titleUpdateStock'),
     input: "text",
-    inputLabel: "Nuevo stock:",
+    inputLabel: t.t('labelUpdateStock'),
     inputValue: props.producto.stock,
     showCancelButton: true,
   });
 
   if (stock) {
-    Swal.fire(`Se ha modificado el stock del producto`);
 
     let formData = new FormData();
     formData.append("id", props.producto.id);
@@ -279,7 +276,7 @@ async function actualizarStock() {
               emit("actualizarStock");
               Swal.fire({
                 icon: "success",
-                title: "Stock actualizado",
+                title: t.t('resultUpdateStock'),
                 showConfirmButton: false,
                 timer: 2000,
               });
@@ -319,21 +316,20 @@ async function actualizarStock() {
         console.error("There was an error!", error);
       });
   } else {
-    Swal.fire(`No puede dejar el campo vacio`);
+    Swal.fire(t.t('warningAllCorrect'));
   }
 }
 
 async function actualizarDescripcion() {
   const { value: descripcion } = await Swal.fire({
-    title: "Modificar descripción",
+    title: t.t('titleUpdateDescription'),
     input: "textarea",
-    inputLabel: "Nueva descripcion:",
+    inputLabel: t.t('labelUpdateDescription'),
     inputValue: props.producto.descripcion,
     showCancelButton: true,
   });
 
   if (descripcion) {
-    Swal.fire(`Se ha modificado la descripción del producto`);
 
     let formData = new FormData();
     formData.append("id", props.producto.id);
@@ -348,7 +344,7 @@ async function actualizarDescripcion() {
               emit("actualizarDescripcion");
               Swal.fire({
                 icon: "success",
-                title: "Descripcion actualizada",
+                title: t.t('resultUpdateDescription'),
                 showConfirmButton: false,
                 timer: 2000,
               });
@@ -388,16 +384,16 @@ async function actualizarDescripcion() {
         console.error("There was an error!", error);
       });
   } else {
-    Swal.fire(`No puede dejar el campo vacio`);
+    Swal.fire(t.t('warningAllCorrect'));
   }
 }
 
 function deleteProduct() {
   Swal.fire({
-    title: "¿ Seguro que desea eliminar el producto ?",
+    title: t.t('titleDeleteProduct'),
     showDenyButton: true,
-    confirmButtonText: "Eliminar",
-    denyButtonText: "Cancelar",
+    confirmButtonText: t.t('delete'),
+    denyButtonText: t.t('cancel'),
   }).then(async (result) => {
     if (result.isConfirmed) {
       let formData = new FormData();
