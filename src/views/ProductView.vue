@@ -147,7 +147,7 @@ export default {
           showConfirmButton: false,
           timer: 1250,
         });
-        this.total = this.producto.stock * this.producto.precio;
+        this.total = this.producto.precio;
         this.cantidad = 1;
       }
     },
