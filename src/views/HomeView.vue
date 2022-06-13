@@ -44,7 +44,7 @@
         type="search"
         :placeholder="$t('searchProduct')"
         aria-label="Search"
-        @keyup="filterSearch()"
+        @keyup="filtro()"
       />
     </div>
     <div class="option mb-2">
@@ -274,32 +274,34 @@ async function getMarcas() {
 function filtro() {
   productosMostrar.value = productos.value;
 
-  if (!isNaN(categoria.value)) {
+  if (categoria.value !=='') {
     productosMostrar.value = productosMostrar.value.filter((p) => {
       return p.categoria === categoria.value;
     });
+    
+  console.log(productosMostrar.value)
   }
 
-  if (!isNaN(tipo.value)) {
+  if (tipo.value !=="") {
     productosMostrar.value = productosMostrar.value.filter((p) => {
       return p.tipo === tipo.value;
     });
   }
 
-  if (!isNaN(marca.value)) {
+  if (marca.value !=='') {
     productosMostrar.value = productosMostrar.value.filter((p) => {
       return p.marca === marca.value;
     });
   }
-}
 
-function filterSearch() {
-  if (!isNaN(search.value) || search.value !== "") {
+  if (search.value !=='') {
     productosMostrar.value = productosMostrar.value.filter((p) => {
-      return p.nombre.includes(search.value);
+      return p.nombre.includes(search.value)
     });
   }
+
 }
+
 
 function ordenar() {
   switch (orden.value) {
@@ -323,10 +325,10 @@ function ordenar() {
 
 function resetFilters() {
   productosMostrar.value = productos.value;
-  categoria.value = t.t("selectCategory");
-  tipo.value = t.t("selectType");
-  marca.value = t.t("selectBrand");
-  orden.value = t.t("orderBy");
+  categoria.value = "";
+  tipo.value = "";
+  marca.value = "";
+  orden.value = "";
   search.value = "";
 }
 
@@ -339,7 +341,7 @@ function resetFilters() {
   background-image: url("@/assets/cube-1472804.png");
 
   background-repeat: no-repeat;
-  height: 100%;
+  height: auto;
   width: auto;
   display: flex;
   flex-direction: column;

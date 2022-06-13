@@ -162,7 +162,6 @@ function changeLanguage(language: string) {
     align-items: center;
   
     li{
-      margin-right: 25px;
       margin-bottom: 10px;
     }
   
