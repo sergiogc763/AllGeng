@@ -54,6 +54,7 @@
     "errorLenghtPhone":"The format of the telephone number indicated is incorrect (9 numbers)",
     "agreeTerms":"I agree all statements in",
     "termsService":"Privacy policy",
+    "mustAcceptTerms":"You must read and accept our privacy policy",
     "textTermsService":"Visiting this website does not imply that the user is obliged to provide any information. In the event that the user provides any personal information, the data collected on this website will be treated fairly and lawfully, subject at all times to the principles and rights set out in Regulation (EU) 2016/679 of 27 April, General Data Protection Regulation (GDPR) and other applicable regulations." ,
     "alreadyAccount":"Have already an account?",
     "loginHere":"Login here",

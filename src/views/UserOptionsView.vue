@@ -18,8 +18,9 @@
             <input
               type="text"
               class="bg-light form-control"
-              v-model="newName"
+              v-model="state.newName"
               :placeholder="name"
+              @keypress="isLetter($event)"
             />
           </div>
           <div class="col-md-6 pt-md-0 pt-3">
@@ -27,8 +28,9 @@
             <input
               type="text"
               class="bg-light form-control"
-              v-model="newLastName"
+              v-model="state.newLastName"
               :placeholder="lastName"
+              @keypress="isLetter($event)"
             />
           </div>
         </div>
@@ -36,9 +38,9 @@
           <div class="col-md-6">
             <label for="email">{{ $t("emailAddress") }}:</label>
             <input
-              type="text"
+              type="email"
               class="bg-light form-control"
-              v-model="newEmail"
+              v-model="state.newEmail"
               :placeholder="email"
             />
           </div>
@@ -47,7 +49,7 @@
             <input
               type="tel"
               class="bg-light form-control"
-              v-model="newPhone"
+              v-model="state.newPhone"
               :placeholder="phone"
             />
           </div>
@@ -146,19 +148,23 @@ const store = useStore();
 //#endregion
 
 //#region CONST REF,COMPUTED, REACTIVE
-const newName = ref<string>("");
+// const newName = ref<string>("");
 const name = computed(() => store.getters.userName.split(" ", 2)[0]);
 
-const newLastName = ref<string>("");
+// const newLastName = ref<string>("");
 const lastName = computed(() => store.getters.userName.split(" ", 2)[1]);
 
-const newEmail = ref<string>("");
+// const newEmail = ref<string>("");
 const email = computed(() => store.getters.userEmail);
 
-const newPhone = ref<string>("");
+// const newPhone = ref<string>("");
 const phone = computed(() => store.getters.userPhone);
 
 const state = reactive({
+  newName:"",
+  newLastName:"",
+  newEmail:"",
+  newPhone:"",
   oldPass: "",
   password: {
     newPass: "",
@@ -170,6 +176,7 @@ const state = reactive({
 //#region RULES VALIDATION FORM
 const rules = computed(() => {
   return {
+
     oldPass: {
       required: helpers.withMessage(
        t.t('errorRequiredOldPassword'),
@@ -209,11 +216,17 @@ const v$ = useVuelidate(rules, state);
 //#endregion
 
 //#region FUNCTIONS
+function isLetter(e) {
+      let char = String.fromCharCode(e.keyCode);
+      if (/^[a-zA-Z\s]*$/.test(char)) return true;
+      else e.preventDefault();
+    }
+
 function cleanForm() {
-  newName.value = "";
-  newLastName.value = "";
-  newEmail.value = "";
-  newPhone.value = "";
+  state.newName = "";
+  state.newLastName = "";
+  state.newEmail = "";
+  state.newPhone = "";
 }
 function updateInfo() {
   let checkName = name.value;
@@ -222,20 +235,20 @@ function updateInfo() {
   let checkEmail = email.value;
   let checkPhone = phone.value;
 
-  if (newName.value !== "") {
-    checkName = newName.value;
+  if (state.newName !== "") {
+    checkName =  state.newName;
   }
-  if (lastName.value !== "") {
-    checkLastname = lastName.value;
+  if ( state.newLastName !== "") {
+    checkLastname =  state.newLastName;
   }
 
   fullName = `${checkName} ${checkLastname}`;
 
-  if (newEmail.value !== "") {
-    checkEmail = newEmail.value;
+  if (state.newEmail !== "") {
+    checkEmail =  state.newEmail;
   }
-  if (newPhone.value !== "") {
-    checkPhone = newPhone.value;
+  if (state.newPhone !== "") {
+    checkPhone =  state.newPhone;
   }
 
   const o = {

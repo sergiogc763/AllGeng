@@ -8,48 +8,55 @@
           <div class="container">
             <div class="row">
               <div class="col-lg-10 col-xl-7 mx-auto">
-                <h2 class="display-4 mb-5">{{$t('register')}}</h2>
+                <h2 class="display-4 mb-5">{{ $t("register") }}</h2>
                 <form>
                   <div class="form-outline mb-3">
-                      <label class="form-label" for="formName">{{$t('name')}}</label>
-                      <input
-                        type="text"
-                        id="formName"
-                        class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
-                        v-model="state.name"
-                      />
-                      <span class="error" v-if="v$.name.$error">
-                        {{ v$.name.$errors[0].$message }}
-                      </span>
+                    <label class="form-label" for="formName">{{
+                      $t("name")
+                    }}</label>
+                    <input
+                      type="text"
+                      id="formName"
+                      class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
+                      v-model="state.name"
+                      @keypress="isLetter($event)"
+                    />
+                    <span class="error" v-if="v$.name.$error">
+                      {{ v$.name.$errors[0].$message }}
+                    </span>
                   </div>
                   <div class="form-outline mb-3">
-                      <label class="form-label" for="formEmail">{{$t('emailAddress')}}</label>
-                      <input
-                        type="email"
-                        id="formEmail"
-                        class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
-                        v-model="state.email"
-                      />
-                      <span class="error" v-if="v$.email.$error">
-                        {{ v$.email.$errors[0].$message }}
-                      </span>
-                    </div>
+                    <label class="form-label" for="formEmail">{{
+                      $t("emailAddress")
+                    }}</label>
+                    <input
+                      type="email"
+                      id="formEmail"
+                      class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
+                      v-model="state.email"
+                    />
+                    <span class="error" v-if="v$.email.$error">
+                      {{ v$.email.$errors[0].$message }}
+                    </span>
+                  </div>
                   <div class="form-outline mb-3">
-                      <label class="form-label" for="formPhone"
-                        >{{$t('numberPhone')}}</label
-                      >
-                      <input
-                        type="tel"
-                        id="formPhone"
-                        class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
-                        v-model="state.phone"
-                      />
-                      <span class="error" v-if="v$.phone.$error">
-                        {{ v$.phone.$errors[0].$message }}
-                      </span>
+                    <label class="form-label" for="formPhone">{{
+                      $t("numberPhone")
+                    }}</label>
+                    <input
+                      type="tel"
+                      id="formPhone"
+                      class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
+                      v-model="state.phone"
+                    />
+                    <span class="error" v-if="v$.phone.$error">
+                      {{ v$.phone.$errors[0].$message }}
+                    </span>
                   </div>
                   <div class="mb-3">
-                    <label class="form-label" for="formPass">{{$t('password')}}</label>
+                    <label class="form-label" for="formPass">{{
+                      $t("password")
+                    }}</label>
                     <input
                       type="password"
                       id="formPass"
@@ -61,9 +68,9 @@
                     </span>
                   </div>
                   <div class="mb-3">
-                    <label class="form-label" for="formPassRepeat"
-                      >{{$t('repeatPassword')}}</label
-                    >
+                    <label class="form-label" for="formPassRepeat">{{
+                      $t("repeatPassword")
+                    }}</label>
                     <input
                       type="password"
                       id="formPassRepeat"
@@ -83,9 +90,11 @@
                       v-model="state.acceptTerms"
                     />
                     <label class="form-check-label" for="formTerms">
-                      {{$t('agreeTerms')}}
+                      {{ $t("agreeTerms") }}
                       <a class="text-body" id="formTerms"
-                        ><u @click="showTerms" class="link">{{$t('termsService')}}</u></a
+                        ><u @click="showTerms" class="link">{{
+                          $t("termsService")
+                        }}</u></a
                       >
                     </label>
                   </div>
@@ -96,14 +105,14 @@
                       class="btn btn-success btn-block btn-lg"
                       @click="register"
                     >
-                      {{$t('register')}}
+                      {{ $t("register") }}
                     </button>
                   </div>
 
                   <p class="text-center text-muted mt-5 mb-0">
-                    {{$t('alreadyAccount')}}
+                    {{ $t("alreadyAccount") }}
                     <router-link to="/login" class="link"
-                      ><u>{{$t('loginHere')}}</u></router-link
+                      ><u>{{ $t("loginHere") }}</u></router-link
                     >
                   </p>
                 </form>
@@ -117,7 +126,13 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, computed, onBeforeMount, onUpdated, onBeforeUpdate } from "vue";
+import {
+  reactive,
+  computed,
+  onBeforeMount,
+  onUpdated,
+  onBeforeUpdate,
+} from "vue";
 import useVuelidate from "@vuelidate/core";
 import {
   required,
@@ -136,11 +151,11 @@ import { useI18n } from "vue-i18n";
 
 /*Vista que tiene la función de realizar el registro de un usuario Normal */
 
-onBeforeUpdate(()=>{
-  if(store.getters.logged){
-    redirectHome()
+onBeforeUpdate(() => {
+  if (store.getters.logged) {
+    redirectHome();
   }
-})
+});
 
 //#region CONST
 const t = useI18n();
@@ -163,51 +178,38 @@ const state = reactive({
 const rules = computed(() => {
   return {
     name: {
-      required: helpers.withMessage(
-        t.t('errorRequiredName'),
-        required
-      ),
+      required: helpers.withMessage(t.t("errorRequiredName"), required),
     },
     email: {
-      required: helpers.withMessage(t.t('errorRequiredEmail'), required),
-      email: helpers.withMessage(t.t('errorFormatEmail'), required),
+      required: helpers.withMessage(t.t("errorRequiredEmail"), required),
+      email: helpers.withMessage(t.t("errorFormatEmail"), required),
     },
     phone: {
-      required: helpers.withMessage(t.t('errorRequiredPhone'), required),
-      numeric: helpers.withMessage(
-        t.t('errorNumericPhone'),
-        numeric
-      ),
-      minLength: helpers.withMessage(
-        t.t('errorLenghtPhone'),
-        minLength(9)
-      ),
-      maxLength: helpers.withMessage(
-        t.t('errorLenghtPhone'),
-        maxLength(9)
-      ),
+      required: helpers.withMessage(t.t("errorRequiredPhone"), required),
+      numeric: helpers.withMessage(t.t("errorNumericPhone"), numeric),
+      minLength: helpers.withMessage(t.t("errorLenghtPhone"), minLength(9)),
+      maxLength: helpers.withMessage(t.t("errorLenghtPhone"), maxLength(9)),
     },
     password: {
       password: {
-        required: helpers.withMessage(t.t('errorRequiredPassword'), required),
+        required: helpers.withMessage(t.t("errorRequiredPassword"), required),
         minLength: helpers.withMessage(
-          t.t('errorLenghtPassword'),
+          t.t("errorLenghtPassword"),
           minLength(8)
         ),
       },
       confirm: {
-        required: helpers.withMessage(t.t('errorRequiredPassword'), required),
+        required: helpers.withMessage(t.t("errorRequiredPassword"), required),
         minLength: helpers.withMessage(
-          t.t('errorLenghtPassword'),
+          t.t("errorLenghtPassword"),
           minLength(8)
         ),
         sameAs: helpers.withMessage(
-          t.t('errorSamePassword'),
+          t.t("errorSamePassword"),
           sameAs(state.password.password)
         ),
       },
     },
-    acceptTerms: { checked: (value) => value === true },
   };
 });
 
@@ -220,21 +222,35 @@ function register() {
   const md5Pass = md5(state.password.password).toString();
   v$.value.$validate();
   if (!v$.value.$error) {
-    const u = {
-      name: state.name,
-      email: state.email,
-      password: md5Pass,
-      phone: state.phone,
-    };
-    store.dispatch("register", u);
+    if (state.acceptTerms) {
+      const u = {
+        name: state.name,
+        email: state.email,
+        password: md5Pass,
+        phone: state.phone,
+      };
+      store.dispatch("register", u);
+    } else {
+      Swal.fire({
+        icon: "warning",
+        title: t.t("mustAcceptTerms"),
+        showConfirmButton: true,
+      });
+    }
   }
 }
+
+function isLetter(e) {
+      let char = String.fromCharCode(e.keyCode);
+      if (/^[a-zA-Z\s]*$/.test(char)) return true;
+      else e.preventDefault();
+    }
 
 function redirectHome() {
   Swal.fire({
     icon: "info",
     title: "Ups...",
-    text: t.t('sessionActive'),
+    text: t.t("sessionActive"),
     showConfirmButton: false,
     timer: 2550,
   });
@@ -244,8 +260,8 @@ function redirectHome() {
 function showTerms() {
   Swal.fire({
     icon: "info",
-    title: t.t('termsService'),
-    text: t.t('textTermsService'),
+    title: t.t("termsService"),
+    text: t.t("textTermsService"),
     showConfirmButton: true,
   });
 }
@@ -264,9 +280,8 @@ function showTerms() {
   background-position: center center;
 }
 
-.bgColor{
-  background-color:#C7F0E9;
-  
+.bgColor {
+  background-color: #c7f0e9;
 }
 .error {
   color: red;
@@ -274,5 +289,4 @@ function showTerms() {
 .link {
   color: blue;
 }
-
 </style>
