@@ -1,9 +1,16 @@
 <template>
-  <div class="card product" >
-    <img :src="RoutePaths.BASE + src" class="card-img-top imgTop" alt="..." @click="verProducto()"/>
+  <div class="card product">
+    <img
+      :src="RoutePaths.BASE + src"
+      class="card-img-top imgTop"
+      alt="..."
+      @click="verProducto()"
+    />
     <div class="card-body">
       <div class="top-body">
-        <h5 class="card-title" @click="verProducto()">{{ props.producto.nombre }} </h5>
+        <h5 class="card-title" @click="verProducto()">
+          {{ props.producto.nombre }}
+        </h5>
         <font-awesome-icon
           icon="trash-can"
           v-if="store.getters.rolId === RolUser.Gestor"
@@ -11,10 +18,12 @@
         />
       </div>
 
-      <p class="card-text" @click="verProducto()">{{ props.producto.precio }} €</p>
+      <p class="card-text" @click="verProducto()">
+        {{ props.producto.precio }} €
+      </p>
     </div>
     <div class="card-footer" v-if="store.getters.rolId === RolUser.Gestor">
-      <div class="options-gestor" >
+      <div class="options-gestor">
         <div class="btn-group" role="group">
           <button
             id="btnOpciones"
@@ -23,18 +32,18 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            {{$t('update')}}
+            {{ $t("update") }}
           </button>
           <ul class="dropdown-menu" aria-labelledby="btnOpciones">
             <li>
-              <span class="dropdown-item" @click="actualizarNombre()"
-                >{{$t('name')}}</span
-              >
+              <span class="dropdown-item" @click="actualizarNombre()">{{
+                $t("name")
+              }}</span>
             </li>
             <li>
-              <span class="dropdown-item" @click="actualizarPrecio()"
-                >{{$t('price')}}</span
-              >
+              <span class="dropdown-item" @click="actualizarPrecio()">{{
+                $t("price")
+              }}</span>
             </li>
             <li>
               <span class="dropdown-item" @click="actualizarStock()"
@@ -42,9 +51,9 @@
               >
             </li>
             <li>
-              <span class="dropdown-item" @click="actualizarDescripcion()"
-                >{{$t('description')}}</span
-              >
+              <span class="dropdown-item" @click="actualizarDescripcion()">{{
+                $t("description")
+              }}</span>
             </li>
           </ul>
         </div>
@@ -61,11 +70,7 @@ import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { RolUser } from "../../core/general/RolUser";
-import { useI18n } from 'vue-i18n';
-
-
-
-
+import { useI18n } from "vue-i18n";
 
 /*Muestra los productos que se encuentra en el almacen. A su vez,
 dependiendo del tipo de usuario que acceda a la aplicación, podrá
@@ -115,16 +120,14 @@ function verProducto() {
 
 async function actualizarNombre() {
   const { value: name } = await Swal.fire({
-    title: "Modificar nombre",
+    title: t.t("titleUpdateName"),
     input: "text",
-    inputLabel: "Nuevo nombre:",
+    inputLabel: `${t.t("labelUpdateName")}:`,
     inputValue: props.producto.nombre,
     showCancelButton: true,
   });
 
   if (name) {
-    Swal.fire(`El nuevo nombre del producto es-> ${name}`);
-
     let formData = new FormData();
     formData.append("id", props.producto.id);
     formData.append("name", name);
@@ -138,15 +141,15 @@ async function actualizarNombre() {
               emit("actualizarNombre");
               Swal.fire({
                 icon: "success",
-                title: "Nombre actualizado",
+                title: t.t("resultUpdateName"),
                 showConfirmButton: false,
                 timer: 2000,
               });
             } else {
               Swal.fire({
                 icon: "error",
-                title: "ERROR",
-                text: "Error interno. Perdone las molestias",
+                title: t.t("titleWarning"),
+                text: t.t("error200"),
                 showConfirmButton: false,
                 timer: 2000,
               });
@@ -156,8 +159,8 @@ async function actualizarNombre() {
           case 404:
             Swal.fire({
               icon: "error",
-              title: "ERROR",
-              text: "Error interno. No se ha encontrado la ruta",
+              title: t.t("titleWarning"),
+              text: t.t("error404"),
               showConfirmButton: false,
               timer: 2000,
             });
@@ -166,8 +169,8 @@ async function actualizarNombre() {
           case 500:
             Swal.fire({
               icon: "error",
-              title: "ERROR",
-              text: "Error interno. Fallo de API",
+              title: t.t("titleWarning"),
+              text: t.t("error500"),
               showConfirmButton: false,
               timer: 2000,
             });
@@ -178,7 +181,7 @@ async function actualizarNombre() {
         console.error("There was an error!", error);
       });
   } else {
-    Swal.fire(`No puede dejar el campo vacio`);
+    Swal.fire(t.t('warningAllCorrect'));
   }
 }
 
@@ -214,8 +217,8 @@ async function actualizarPrecio() {
             } else {
               Swal.fire({
                 icon: "error",
-                title: "ERROR",
-                text: "Error interno. Perdone las molestias",
+                title: t.t("titleWarning"),
+                text: t.t("error200"),
                 showConfirmButton: false,
                 timer: 2000,
               });
@@ -225,8 +228,8 @@ async function actualizarPrecio() {
           case 404:
             Swal.fire({
               icon: "error",
-              title: "ERROR",
-              text: "Error interno. No se ha encontrado la ruta",
+              title: t.t("titleWarning"),
+              text: t.t("error404"),
               showConfirmButton: false,
               timer: 2000,
             });
@@ -235,8 +238,8 @@ async function actualizarPrecio() {
           case 500:
             Swal.fire({
               icon: "error",
-              title: "ERROR",
-              text: "Error interno. Fallo de API",
+              title: t.t("titleWarning"),
+              text: t.t("error500"),
               showConfirmButton: false,
               timer: 2000,
             });
@@ -283,8 +286,8 @@ async function actualizarStock() {
             } else {
               Swal.fire({
                 icon: "error",
-                title: "ERROR",
-                text: "Error interno. Perdone las molestias",
+                title: t.t("titleWarning"),
+                text: t.t("error200"),
                 showConfirmButton: false,
                 timer: 2000,
               });
@@ -294,8 +297,8 @@ async function actualizarStock() {
           case 404:
             Swal.fire({
               icon: "error",
-              title: "ERROR",
-              text: "Error interno. No se ha encontrado la ruta",
+              title: t.t("titleWarning"),
+              text: t.t("error404"),
               showConfirmButton: false,
               timer: 2000,
             });
@@ -304,8 +307,8 @@ async function actualizarStock() {
           case 500:
             Swal.fire({
               icon: "error",
-              title: "ERROR",
-              text: "Error interno. Fallo de API",
+              title: t.t("titleWarning"),
+              text: t.t("error500"),
               showConfirmButton: false,
               timer: 2000,
             });
@@ -352,8 +355,8 @@ async function actualizarDescripcion() {
             } else {
               Swal.fire({
                 icon: "error",
-                title: "ERROR",
-                text: "Error interno. Perdone las molestias",
+                title: t.t("titleWarning"),
+                text: t.t("error200"),
                 showConfirmButton: false,
                 timer: 2000,
               });
@@ -363,8 +366,8 @@ async function actualizarDescripcion() {
           case 404:
             Swal.fire({
               icon: "error",
-              title: "ERROR",
-              text: "Error interno. No se ha encontrado la ruta",
+              title: t.t("titleWarning"),
+              text: t.t("error404"),
               showConfirmButton: false,
               timer: 2000,
             });
@@ -373,8 +376,8 @@ async function actualizarDescripcion() {
           case 500:
             Swal.fire({
               icon: "error",
-              title: "ERROR",
-              text: "Error interno. Fallo de API",
+              title: t.t("titleWarning"),
+              text: t.t("error500"),
               showConfirmButton: false,
               timer: 2000,
             });
@@ -409,15 +412,15 @@ function deleteProduct() {
                 emit("deleteProduct");
                 Swal.fire({
                   icon: "success",
-                  title: "Producto eliminado",
+                  title: t.t('titleDeleteProduct'),
                   showConfirmButton: false,
                   timer: 2000,
                 });
               } else {
                 Swal.fire({
                   icon: "error",
-                  title: "ERROR",
-                  text: "Error interno. Perdone las molestias",
+                  title: t.t("titleWarning"),
+                  text: t.t("error200"),
                   showConfirmButton: false,
                   timer: 2000,
                 });
@@ -427,8 +430,8 @@ function deleteProduct() {
             case 404:
               Swal.fire({
                 icon: "error",
-                title: "ERROR",
-                text: "Error interno. No se ha encontrado la ruta",
+                title: t.t("titleWarning"),
+                text: t.t("error404"),
                 showConfirmButton: false,
                 timer: 2000,
               });
@@ -437,8 +440,8 @@ function deleteProduct() {
             case 500:
               Swal.fire({
                 icon: "error",
-                title: "ERROR",
-                text: "Error interno. Fallo de API",
+                title: t.t("titleWarning"),
+                text: t.t("error500"),
                 showConfirmButton: false,
                 timer: 2000,
               });
@@ -449,7 +452,7 @@ function deleteProduct() {
           console.error("There was an error!", error);
         });
     } else if (result.isDenied) {
-      Swal.fire("Ha cancelado el proceso de eliminación");
+      Swal.fire(t.t('cancelDelete'));
     }
   });
 }
@@ -464,30 +467,28 @@ function deleteProduct() {
   margin: 10px;
   cursor: pointer;
 
-  .imgTop{
+  .imgTop {
     width: 200px;
     height: 200px;
   }
 
-  .card-body{
+  .card-body {
     background-color: #212529;
     color: rgba(255, 255, 255, 0.861);
   }
   .top-body {
-  display: flex;
-  justify-content: space-between;
-}
-.card-footer {
-  display: flex;
-  justify-content: center;
-
-  .options-gestor {
+    display: flex;
+    justify-content: space-between;
+  }
+  .card-footer {
     display: flex;
     justify-content: center;
-    width: fit-content;
+
+    .options-gestor {
+      display: flex;
+      justify-content: center;
+      width: fit-content;
+    }
   }
 }
-}
-
-
 </style>

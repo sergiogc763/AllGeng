@@ -293,8 +293,7 @@ async function axiosUpload() {
                         if (response.data) {
                           Swal.fire({
                             icon: "success",
-                            title: "Nuevo producto añadido",
-                            text: "Se ha añadido correctamente el nuevo producto",
+                            title: t.t('newProduct'),
                             showConfirmButton: false,
                             timer: 1000,
                           });
@@ -356,7 +355,7 @@ async function axiosUpload() {
       Swal.fire({
         icon: "warning",
         title: "ERROR",
-        text: "El producto debe tener una imagen como mínimo",
+        text: t.t('warningPhotos'),
         showConfirmButton: false,
         timer: 2500,
       });

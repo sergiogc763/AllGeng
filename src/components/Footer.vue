@@ -42,7 +42,7 @@ function help() {
 
 function warning() {
   Swal.fire({
-    title: "Conctact with us and describe your problem",
+    title: t.t('titleSendWarning'),
     html: `<input type="text" id="email" class="swal2-input" placeholder="Write your email">
  <textarea id="description" rows="4" class="swal2-textarea" cols="30" placeholder="Describe your problem..."></textarea>`,
     confirmButtonText: "Send",
@@ -56,7 +56,7 @@ function warning() {
       ).value;
 
       if (!email || !description) {
-        Swal.showValidationMessage(`Please enter email and description`);
+        Swal.showValidationMessage(t.t('warningControl'));
       }
 
       return { email: email, description: description };

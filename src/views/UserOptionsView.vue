@@ -251,10 +251,10 @@ function updateInfo() {
 
 function deleteAccount() {
   Swal.fire({
-    title: "¿Realmente desea eliminar permanentemente su cuenta?",
+    title: t.t('titleDeleteUser'),
     showCancelButton: true,
-    confirmButtonText: "Eliminar",
-    denyButtonText: `Cancelar`,
+    confirmButtonText: t.t('delete'),
+    denyButtonText: t.t('cancel'),
   }).then(async (result) => {
     if (result.isConfirmed) {
       let formData = new FormData();

@@ -97,7 +97,9 @@ import { RolUser } from "@/core/general/RolUser";
 import Swal from "sweetalert2";
 import OptionMainMenu from "./general/OptionMainMenu.vue";
 import i18n from "@/locales/i18n";
+import { useI18n } from "vue-i18n";
 
+const t = useI18n();
 
 /*Menú principal de navegación*/
 
@@ -127,7 +129,7 @@ function logout() {
   router.push({ name: "HomeView" });
   Swal.fire({
     icon: "success",
-    title: "Se ha desconectado correctamente",
+    title: t.t('messageLogOut'),
     showConfirmButton: false,
     timer: 2000,
   });
