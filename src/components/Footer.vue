@@ -77,7 +77,9 @@ function warning() {
       }else{
           text = result.value?.description;
       }
-    formData.append("email", email);
+
+      if(email !== "" && text !== ""){
+        formData.append("email", email);
     formData.append("text", text);
       await axios
       .post(`${RoutePaths.API}sendWarning.php`, formData)
@@ -118,6 +120,8 @@ function warning() {
       .catch((error) => {
         console.error("There was an error!", error);
       });
+      }
+    
 
   });
 }
