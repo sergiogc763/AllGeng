@@ -40,6 +40,10 @@ function help(){
     const email = (Swal.getPopup()!.querySelector('#email') as HTMLInputElement).value
     const description = (Swal.getPopup()!.querySelector('#description') as HTMLInputElement).value
 
+    if (!email || !description) {
+      Swal.showValidationMessage(`Please enter email and description`)
+    }
+
     return { email: email, description: description }
   }
 }).then((result) => {
