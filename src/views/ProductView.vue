@@ -380,8 +380,8 @@ export default {
   background-color: rgba(255, 255, 255, 0.964);
 
   img {
-    width: 40vw;
-    height: 40vw;
+    width: 35vw;
+    height: 35vw;
   }
 
   .banner {
@@ -395,7 +395,7 @@ export default {
     align-items: center;
 
     .img-p {
-      width: 40vw;
+      width: 35vw;
     }
     .price-p {
       width: 28vw;

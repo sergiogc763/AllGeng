@@ -459,7 +459,7 @@ function deleteProduct() {
 .product {
   border: 1px solid #212529;
   background-color: rgb(199, 199, 199);
-  width: auto;
+  width: 202px;
   margin: 10px;
   cursor: pointer;
 
