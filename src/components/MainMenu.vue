@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid d-flex">
+    <div class="container-fluid d-flex align-items-center">
       <router-link class="navbar-brand" :to="RoutePaths.Home"
         ><img src="@/assets/logo.png" class="logo-principal"
       /></router-link>
@@ -30,19 +30,18 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+      <div class="collapse navbar-collapse d-flex justify-content-md-end" id="navbarSupportedContent">
         <div class="content-right">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0 optionsnav">
+          <ul class="navbar-nav me-auto mb-sm-2 mb-lg-0 optionsnav">
             <li
-              class="nav-item"
+              class="nav-item mb-2 mb-lg-0"
               @click="uploadProduct"
               v-if="store.state.User.rolid === RolUser.Gestor"
             >
               <OptionMainMenu :icono="'upload'" :texto="$t('upload')"  :dropdown="false"/>
             </li>
             <li
-              class="nav-item"
+              class="nav-item mb-2 mb-lg-0"
               @click="showHistorial"
               v-if="
                 store.state.User.rolid === RolUser.Usuario &&
@@ -52,13 +51,13 @@
               <OptionMainMenu :icono="'scroll'" :texto="$t('history')" :dropdown="false"/>
             </li>
             <li
-              class="nav-item"
+              class="nav-item mb-2 mb-lg-0"
               @click="goLogin"
               v-if="!store.state.User.logged"
             >
               <OptionMainMenu :icono="'user-secret'" :texto="$t('account')" :dropdown="false"/>
             </li>
-            <li class="nav-item" v-else>
+            <li class="nav-item mb-2 mb-lg-0" v-else>
               <div class="btn-group datos-cuenta">
                 <OptionMainMenu :icono="'circle-user'" :texto="''" :dropdown="true"/>
                 <span class="nameUser">{{store.getters.userName}}</span>
@@ -160,10 +159,6 @@ function changeLanguage(language: string) {
   .optionsnav {
     display: flex;
     align-items: center;
-  
-    li{
-      margin-bottom: 10px;
-    }
   
     .cuenta-opciones {
       li {

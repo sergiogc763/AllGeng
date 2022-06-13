@@ -460,13 +460,13 @@ function deleteProduct() {
 .product {
   border: 1px solid #212529;
   background-color: rgb(199, 199, 199);
-  width: 200px;
+  width: auto;
   margin: 10px;
   cursor: pointer;
 
   .imgTop{
-    width: 198px;
-    height: 198px;
+    width: 200px;
+    height: 200px;
   }
 
   .card-body{

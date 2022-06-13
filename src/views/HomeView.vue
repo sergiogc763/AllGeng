@@ -339,9 +339,9 @@ function resetFilters() {
 .body {
   background-color: rgba(255, 255, 255, 0.964);
   background-image: url("@/assets/cube-1472804.png");
-
+  background-size: cover;
   background-repeat: no-repeat;
-  height: auto;
+  height: 150vh;
   width: auto;
   display: flex;
   flex-direction: column;
