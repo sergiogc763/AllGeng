@@ -5,7 +5,7 @@
         ><img src="@/assets/logo.png" class="logo-principal"
       /></router-link>
       <div class="btn-group dropend">
-        <OptionMainMenu :icono="''" :texto="$t('languages')" :dropdown="true"/>
+        <OptionMainMenu :icono="''" :texto="$t('languages')" :dropdown="true" />
         <ul class="dropdown-menu">
           <li @click="changeLanguage('es')">
             <button class="dropdown-item d-flex justify-content-center">
@@ -30,7 +30,10 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse d-flex justify-content-md-end" id="navbarSupportedContent">
+      <div
+        class="collapse navbar-collapse d-flex justify-content-md-end"
+        id="navbarSupportedContent"
+      >
         <div class="content-right">
           <ul class="navbar-nav me-auto mb-sm-2 mb-lg-0 optionsnav">
             <li
@@ -38,7 +41,11 @@
               @click="uploadProduct"
               v-if="store.state.User.rolid === RolUser.Gestor"
             >
-              <OptionMainMenu :icono="'upload'" :texto="$t('upload')"  :dropdown="false"/>
+              <OptionMainMenu
+                :icono="'upload'"
+                :texto="$t('upload')"
+                :dropdown="false"
+              />
             </li>
             <li
               class="nav-item mb-2 mb-lg-0"
@@ -48,37 +55,49 @@
                 store.state.User.logged === true
               "
             >
-              <OptionMainMenu :icono="'scroll'" :texto="$t('history')" :dropdown="false"/>
+              <OptionMainMenu
+                :icono="'scroll'"
+                :texto="$t('history')"
+                :dropdown="false"
+              />
             </li>
             <li
               class="nav-item mb-2 mb-lg-0"
               @click="goLogin"
               v-if="!store.state.User.logged"
             >
-              <OptionMainMenu :icono="'user-secret'" :texto="$t('account')" :dropdown="false"/>
+              <OptionMainMenu
+                :icono="'user-secret'"
+                :texto="$t('account')"
+                :dropdown="false"
+              />
             </li>
             <li class="nav-item mb-2 mb-lg-0" v-else>
               <div class="btn-group datos-cuenta">
-                <OptionMainMenu :icono="'circle-user'" :texto="''" :dropdown="true"/>
-                <span class="nameUser">{{store.getters.userName}}</span>
+                <OptionMainMenu
+                  :icono="'circle-user'"
+                  :texto="''"
+                  :dropdown="true"
+                />
+                <span class="nameUser">{{ store.getters.userName }}</span>
                 <ul class="dropdown-menu cuenta-opciones">
                   <li>
-                  <router-link
-                    class="dropdown-item"
-                    :to="RoutePaths.UserOptions"
-                    ><font-awesome-icon icon="gears" class="icon" />{{
-                      $t("configuration")
-                    }}</router-link
-                  >
-                </li>
-                <li class="puntero">
-                  <a class="dropdown-item" @click="logout"
-                    ><font-awesome-icon
-                      icon="right-from-bracket"
-                      class="icon"
-                    />{{ $t("disconnect") }}</a
-                  >
-                </li>
+                    <router-link
+                      class="dropdown-item mr-0"
+                      :to="RoutePaths.UserOptions"
+                      ><font-awesome-icon icon="gears" class="icon" />{{
+                        $t("configuration")
+                      }}</router-link
+                    >
+                  </li>
+                  <li class="puntero">
+                    <a class="dropdown-item" @click="logout"
+                      ><font-awesome-icon
+                        icon="right-from-bracket"
+                        class="icon"
+                      />{{ $t("disconnect") }}</a
+                    >
+                  </li>
                 </ul>
               </div>
             </li>
@@ -129,7 +148,7 @@ function logout() {
   router.push({ name: "HomeView" });
   Swal.fire({
     icon: "success",
-    title: t.t('messageLogOut'),
+    title: t.t("messageLogOut"),
     showConfirmButton: false,
     timer: 2000,
   });
@@ -143,7 +162,6 @@ function changeLanguage(language: string) {
 
 <style lang="scss" scoped>
 .container-elements {
-
   justify-content: space-between;
   align-items: center;
   display: flex;
@@ -158,16 +176,20 @@ function changeLanguage(language: string) {
 
 .content-right {
   display: flex;
-  margin-right: 50px;
+  margin-right: 125px;
+
+  ul li {
+    margin-right: 50px;
+  }
   .optionsnav {
     display: flex;
     align-items: center;
-  
+
     .cuenta-opciones {
       li {
         .dropdown-item {
           .icon {
-            margin-right:10px;
+            margin-right: 10px;
           }
         }
       }
@@ -180,7 +202,7 @@ function changeLanguage(language: string) {
   align-items: center;
 }
 
-.nameUser{
+.nameUser {
   color: white;
   font-weight: bold;
 }

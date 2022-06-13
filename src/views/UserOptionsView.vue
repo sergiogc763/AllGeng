@@ -83,7 +83,7 @@
               v-model="state.password.newPass"
               placeholder="*************"
             />
-            <span class="error" v-if="v$.oldPass.$error">
+            <span class="error" v-if="v$.password.newPass.$error">
               {{ v$.password.newPass.$errors[0].$message }}
             </span>
           </div>
@@ -95,7 +95,7 @@
               v-model="state.password.newConfirmPass"
               placeholder="*************"
             />
-            <span class="error" v-if="v$.oldPass.$error">
+            <span class="error" v-if="v$.password.newConfirmPass.$error">
               {{ v$.password.newConfirmPass.$errors[0].$message }}
             </span>
           </div>
@@ -126,7 +126,7 @@
 import { useStore } from "vuex";
 import router from "../router/index";
 import Swal from "sweetalert2";
-import { computed, ref, reactive } from "vue";
+import { computed, reactive } from "vue";
 import Page404 from "@/components/Page404.vue";
 import { RoutePaths } from "@/core/general/RoutePaths";
 import axios from "axios";
@@ -152,7 +152,7 @@ const store = useStore();
 const name = computed(() => store.getters.userName.split(" ", 2)[0]);
 
 // const newLastName = ref<string>("");
-const lastName = computed(() => store.getters.userName.split(" ", 2)[1]);
+const lastName = computed(() => getLastName());
 
 // const newEmail = ref<string>("");
 const email = computed(() => store.getters.userEmail);
@@ -216,6 +216,13 @@ const v$ = useVuelidate(rules, state);
 //#endregion
 
 //#region FUNCTIONS
+function getLastName(){
+  let ln = "";
+  for(let x = 1; x < store.getters.userName.split(" ").length; x++){
+    ln+= ` ${store.getters.userName.split(" ")[x]}`
+  }
+  return ln;
+}
 function isLetter(e) {
       let char = String.fromCharCode(e.keyCode);
       if (/^[a-zA-Z\s]*$/.test(char)) return true;
@@ -260,6 +267,7 @@ function updateInfo() {
     option: "Info",
   };
   store.dispatch("changeDataUser", o);
+  cleanForm();
 }
 
 function deleteAccount() {
@@ -279,7 +287,7 @@ function deleteAccount() {
           switch (response.status) {
             case 200:
               if (response.data) {
-                store.dispatch("logout");
+                console.log(response)
                 router.push({ name: "HomeView" });
                 Swal.fire({
                   icon: "success",
@@ -287,8 +295,9 @@ function deleteAccount() {
                   showConfirmButton: false,
                   timer: 2000,
                 });
+                store.dispatch("logout");
               }
-
+              break;
             case 404:
               Swal.fire({
                 icon: "error",

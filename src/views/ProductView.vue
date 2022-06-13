@@ -296,7 +296,7 @@ export default {
                         icon: "success",
                         text: this.$t("purchaseCompleted"),
                         showConfirmButton: false,
-                        timer: 1750,
+                        timer: 3000,
                       });
                     }
                     break;
