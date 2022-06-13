@@ -109,7 +109,7 @@ const state = reactive({
   password: "",
 });
 
-onBeforeUpdate(()=>{
+onBeforeMount(()=>{
   if(store.getters.logged){
     redirectHome()
   }

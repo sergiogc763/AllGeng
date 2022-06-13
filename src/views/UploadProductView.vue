@@ -260,7 +260,7 @@ const add = async () => {
 async function axiosUpload() {
   v$.value.$validate();
   if (!v$.value.$error) {
-    if (imagen.value.files.lenght > 0) {
+    if (imagen.value.files.length > 0) {
       await axios
         .post(`${RoutePaths.API}addProducto.php`, null, {
           params: {

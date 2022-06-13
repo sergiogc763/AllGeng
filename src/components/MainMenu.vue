@@ -5,7 +5,7 @@
         ><img src="@/assets/logo.png" class="logo-principal"
       /></router-link>
       <div class="btn-group dropend">
-        <OptionMainMenu :icono="''" :texto="$t('languages')" />
+        <OptionMainMenu :icono="''" :texto="$t('languages')" :dropdown="true"/>
         <ul class="dropdown-menu">
           <li @click="changeLanguage('es')">
             <button class="dropdown-item d-flex justify-content-center">
@@ -39,7 +39,7 @@
               @click="uploadProduct"
               v-if="store.state.User.rolid === RolUser.Gestor"
             >
-              <OptionMainMenu :icono="'upload'" :texto="$t('upload')" />
+              <OptionMainMenu :icono="'upload'" :texto="$t('upload')"  :dropdown="false"/>
             </li>
             <li
               class="nav-item"
@@ -49,18 +49,18 @@
                 store.state.User.logged === true
               "
             >
-              <OptionMainMenu :icono="'scroll'" :texto="$t('history')" />
+              <OptionMainMenu :icono="'scroll'" :texto="$t('history')" :dropdown="false"/>
             </li>
             <li
               class="nav-item"
               @click="goLogin"
               v-if="!store.state.User.logged"
             >
-              <OptionMainMenu :icono="'user-secret'" :texto="$t('account')" />
+              <OptionMainMenu :icono="'user-secret'" :texto="$t('account')" :dropdown="false"/>
             </li>
             <li class="nav-item" v-else>
               <div class="btn-group datos-cuenta">
-                <OptionMainMenu :icono="'circle-user'" :texto="''" />
+                <OptionMainMenu :icono="'circle-user'" :texto="''" :dropdown="true"/>
                 <span class="nameUser">{{store.getters.userName}}</span>
                 <ul class="dropdown-menu cuenta-opciones">
                   <li>

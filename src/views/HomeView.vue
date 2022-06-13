@@ -46,9 +46,6 @@
         aria-label="Search"
         @keyup="filterSearch()"
       />
-      <button class="btn btn-outline-success my-2 my-sm-0" type="button">
-        {{$t('search')}}
-      </button>
     </div>
     <div class="option mb-2">
       <ButtonFilter @click="resetFilters" />
@@ -71,17 +68,14 @@
 <script lang="ts" setup>
 import { RoutePaths } from "@/core/general/RoutePaths";
 import axios from "axios";
-import { onBeforeMount, reactive, ref, computed } from 'vue';
+import { onBeforeMount, reactive, ref, computed } from "vue";
 import { Producto } from "../core/types/Product";
 import CardProduct from "@/components/product/CardProduct.vue";
 import Swal from "sweetalert2";
 import ButtonFilter from "@/components/general/ButtonFilter.vue";
-import { useI18n } from 'vue-i18n';
-
+import { useI18n } from "vue-i18n";
 
 const t = useI18n();
-
-
 
 //#region CONST REF-REACTIVE
 const productos = ref<Array<Producto>>([]);
@@ -98,7 +92,6 @@ const marcas = reactive<Array<any>>([]);
 const orden = ref<any>("");
 
 const search = ref<any>("");
-
 
 const productosMostrar = ref<Array<Producto>>([]);
 //#endregion
@@ -300,8 +293,8 @@ function filtro() {
   }
 }
 
-function filterSearch(){
-   if (!isNaN(search.value) || search.value !== "") {
+function filterSearch() {
+  if (!isNaN(search.value) || search.value !== "") {
     productosMostrar.value = productosMostrar.value.filter((p) => {
       return p.nombre.includes(search.value);
     });
@@ -334,7 +327,7 @@ function resetFilters() {
   tipo.value = t.t("selectType");
   marca.value = t.t("selectBrand");
   orden.value = t.t("orderBy");
-  search.value = ""
+  search.value = "";
 }
 
 //#endregion
@@ -343,7 +336,7 @@ function resetFilters() {
 <style lang="scss" scoped>
 .body {
   background-color: rgba(255, 255, 255, 0.964);
-  background-image: url('@/assets/cube-1472804.png');
+  background-image: url("@/assets/cube-1472804.png");
   background-size: auto;
   background-position: center;
   background-repeat: no-repeat;
@@ -352,7 +345,6 @@ function resetFilters() {
   display: flex;
   flex-direction: column;
   align-items: center;
-  
 
   .filters {
     display: flex;
@@ -400,8 +392,9 @@ function resetFilters() {
   }
 }
 
-.inputSearch{
+.inputSearch {
   width: 35vw;
   margin-right: 10px;
+  border-radius: 5px;
 }
 </style>

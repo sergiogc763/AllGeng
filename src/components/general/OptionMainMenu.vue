@@ -1,5 +1,5 @@
 <template>
-  <button
+  <button v-if="props.dropdown === true"
     class="button-82-pushable"
     dropdown-toggle
     data-bs-toggle="dropdown"
@@ -8,10 +8,24 @@
     <span class="button-82-shadow"></span>
     <span class="button-82-edge"></span>
     <span class="button-82-front text" >
-      <font-awesome-icon :icon="props.icono" class="img-icons" v-if="props.icono !== ''"/><span v-if="props.texto !== ''">{{
+      <font-awesome-icon :icon="props.icono" class="img-icons" v-if="props.icono !== ''"/>
+      <span v-if="props.texto !== ''">{{
         props.texto
-      }}</span></span >
-    
+      }}</span>
+    </span>
+  </button>
+
+    <button v-else
+    class="button-82-pushable"
+  >
+    <span class="button-82-shadow"></span>
+    <span class="button-82-edge"></span>
+    <span class="button-82-front text" >
+      <font-awesome-icon :icon="props.icono" class="img-icons" v-if="props.icono !== ''"/>
+      <span v-if="props.texto !== ''">{{
+        props.texto
+      }}</span>
+    </span>
   </button>
 </template>
 
@@ -28,6 +42,10 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  dropdown: {
+    type: Boolean,
+    required: true
+  }
 });
 //#endregion
 </script>
