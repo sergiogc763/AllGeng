@@ -11,6 +11,6 @@ export default defineConfig({
     },
   },
   //Cuando se ralice el build a producción
-  //base: "/alumnado/curso2122/DAW/daw2122a5/" 
+  base: "/alumnado/curso2122/DAW/daw2122a5/" 
   
 })

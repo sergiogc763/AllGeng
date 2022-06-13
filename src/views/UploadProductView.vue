@@ -9,14 +9,14 @@
           <div class="row">
             <div class="col-12">
               <h2 class="tm-block-title d-flex justify-content-center">
-                {{$t('addProduct')}}
+                {{ $t("addProduct") }}
               </h2>
             </div>
           </div>
           <form class="row tm-edit-product-row" enctype="multipart/form-data">
             <div class="col-xl-6 col-lg-6 col-md-12">
               <div class="form-group mb-3">
-                <label for="name">{{$t('productName')}}</label>
+                <label for="name">{{ $t("productName") }}</label>
                 <input
                   id="name"
                   name="name"
@@ -29,20 +29,26 @@
                 </span>
               </div>
               <div class="form-group mb-3">
-                <label for="description">{{$t('description')}}</label>
-                <textarea class="form-control" v-model="state.descripcion" rows="50"></textarea>
+                <label for="description">{{ $t("description") }}</label>
+                <textarea
+                  class="form-control"
+                  v-model="state.descripcion"
+                  rows="50"
+                ></textarea>
                 <span class="error" v-if="v$.descripcion.$error">
                   {{ v$.descripcion.$errors[0].$message }}
                 </span>
               </div>
               <div class="form-group mb-3">
-                <label for="categoria">{{$t('category')}}</label>
+                <label for="categoria">{{ $t("category") }}</label>
                 <select
                   id="categoria"
                   class="custom-select tm-select-accounts"
                   v-model="state.categoria"
                 >
-                  <option selected value="" disabled>{{$t('selectCategory')}}</option>
+                  <option selected value="" disabled>
+                    {{ $t("selectCategory") }}
+                  </option>
                   <option
                     v-for="option in categorias"
                     v-bind:value="option.value"
@@ -56,13 +62,15 @@
                 </span>
               </div>
               <div class="form-group mb-3">
-                <label for="tipo">{{$t('type')}}</label>
+                <label for="tipo">{{ $t("type") }}</label>
                 <select
                   id="tipo"
                   class="custom-select tm-select-accounts"
                   v-model="state.tipo"
                 >
-                  <option selected value disabled>{{$t('selectType')}}</option>
+                  <option selected value disabled>
+                    {{ $t("selectType") }}
+                  </option>
                   <option
                     v-for="option in tipos"
                     v-bind:value="option.value"
@@ -76,12 +84,14 @@
                 </span>
               </div>
               <div class="form-group mb-3">
-                <label for="marca">{{$t('brand')}}</label>
+                <label for="marca">{{ $t("brand") }}</label>
                 <select
                   class="custom-select tm-select-accounts"
                   v-model="state.marca"
                 >
-                  <option selected value disabled>{{$t('selectBrand')}}</option>
+                  <option selected value disabled>
+                    {{ $t("selectBrand") }}
+                  </option>
                   <option
                     v-for="option in marcas"
                     v-bind:value="option.value"
@@ -96,7 +106,7 @@
               </div>
               <div class="row">
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="price">{{$t('price')}} €</label>
+                  <label for="price">{{ $t("price") }} €</label>
                   <input
                     id="price"
                     name="price"
@@ -147,7 +157,7 @@
                 class="btn btn-primary btn-block text-uppercase"
                 @click="add()"
               >
-                {{$t('createProduct')}}
+                {{ $t("createProduct") }}
               </button>
             </div>
           </form>
@@ -168,7 +178,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { ref, onBeforeMount, reactive, computed } from "vue";
 import { useStore } from "vuex";
-import { useI18n } from 'vue-i18n';
+import { useI18n } from "vue-i18n";
 
 /*Vista utilizada para mostrar la función principal de un Gestor de productos, que es poder subir
 un producto con sus características correspondientes*/
@@ -206,39 +216,27 @@ const marcas = reactive<Array<any>>([]);
 const rules = computed(() => {
   return {
     nombre: {
-      required: helpers.withMessage(t.t('errorRequiredName'), required),
+      required: helpers.withMessage(t.t("errorRequiredName"), required),
     },
     descripcion: {
-      required: helpers.withMessage(
-        t.t('errorRequiredDescription'),
-        required
-      ),
+      required: helpers.withMessage(t.t("errorRequiredDescription"), required),
     },
     categoria: {
-      required: helpers.withMessage(
-        t.t('errorRequiredCategory'),
-        required
-      ),
+      required: helpers.withMessage(t.t("errorRequiredCategory"), required),
     },
     tipo: {
-      required: helpers.withMessage(t.t('errorRequiredType'), required),
+      required: helpers.withMessage(t.t("errorRequiredType"), required),
     },
     marca: {
-      required: helpers.withMessage(t.t('errorRequiredBrand'), required),
+      required: helpers.withMessage(t.t("errorRequiredBrand"), required),
     },
     precio: {
-      required: helpers.withMessage(t.t('errorRequiredPrice'), required),
-      minValue: helpers.withMessage(
-        `${t.t('minValue')} 0.01`,
-        minValue(0.01)
-      ),
+      required: helpers.withMessage(t.t("errorRequiredPrice"), required),
+      minValue: helpers.withMessage(`${t.t("minValue")} 0.01`, minValue(0.01)),
     },
     stock: {
       required,
-      minValue: helpers.withMessage(
-         `${t.t('minValue')} 1`,
-        minValue(1)
-      ),
+      minValue: helpers.withMessage(`${t.t("minValue")} 1`, minValue(1)),
     },
   };
 });
@@ -293,7 +291,7 @@ async function axiosUpload() {
                         if (response.data) {
                           Swal.fire({
                             icon: "success",
-                            title: t.t('newProduct'),
+                            title: t.t("newProduct"),
                             showConfirmButton: false,
                             timer: 1000,
                           });
@@ -301,24 +299,24 @@ async function axiosUpload() {
                         break;
 
                       case 404:
-            Swal.fire({
-              icon: "error",
-              title: t.t('titleWarning'),
-              text: t.t('error404'),
-              showConfirmButton: false,
-              timer: 2000,
-            });
-            break;
+                        Swal.fire({
+                          icon: "error",
+                          title: t.t("titleWarning"),
+                          text: t.t("error404"),
+                          showConfirmButton: false,
+                          timer: 2000,
+                        });
+                        break;
 
-          case 500:
-            Swal.fire({
-              icon: "error",
-              title: t.t('titleWarning'),
-              text: t.t('error500'),
-              showConfirmButton: false,
-              timer: 2000,
-            });
-            break;
+                      case 500:
+                        Swal.fire({
+                          icon: "error",
+                          title: t.t("titleWarning"),
+                          text: t.t("error500"),
+                          showConfirmButton: false,
+                          timer: 2000,
+                        });
+                        break;
                     }
                   })
                   .catch((error) => {
@@ -328,24 +326,24 @@ async function axiosUpload() {
               break;
 
             case 404:
-            Swal.fire({
-              icon: "error",
-              title: t.t('titleWarning'),
-              text: t.t('error404'),
-              showConfirmButton: false,
-              timer: 2000,
-            });
-            break;
+              Swal.fire({
+                icon: "error",
+                title: t.t("titleWarning"),
+                text: t.t("error404"),
+                showConfirmButton: false,
+                timer: 2000,
+              });
+              break;
 
-          case 500:
-            Swal.fire({
-              icon: "error",
-              title: t.t('titleWarning'),
-              text: t.t('error500'),
-              showConfirmButton: false,
-              timer: 2000,
-            });
-            break;
+            case 500:
+              Swal.fire({
+                icon: "error",
+                title: t.t("titleWarning"),
+                text: t.t("error500"),
+                showConfirmButton: false,
+                timer: 2000,
+              });
+              break;
           }
         })
         .catch((error) => {
@@ -355,7 +353,7 @@ async function axiosUpload() {
       Swal.fire({
         icon: "warning",
         title: "ERROR",
-        text: t.t('warningPhotos'),
+        text: t.t("warningPhotos"),
         showConfirmButton: false,
         timer: 2500,
       });
@@ -383,24 +381,24 @@ async function getCategorias() {
           });
           break;
         case 404:
-            Swal.fire({
-              icon: "error",
-              title: t.t('titleWarning'),
-              text: t.t('error404'),
-              showConfirmButton: false,
-              timer: 2000,
-            });
-            break;
+          Swal.fire({
+            icon: "error",
+            title: t.t("titleWarning"),
+            text: t.t("error404"),
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          break;
 
-          case 500:
-            Swal.fire({
-              icon: "error",
-              title: t.t('titleWarning'),
-              text: t.t('error500'),
-              showConfirmButton: false,
-              timer: 2000,
-            });
-            break;
+        case 500:
+          Swal.fire({
+            icon: "error",
+            title: t.t("titleWarning"),
+            text: t.t("error500"),
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          break;
       }
     })
     .catch((error) => {
@@ -419,25 +417,25 @@ async function getTipos() {
             tipos.push({ text: element.tipnom, value: element.tipid });
           });
           break;
-       case 404:
-            Swal.fire({
-              icon: "error",
-              title: t.t('titleWarning'),
-              text: t.t('error404'),
-              showConfirmButton: false,
-              timer: 2000,
-            });
-            break;
+        case 404:
+          Swal.fire({
+            icon: "error",
+            title: t.t("titleWarning"),
+            text: t.t("error404"),
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          break;
 
-          case 500:
-            Swal.fire({
-              icon: "error",
-              title: t.t('titleWarning'),
-              text: t.t('error500'),
-              showConfirmButton: false,
-              timer: 2000,
-            });
-            break;
+        case 500:
+          Swal.fire({
+            icon: "error",
+            title: t.t("titleWarning"),
+            text: t.t("error500"),
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          break;
       }
     })
     .catch((error) => {
@@ -457,24 +455,24 @@ async function getMarcas() {
           });
           break;
         case 404:
-            Swal.fire({
-              icon: "error",
-              title: t.t('titleWarning'),
-              text: t.t('error404'),
-              showConfirmButton: false,
-              timer: 2000,
-            });
-            break;
+          Swal.fire({
+            icon: "error",
+            title: t.t("titleWarning"),
+            text: t.t("error404"),
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          break;
 
-          case 500:
-            Swal.fire({
-              icon: "error",
-              title: t.t('titleWarning'),
-              text: t.t('error500'),
-              showConfirmButton: false,
-              timer: 2000,
-            });
-            break;
+        case 500:
+          Swal.fire({
+            icon: "error",
+            title: t.t("titleWarning"),
+            text: t.t("error500"),
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          break;
       }
     })
     .catch((error) => {

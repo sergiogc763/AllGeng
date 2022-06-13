@@ -287,7 +287,6 @@ function deleteAccount() {
           switch (response.status) {
             case 200:
               if (response.data) {
-                console.log(response)
                 router.push({ name: "HomeView" });
                 Swal.fire({
                   icon: "success",
