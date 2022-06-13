@@ -1,5 +1,5 @@
 <template>
-  <div class="body mt-0 mb-0">
+  <div class="body ">
     <div class="filters mb-2 mt-4">
       <div class="categorias">
         <select class="form-select" v-model="categoria" @change="filtro">
@@ -341,7 +341,7 @@ function resetFilters() {
   background-image: url("@/assets/cube-1472804.png");
   background-size: cover;
   background-repeat: no-repeat;
-  height: 150vh;
+  height: auto;
   width: auto;
   display: flex;
   flex-direction: column;

@@ -98,6 +98,7 @@ import Swal from "sweetalert2";
 import OptionMainMenu from "./general/OptionMainMenu.vue";
 import i18n from "@/locales/i18n";
 
+
 /*Menú principal de navegación*/
 
 //#region CONST USE

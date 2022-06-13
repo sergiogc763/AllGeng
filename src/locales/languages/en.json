@@ -96,5 +96,8 @@
     "errorUpdatePassword":"ERROR. Impossible update password!",
     "languages":"Languages",
     "search":"Search",
-    "searchProduct":"Search product"
+    "searchProduct":"Search product",
+    "help":"Help",
+    "about":"About...",
+    "textAbout":"DAW final project. Developed by Sergio García Calzada - IES TRASSIERRA (Córdoba)"
 }

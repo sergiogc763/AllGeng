@@ -96,5 +96,8 @@
     "errorUpdatePassword":"ERROR al actualizar",
     "languages":"Idiomas",
     "search":"Buscar",
-    "searchProduct":"Buscar producto"
+    "searchProduct":"Buscar producto",
+    "help":"Ayuda...",
+    "about":"Acerca de...",
+    "textAbout":"Proyecto final DAW. Desarrollado por Sergio García Calzada - IES TRASSIERRA (Córdoba)"
 }
