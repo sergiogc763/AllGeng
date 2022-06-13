@@ -30,10 +30,10 @@ const t = useI18n();
 //#region FUNCTIONS
 function help(){
    Swal.fire({
-  title: 'Login Form',
-  html: `<input type="text" id="email" class="swal2-input" placeholder="Email">
- <textarea id="description" rows="4" cols="50" placeholder="Describe your problem..."></textarea>`,
-  confirmButtonText: 'Sign in',
+  title: 'Conctact with us and describe your problem',
+  html: `<input type="text" id="email" class="swal2-input" placeholder="Write your email">
+ <textarea id="description" rows="4" class="swal2-textarea" cols="30" placeholder="Describe your problem..."></textarea>`,
+  confirmButtonText: 'Send',
   focusConfirm: false,
   preConfirm: () => {
       
