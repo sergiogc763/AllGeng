@@ -137,7 +137,7 @@ export default {
     onChange(event) {
       this.cantidad = event.target.value;
 
-      if (this.cantidad <= this.producto.stock) {
+      if (this.cantidad <= this.producto.stock && this.cantidad > 0) {
         this.total = this.cantidad * this.producto.precio;
       } else {
         Swal.fire({
@@ -148,7 +148,7 @@ export default {
           timer: 1250,
         });
         this.total = this.producto.stock * this.producto.precio;
-        this.cantidad = this.producto.stock;
+        this.cantidad = 1;
       }
     },
     async getProductById() {
