@@ -86,7 +86,6 @@ function warning() {
       .then((response) => {
         switch (response.status) {
           case 200:
-            console.log(response);
             if (response.data) {
               Swal.fire({
                 icon: "success",

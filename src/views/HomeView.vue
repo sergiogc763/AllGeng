@@ -279,7 +279,6 @@ function filtro() {
       return p.categoria === categoria.value;
     });
     
-  console.log(productosMostrar.value)
   }
 
   if (tipo.value !=="") {
