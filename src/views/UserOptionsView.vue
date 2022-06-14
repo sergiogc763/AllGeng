@@ -4,7 +4,7 @@
       <h4
         class="pb-4 d-flex align-items-center justify-content-center text-dark"
       >
-        Configuración cuenta
+        {{$t('titleUserOption')}}
       </h4>
       <div
         class="d-flex align-items-center justify-content-center py-3 border-bottom"

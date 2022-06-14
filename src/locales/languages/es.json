@@ -122,5 +122,6 @@
     "titleDeleteProduct":"¿Seguro que desea eliminar el producto?",
     "cancelDelete":"Ha cancelado el proceso de eliminación del producto",
     "titleDeleteUser":"¿Realmente desea eliminar permanentemente su cuenta?",
-    "cancel":"Cancelar"
+    "cancel":"Cancelar",
+    "titleUserOption":"Configuración cuenta"
 }
