@@ -408,7 +408,7 @@ function deleteProduct() {
                 emit("deleteProduct");
                 Swal.fire({
                   icon: "success",
-                  title: t.t('titleDeleteProduct'),
+                  title: t.t('resultDeleteProducto'),
                   showConfirmButton: false,
                   timer: 2000,
                 });

@@ -120,6 +120,7 @@
     "labelUpdateDescription":"New description:",
     "resultUpdateDescription":"Updated description!",
     "titleDeleteProduct":"Are you sure you want to delete the product?",
+    "resultDeleteProducto":"You have deleted the product correctly",
     "cancelDelete":"You have canceled the removal of the product",
     "titleDeleteUser":"Do you really want to permanently delete your account?",
     "cancel":"Cancel",

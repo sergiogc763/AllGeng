@@ -120,6 +120,7 @@
     "labelUpdateDescription":"Nueva descripción:",
     "resultUpdateDescription":"Descripción actualizada",
     "titleDeleteProduct":"¿Seguro que desea eliminar el producto?",
+    "resultDeleteProducto":"Has eliminado el producto correctamente",
     "cancelDelete":"Ha cancelado el proceso de eliminación del producto",
     "titleDeleteUser":"¿Realmente desea eliminar permanentemente su cuenta?",
     "cancel":"Cancelar",

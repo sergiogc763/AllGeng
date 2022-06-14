@@ -63,7 +63,9 @@
 
         <div ref="paypal" class="btn-paypal" v-if="producto.stock > 0"></div>
         <div v-else>
-          <h6>{{ $t("outOf") }} stock</h6>
+          <h6 style="color: white; font-weight: bold">
+            {{ $t("outOf") }} stock
+          </h6>
         </div>
       </div>
     </div>
@@ -116,6 +118,7 @@ export default {
         imagenes: [],
         stock: 0,
       },
+      flag: true,
       opcion: 0,
     };
   },
@@ -156,17 +159,60 @@ export default {
       formData.append("id", this.$route.params.id);
 
       await axios
-        .post(`${RoutePaths.API}getProductById.php`, formData)
+        .post(`${RoutePaths.API}getAlmacenProductById.php`, formData)
         .then((response) => {
           switch (response.status) {
             case 200:
-              this.producto.nombre = response.data.response.prodnom;
-              this.producto.precio = response.data.response.prodprec;
-              this.producto.descripcion = response.data.response.proddesc;
-              this.producto.img =
-                RoutePaths.BASE + response.data.response.imagen;
-              this.producto.stock = response.data.response.stock;
-              this.total = this.producto.precio;
+              if (response.data.onAlmacen === true) {
+                this.producto.nombre = response.data.response.prodnom;
+                this.producto.precio = response.data.response.prodprec;
+                this.producto.descripcion = response.data.response.proddesc;
+                this.producto.img =
+                  RoutePaths.BASE + response.data.response.imagen;
+                this.producto.stock = response.data.response.stock;
+                this.total = this.producto.precio;
+              } else {
+                axios
+                  .post(`${RoutePaths.API}getProductById.php`, formData)
+                  .then((res) => {
+                    console.log(res)
+                    switch (res.status) {
+                      case 200:
+                        this.producto.nombre = res.data.response.prodnom;
+                        this.producto.precio = res.data.response.prodprec;
+                        this.producto.descripcion =
+                          res.data.response.proddesc;
+                        this.producto.img =
+                          RoutePaths.BASE + res.data.response.imagen;
+                        this.producto.stock = 0;
+                        this.total = 0;
+                        break;
+
+                      case 404:
+                        Swal.fire({
+                          icon: "error",
+                          title: this.$t("titleWarning"),
+                          text: this.$t("error404"),
+                          showConfirmButton: false,
+                          timer: 2000,
+                        });
+                        break;
+
+                      case 500:
+                        Swal.fire({
+                          icon: "error",
+                          title: this.$t("titleWarning"),
+                          text: this.$t("error500"),
+                          showConfirmButton: false,
+                          timer: 2000,
+                        });
+                        break;
+                    }
+                  })
+                  .catch((error) => {
+                    console.error("There was an error!", error);
+                  });
+              }
 
               axios
                 .post(`${RoutePaths.API}getFotosProducto.php`, formData)
@@ -338,7 +384,7 @@ export default {
                 switch (response.status) {
                   case 200:
                     this.$router.push({ name: "HomeView" });
-                    
+
                     break;
                   case 404:
                     Swal.fire({
