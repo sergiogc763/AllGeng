@@ -9,7 +9,7 @@ export enum RoutePaths {
 
 
     API = '/alumnado/curso2122/DAW/daw2122a5/API/',
-   BASE = '/alumnado/curso2122/DAW/daw2122a5'
+    BASE = '/alumnado/curso2122/DAW/daw2122a5'
     // API = 'http://www.iestrassierra.net/alumnado/curso2122/DAW/daw2122a5/API/',
     // BASE = 'http://www.iestrassierra.net/alumnado/curso2122/DAW/daw2122a5',
     // API = 'http://localhost/API/',

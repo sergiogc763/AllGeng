@@ -47,7 +47,7 @@
           <div class="datos-p">
             <h4>{{ p.prodnom }}</h4>
           </div>
-          <div class="options-p">
+          <!-- <div class="options-p">
             <button
               type="button"
               class="btn btn-outline-primary"
@@ -55,7 +55,7 @@
             >
               {{$t('buyAgain')}}
             </button>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
